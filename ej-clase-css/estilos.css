@@ -1,0 +1,31 @@
+.noticia > p:first-of-type {
+    font-weight: bold;
+}
+
+a:hover,
+a:focus {
+    color: red;
+}
+
+.titulo::before {
+    content: '📰 ' / 'Icono de periódico';
+}
+
+p::first-letter {
+    font-size: 2em;
+    font-weight: bold;
+    font-style: italic;
+}
+
+::selection {
+    background-color: black;
+    color: white;
+}
+
+.noticia:nth-of-type(even) {
+    background-color: lightgray;
+}
+
+.noticia:nth-of-type(odd) {
+    background-color: gray;
+}
