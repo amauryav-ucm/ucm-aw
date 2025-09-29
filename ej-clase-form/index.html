@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Suscripción a la revista</title>
+        <link rel="stylesheet" href="estilos.css" />
+    </head>
+    <body>
+        <h1>Suscripción a la Revista</h1>
+        <form>
+            <fieldset class="form-fieldset">
+                <legend>Datos personales</legend>
+                <div class="form-field">
+                    <label for="nombre" class="form-field-label">Nombre</label>
+                    <input type="text" id="nombre" class="form-field-input" />
+                </div>
+                <div class="form-field">
+                    <label for="primer-apellido" class="form-field-label"
+                        >Primer apellido</label
+                    >
+                    <input
+                        type="text"
+                        id="primer-apellido"
+                        class="form-field-input"
+                    />
+                </div>
+                <div class="form-field">
+                    <label for="segundo-apellido" class="form-field-label"
+                        >Segundo apellido</label
+                    >
+                    <input
+                        type="text"
+                        id="segundo-apellido"
+                        class="form-field-input"
+                    />
+                </div>
+
+                <div class="form-field">
+                    <label for="direccion" class="form-field-label"
+                        >Dirección</label
+                    >
+                    <input
+                        type="text"
+                        id="direccion"
+                        class="form-field-input"
+                        placeholder="calle o plaza, número y piso."
+                    />
+                </div>
+
+                <div class="form-field">
+                    <label for="email" class="form-field-label"
+                        >Correo electrónico</label
+                    >
+                    <input
+                        type="email"
+                        id="email"
+                        class="form-field-input"
+                        placeholder="@"
+                    />
+                </div>
+
+                <div class="form-field">
+                    <label for="contrasena" class="form-field-label"
+                        >Contraseña</label
+                    >
+                    <input
+                        type="password"
+                        id="contrasena"
+                        class="form-field-input"
+                        placeholder=""
+                    />
+                </div>
+
+                <div class="form-field">
+                    <label class="form-field-label">Sexo</label>
+                    <div class="form-field-check">
+                        <input
+                            type="radio"
+                            id="sexo-varon"
+                            name="sexo"
+                            class="form-field-radio"
+                        />
+                        <label for="sexo-varon">Varón</label>
+                    </div>
+                    <div class="form-field-check">
+                        <input
+                            type="radio"
+                            id="sexo-mujer"
+                            name="sexo"
+                            class="form-field-radio"
+                        />
+                        <label for="sexo-mujer">Mujer</label>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset class="form-fieldset">
+                <legend>Nivel de estudios e intereses</legend>
+
+                <div class="form-field">
+                    <label for="contrasena" class="form-field-label"
+                        >Nivel de estudios</label
+                    >
+
+                    <select class="form-field-input">
+                        <option>Certificado escolar</option>
+                    </select>
+                </div>
+
+                <div class="form-field">
+                    <label for="contrasena" class="form-field-label"
+                        >Recibir artículos sobre los siguientes temas:</label
+                    >
+
+                    <div class="form-field-check">
+                        <input type="checkbox" id="interes_mus" /> Musica
+                    </div>
+                    <div class="form-field-check">
+                        <input type="checkbox" id="interes_dep" /> Deportes
+                    </div>
+                    <div class="form-field-check">
+                        <input type="checkbox" id="interes_cin" /> Cine
+                    </div>
+                    <div class="form-field-check">
+                        <input type="checkbox" id="interes_lib" /> Libros
+                    </div>
+                    <div class="form-field-check">
+                        <input type="checkbox" id="interes_cie" /> Ciencia
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset class="form-fieldset">
+                <legend>Datos sobre la revista</legend>
+
+                <div class="form-field">
+                    <label for="contrasena" class="form-field-label"
+                        >Frecuencia con la que se recibirá la revista</label
+                    >
+
+                    <select class="form-field-input">
+                        <option>Semanal</option>
+                    </select>
+                </div>
+
+                <div class="form-field">
+                    <label for="contrasena" class="form-field-label"
+                        >Puedes mandar tu artículo sobre cualquier tema de los
+                        que tratamos. Nosotros lo valoraremos para que pueda ser
+                        publicado. mandar artículo:
+                    </label>
+
+                    <input type="file" class="form-field-file" />
+                </div>
+
+                <div class="form-field">
+                    <label for="contrasena" class="form-field-label"
+                        >Si deseas mandar simplemente una opinión o comentario
+                        escríbelo aquí.
+                    </label>
+
+                    <textarea rows="5" class="form-field-input">
+Escribe tu comentario: </textarea
+                    >
+                </div>
+            </fieldset>
+            <fieldset class="form-fieldset">
+                <legend>Comenzar de nuevo</legend>
+
+                <div class="form-field">
+                    <label for="contrasena" class="form-field-label"
+                        >Borrar todos los datos del formulario y volver a
+                        empezar:
+                    </label>
+
+                    <button type="reset" class="form-field-button">
+                        Borrar todo
+                    </button>
+                </div>
+            </fieldset>
+            <fieldset class="form-fieldset">
+                <legend>Enviar</legend>
+                <div class="form-field">
+                    <label for="contrasena" class="form-field-label"
+                        >Enviar formulario por correo electrónico: Al pulsar en
+                        el botón se abrirá la página de envío de correo: en esa
+                        página pulsa en enviar:
+                    </label>
+
+                    <button type="submit" class="form-field-button">
+                        Enviar por correo
+                    </button>
+                </div>
+            </fieldset>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,73 @@
+html {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    text-align: center;
+}
+
+form {
+    justify-content: center;
+}
+
+.form-field {
+    margin-bottom: 1em;
+}
+.form-field-label {
+    display: block;
+    margin-bottom: 0.3em;
+}
+.form-field-input {
+    display: block;
+    width: 100%;
+    font-size: 1.2em;
+    border-radius: 6px;
+    border-color: gray;
+    border-width: 2px;
+    border-style: solid;
+    background-color: white;
+}
+
+.form-field-input:focus {
+    border-radius: 6px;
+    border-color: black;
+    border-width: 2px;
+    border-style: solid;
+    outline: none;
+}
+
+.form-fieldset {
+    margin-inline: auto;
+    padding-inline: 8em;
+    padding-block: 2em;
+    background-color: lightgray;
+    margin-bottom: 1em;
+    max-width: 500px;
+    min-width: 300px;
+    border-radius: 30px;
+}
+
+legend {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.form-field-button {
+    display: block;
+    margin-inline: auto;
+    font-size: 1em;
+    padding-block: 0.5em;
+    padding-inline: 3em;
+    margin-top: 1em;
+}
+
+.form-field-file::file-selector-button {
+    font-size: 1em;
+    padding-block: 0.5em;
+    padding-inline: 3em;
+    margin-top: 1em;
+}
+
+.form-field-file {
+    font-size: 1em;
+}

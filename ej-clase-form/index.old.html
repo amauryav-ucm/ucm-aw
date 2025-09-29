@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Noticias del día</title>
+        <link rel="stylesheet" href="estilos.css" />
+    </head>
+    <body>
+        <h1>Suscripción a la Revista</h1>
+        <form>
+            <fieldset>
+                <legend>datos personales</legend>
+                <br />
+                Nombre: <input type="text" />
+                Primer apellido:
+                <input type="text" />
+                Segundo apellido: <input type="text" />
+                <br />
+                <br />
+                Dirección:
+                <input
+                    type="text"
+                    placeholder="calle o plaza, número y piso."
+                />
+                <br />
+                <br />
+                e-mail:
+                <input type="email" placeholder="@" />
+                <br />
+                <br />
+                contraseña:
+                <input type="password" />
+                <br />
+                <br />
+                sexo
+                <br />
+                <br />
+                <input type="radio" id="sexo_varon" name="sexo" value="varon" />
+                <label for="sexo_varon">Varón</label>
+                <br />
+                <input type="radio" id="sexo_mujer" name="sexo" value="mujer" />
+                <label for="sexo_mujer">Mujer</label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Nivel de estudios e intereses</legend>
+                <br />
+                Nivel de estudios<br />
+                <select>
+                    <option>Certificado escolar</option></select
+                ><br /><br />
+                Recibir artículos sobre los siguientes temas:<br />
+                <input type="checkbox" id="interes_mus" /> Musica<br />
+                <input type="checkbox" id="interes_dep" /> Deportes<br />
+                <input type="checkbox" id="interes_cin" /> Cine<br />
+                <input type="checkbox" id="interes_lib" /> Libros<br />
+                <input type="checkbox" id="interes_cie" /> Ciencia<br />
+                <br />
+            </fieldset>
+            <fieldset>
+                <legend>Datos sobre la revista</legend>
+                <br />
+                Frecuencia con la que se recibirá la revista:<br />
+                <br />
+                <select>
+                    <option>semanal</option></select
+                ><br />
+                <br />
+                puedes mandar tu artículo sobre cualquier tema de los que
+                tratamos. Nosotros lo valoraremos para que pueda ser publicado.
+                <br /><br />
+                mandar artículo: <input type="file" /><br /><br />
+                Si deseas mandar simplemente una opinión o comentario escríbelo
+                aquí.<br />
+                <textarea cols="50" rows="5">Escribe tu comentario: </textarea>
+                <br /><br />
+            </fieldset>
+            <fieldset>
+                <legend>Comenzar de nuevo</legend>
+                <br />
+                Borrar todos los datos del formulario y volver a empezar:
+                <button type="reset">borrar todo</button>
+                <br /><br />
+            </fieldset>
+            <fieldset>
+                <legend>enviar</legend>
+                <br />
+                Enviar formulario por correo electrónico: Al pulsar en el botón
+                se abrirá la página de envío de correo: en esa página pulsa en
+                enviar:<br /><br />
+                <button type="submit">enviar por correo</button>
+            </fieldset>
+        </form>
+    </body>
+</html>
