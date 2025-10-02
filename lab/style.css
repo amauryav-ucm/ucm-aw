@@ -1,0 +1,9 @@
+header {
+    display: flex;
+    gap: 50px;
+}
+
+nav {
+    display: flex;
+    gap: auto;
+}
