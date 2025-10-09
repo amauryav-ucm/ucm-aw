@@ -19,7 +19,7 @@
                 src="media/logo.png"
                 title="Vehículo Eléctrico"
                 alt="Imagen de un vehiculo electrico"
-                width="150px%"
+                width="150px"
             />
             <div>
                 <h1>Concesionaria Inclusiva "Iván"</h1>
@@ -135,49 +135,74 @@
             <section id="reservas">
                 <h3>Reservas</h3>
                 <form>
-                    <div>
-                        <label for="campo-nombre">Nombre</label>
-                        <input type="text" id="campo-nombre" />
-                    </div>
+                    <fieldset>
+                        <legend>Datos Personales</legend>
+                        <div>
+                            <label for="campo-nombre">Nombre</label>
+                            <input type="text" id="campo-nombre" />
+                        </div>
 
-                    <div>
-                        <label for="campo-email">Correo Electrónico</label>
-                        <input type="email" id="campo-email" />
-                    </div>
+                        <div>
+                            <label for="campo-email">Correo Electrónico</label>
+                            <input type="email" id="campo-email" required />
+                        </div>
+                        <div>
+                            <label for="campo-telefono">Teléfono</label>
+                            <input
+                                type="text"
+                                pattern="[0-9]{9}"
+                                id="campo-telefono"
+                            />
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Datos Reserva</legend>
+                        <div>
+                            <label for="campo-vehiculo">Vehículo</label>
+                            <select id="campo-vehiculo" required>
+                                <option value="1">Vehículo 1</option>
+                                <option value="2">Vehículo 2</option>
+                                <option value="3">Vehículo 3</option>
+                            </select>
+                        </div>
 
-                    <div>
-                        <label for="campo-vehiculo">Vehículo</label>
-                        <select id="campo-vehiculo">
-                            <option value="1">Vehículo 1</option>
-                            <option value="2">Vehículo 2</option>
-                            <option value="3">Vehículo 3</option>
-                        </select>
-                    </div>
+                        <div>
+                            <label for="campo-fecha-inicio">Fecha inicio</label>
+                            <input
+                                type="date"
+                                id="campo-fecha-inicio"
+                                required
+                            />
+                        </div>
 
-                    <div>
-                        <label for="campo-fecha-inicio">Fecha inicio</label>
-                        <input type="date" id="campo-fecha-inicio" />
-                    </div>
-
-                    <div>
-                        <label for="campo-fecha-inicio">Fecha inicio</label>
-                        <input type="date" id="campo-fecha-inicio" />
-                    </div>
-                    <div>
-                        <label for="check-terminos"> Condiciones de uso </label>
+                        <div>
+                            <label for="campo-fecha-fin">Fecha inicio</label>
+                            <input type="date" id="campo-fecha-fin" required />
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Condiciones de uso</legend>
                         <div>
                             <input
                                 type="checkbox"
                                 value=""
                                 id="check-terminos"
+                                required
                             />
-                            <label>
+                            <label for="check-terminos">
                                 Acepto todas las
                                 <a href="terms">condiciones de uso</a> y la
                                 <a href="privacy">política de privacidad</a>
                             </label>
                         </div>
-                    </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Enviar Formulario</legend>
+                        <div>
+                            <button type="submit">Enviar</button>
+                            <button type="reset">Limpiar Fromulario</button>
+                        </div>
+                    </fieldset>
                 </form>
             </section>
             <iframe
@@ -185,7 +210,6 @@
                 height="315"
                 src="https://www.youtube.com/embed/rXAOdoWLQNQ?si=5EqFNCWh45lyhXuV"
                 title="YouTube video player"
-                frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerpolicy="strict-origin-when-cross-origin"
                 allowfullscreen
