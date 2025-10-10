@@ -13,19 +13,44 @@
         <link href="style.css" rel="stylesheet" />
     </head>
     <body>
-        <form>
+        <header>
+            <img
+                src="media/logo.png"
+                title="Vehículo Eléctrico"
+                alt="Imagen de un vehiculo electrico"
+                width="150px"
+            />
             <div>
-                <label for="contacto-nombre">Nombre</label>
-                <input type="text" id="contacto-nombre" required />
+                <h1>Concesionaria Inclusiva "Iván"</h1>
+                <h2>Plataforma de Movilidad Sostenible</h2>
             </div>
-            <div>
-                <label for="contacto-email">Correo Electrónico</label>
-                <input type="email" id="contacto-email" required />
-            </div>
-            <div>
-                <label for="contacto-mensaje">Mensaje</label>
-                <textarea cols="30" rows="5" id="contacto-mensaje"></textarea>
-            </div>
-        </form>
+        </header>
+        <main>
+            <section id="contacto" class="centered">
+                <form>
+                    <fieldset>
+                        <legend>Contacto</legend>
+                        <div>
+                            <label for="contacto-nombre">Nombre</label>
+                            <input type="text" id="contacto-nombre" required />
+                        </div>
+                        <div>
+                            <label for="contacto-email"
+                                >Correo Electrónico</label
+                            >
+                            <input type="email" id="contacto-email" required />
+                        </div>
+                        <div>
+                            <label for="contacto-mensaje">Mensaje</label>
+                            <textarea
+                                cols="30"
+                                rows="5"
+                                id="contacto-mensaje"
+                            ></textarea>
+                        </div>
+                    </fieldset>
+                </form>
+            </section>
+        </main>
     </body>
 </html>

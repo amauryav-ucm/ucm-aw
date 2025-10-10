@@ -11,14 +11,19 @@
             crossorigin="anonymous"
         /-->
         <link href="style.css" rel="stylesheet" />
+        <link
+            href="high-contrast.css"
+            rel="stylesheet alternate"
+            id="high-contrast"
+        />
     </head>
 
     <body>
         <header>
             <img
                 src="media/logo.png"
-                title="Vehículo Eléctrico"
-                alt="Imagen de un vehiculo electrico"
+                title="Logo Empresa"
+                alt="Logo de la empresa"
                 width="150px"
             />
             <div>
@@ -27,29 +32,37 @@
             </div>
         </header>
         <nav>
-            <a
-                href="#inicio"
-                aria-label="Enlace de navegación a sección de inicio"
-                >Inicio</a
-            >
-            |
-            <a
-                href="#reservas"
-                aria-label="Enlace de navegación a sección de reservas"
-                >Reservas</a
-            >
-            |
-            <a
-                href="#vehiculos"
-                aria-label="Enlace de navegación a sección de vehículos"
-                >Vehículos</a
-            >
-            |
-            <a
-                href="contacto.html"
-                aria-label="Enlace de navegación a sección de contacto"
-                >Contacto</a
-            >
+            <div>
+                <a
+                    href="#inicio"
+                    aria-label="Enlace de navegación a sección de inicio"
+                    >Inicio</a
+                >
+            </div>
+
+            <div>
+                <a
+                    href="#reservas"
+                    aria-label="Enlace de navegación a sección de reservas"
+                    >Reservas</a
+                >
+            </div>
+
+            <div>
+                <a
+                    href="#vehiculos"
+                    aria-label="Enlace de navegación a sección de vehículos"
+                    >Vehículos</a
+                >
+            </div>
+
+            <div>
+                <a
+                    href="contacto.html"
+                    aria-label="Enlace de navegación a página de contacto"
+                    >Contacto</a
+                >
+            </div>
         </nav>
         <main>
             <section id="inicio">
@@ -103,14 +116,27 @@
                         entre un servidor y una aplicación.
                     </dd>
                 </dl>
-                <img
-                    src="media/img.webp"
-                    title="Vehículo Eléctrico"
-                    alt="Imagen de un vehiculo electrico"
-                    width="80%"
-                />
+                <div id="media" class="centered">
+                    <img
+                        class="big-image"
+                        src="media/img.webp"
+                        title="Vehículo Eléctrico"
+                        alt="Imagen de un vehiculo electrico"
+                        width="80%"
+                    />
+
+                    <iframe
+                        width="600"
+                        height="315"
+                        src="https://www.youtube.com/embed/rXAOdoWLQNQ?si=5EqFNCWh45lyhXuV"
+                        title="YouTube video player"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen
+                    ></iframe>
+                </div>
             </section>
-            <section id="vehiculos">
+            <section id="vehiculos" class="centered">
                 <h3>Vehículos</h3>
                 <table>
                     <caption>
@@ -132,9 +158,12 @@
                     </tbody>
                 </table>
             </section>
-            <section id="reservas">
+            <section id="reservas" class="centered">
                 <h3>Reservas</h3>
-                <form>
+                <form
+                    id="formulario-reserva"
+                    aria-label="Formulario de reserva de vehículos"
+                >
                     <fieldset>
                         <legend>Datos Personales</legend>
                         <div>
@@ -182,7 +211,7 @@
                     </fieldset>
                     <fieldset>
                         <legend>Condiciones de uso</legend>
-                        <div>
+                        <div class="form-checkbox">
                             <input
                                 type="checkbox"
                                 value=""
@@ -198,30 +227,42 @@
                     </fieldset>
                     <fieldset>
                         <legend>Enviar Formulario</legend>
-                        <div>
-                            <button type="submit">Enviar</button>
-                            <button type="reset">Limpiar Fromulario</button>
+                        <div class="form-buttons">
+                            <button
+                                type="submit"
+                                aria-label="Botón para enviar datos del formulario"
+                            >
+                                Enviar
+                            </button>
+                            <button
+                                type="reset"
+                                aria-label="Botón para limpiar datos del formulario"
+                            >
+                                Limpiar Fromulario
+                            </button>
                         </div>
                     </fieldset>
                 </form>
             </section>
-            <iframe
-                width="560"
-                height="315"
-                src="https://www.youtube.com/embed/rXAOdoWLQNQ?si=5EqFNCWh45lyhXuV"
-                title="YouTube video player"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin"
-                allowfullscreen
-            ></iframe>
         </main>
         <footer>
-            <a href="https://www.ucm.es" target="_blank"
+            <a
+                href="https://www.ucm.es"
+                target="_blank"
+                aria-label="Enlace de navegación a página de la UCM"
                 >Universidad Complutense de Madrid</a
             >
-            <a href="contacto.html">Contacto</a>
+            <a
+                href="contacto.html"
+                aria-label="Enlace de navegación a página de contacto"
+                >Contacto</a
+            >
 
-            <a href="#vehiculos">Vehículos</a>
+            <a
+                href="#vehiculos"
+                aria-label="Enlace de navegación a sección de vehículos"
+                >Vehículos</a
+            >
         </footer>
         <script src="script.js"></script>
         <script src="formulario.js"></script>

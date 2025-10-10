@@ -2,19 +2,12 @@ html {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-header,
-footer {
+header {
     display: flex;
     gap: 20px;
-    background: linear-gradient(to right, rgb(63, 119, 200), rgb(82, 193, 255));
 }
 
 nav {
-    background: linear-gradient(
-        to right,
-        rgb(85, 156, 200),
-        rgb(140, 211, 255)
-    );
     font-size: 1.5em;
     padding: 1em;
     display: flex;
@@ -22,16 +15,12 @@ nav {
 
 main {
     padding: 3em;
-    background: linear-gradient(
-        to right,
-        rgb(143, 186, 200),
-        rgb(204, 241, 255)
-    );
 }
 
 footer {
+    display: flex;
     padding: 2em;
-    align-content: center;
+    gap: 20px;
 }
 
 nav > div {
