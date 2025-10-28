@@ -1,0 +1,13 @@
+<% active = {vehiculos:true} %>
+
+
+<ul>
+    <% vehiculos.forEach(v => { %>
+    <li>
+        <a href="/vehiculos/<%= v.id %>"> <%=v.marca %>
+            <%=v.modelo %>
+            <%=v.anyo %>
+        </a>
+    </li>
+    <% }) %>
+</ul>

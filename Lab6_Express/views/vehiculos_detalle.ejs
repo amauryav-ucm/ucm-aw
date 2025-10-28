@@ -1,0 +1,13 @@
+<% active = {vehiculos:true} %>
+
+<h1><%= vehiculo.marca %> <%= vehiculo.modelo %> <%= vehiculo.anyo %></h1>
+<ul>
+    <li>Potencia: <%= vehiculo.potencia %> hp</li>
+    <li>Autonomía: <%= vehiculo.autonomia %> km</li>
+    <li>Tracción: <%= vehiculo.traccion %></li>
+    <li>Plazas: <%= vehiculo.plazas %></li>
+    <li>Precio: <%= vehiculo.precio %> &euro; por día</li>
+</ul>
+<div>
+    <a href="/vehiculos">Volver</a>
+</div>

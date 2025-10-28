@@ -11,5 +11,188 @@
             crossorigin="anonymous"
         />
     </head>
-    <body></body>
+    <body>
+        <main class="container mt-5">
+            <form
+                id="formulario-reserva"
+                aria-label="Formulario de reserva de vehículos"
+            >
+                <fieldset>
+                    <legend>Datos Personales</legend>
+                    <div class="mb-3">
+                        <label for="campo-nombre" class="form-label"
+                            >Nombre</label
+                        >
+                        <input
+                            type="text"
+                            id="campo-nombre"
+                            class="form-control"
+                            required
+                        />
+                        <span class="invalid-feedback"
+                            >El nombre debe tener como mínimo 3 caracteres
+                        </span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="campo-apellidos" class="form-label"
+                            >Apellidos</label
+                        >
+                        <input
+                            type="text"
+                            id="campo-apellidos"
+                            class="form-control"
+                            required
+                        /><span class="invalid-feedback"
+                            >Los apellidos deben contener como mínimo 3
+                            caracteres</span
+                        >
+                    </div>
+                    <div class="mb-3">
+                        <label for="campo-email" class="form-label"
+                            >Correo Electrónico</label
+                        >
+                        <input
+                            type="email"
+                            id="campo-email"
+                            required
+                            class="form-control"
+                        /><span class="invalid-feedback"
+                            >El correo electrónico debe tener un formato
+                            válido</span
+                        >
+                    </div>
+                    <div class="mb-3">
+                        <label for="campo-telefono" class="form-label"
+                            >Teléfono</label
+                        >
+                        <input
+                            type="text"
+                            pattern="[0-9]{9}"
+                            id="campo-telefono"
+                            class="form-control"
+                        /><span class="invalid-feedback"
+                            >El número telefónico debe tenre un formato
+                            válido</span
+                        >
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Datos Reserva</legend>
+                    <div class="mb-3">
+                        <label for="campo-vehiculo" class="form-label"
+                            >Vehículo</label
+                        >
+                        <select
+                            id="campo-vehiculo"
+                            required
+                            class="form-select"
+                        >
+                            <option value="0" selected>
+                                Selecciona un vehículo
+                            </option></select
+                        ><span class="invalid-feedback"
+                            >Debe seleccionar un vehículo</span
+                        >
+                    </div>
+                    <div class="mb-3">
+                        <label for="campo-fecha-inicio" class="form-label"
+                            >Fecha inicio</label
+                        >
+                        <input
+                            type="date"
+                            id="campo-fecha-inicio"
+                            required
+                            class="form-control"
+                        /><span class="invalid-feedback"
+                            >La fecha de inicio no puede ser anterior a la fecha
+                            actual</span
+                        >
+                    </div>
+                    <div class="mb-3">
+                        <label for="campo-fecha-fin" class="form-label"
+                            >Fecha de fin</label
+                        >
+                        <input
+                            type="date"
+                            id="campo-fecha-fin"
+                            required
+                            class="form-control"
+                        />
+                        <span class="invalid-feedback"
+                            >La fecha de fin debe ser posterior a la fecha de
+                            inicio</span
+                        >
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Condiciones de uso</legend>
+                    <div class="form-check mb-3">
+                        <input
+                            class="form-check-input"
+                            type="checkbox"
+                            value=""
+                            id="check-terminos"
+                            required
+                        />
+                        <label for="check-terminos" class="form-check-label">
+                            Acepto todas las
+                            <a href="terms">condiciones de uso</a> y la
+                            <a href="privacy">política de privacidad</a> </label
+                        ><span class="invalid-feedback"
+                            >Para continuar debe marcar esta casilla</span
+                        >
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Enviar Formulario</legend>
+                    <div class="mb-3">
+                        <div
+                            class="progress mb-3"
+                            role="progressbar"
+                            aria-label="Progreso de cumplimentación"
+                            aria-valuenow="0"
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                        >
+                            <div
+                                class="progress-bar"
+                                id="form-progress-bar"
+                            ></div>
+                        </div>
+                        <div>
+                            <button
+                                id="submit-button"
+                                class="btn btn-primary"
+                                type="submit"
+                                aria-label="Botón para enviar datos del formulario"
+                            >
+                                Enviar
+                            </button>
+                            <button
+                                class="btn btn-secondary"
+                                type="reset"
+                                aria-label="Botón para limpiar datos del formulario"
+                            >
+                                Limpiar Fromulario
+                            </button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </main>
+        <script>
+            document
+                .getElementById('submit-button')
+                .addEventListener('click', (e) => {
+                    e.preventDefault();
+                    let datos = {
+                        nombre: document.getElementById('campo-nombre').value,
+                    };
+                    fetch('/reservas', {
+                        method: 'POST',
+                        body: datos,
+                    });
+                });
+        </script>
+    </body>
 </html>

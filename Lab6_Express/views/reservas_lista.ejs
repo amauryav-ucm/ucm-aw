@@ -1,0 +1,23 @@
+<% active = {reservas:true} %>
+
+<table class="table">
+    <thead>
+        <th scope="col">Nombre</th>
+        <th scope="col">Vehículo</th>
+        <th scope="col">Fecha</th>
+    </thead>
+    <tbody>
+        <% reservas.forEach(r => { %>
+        <tr>
+            <% v = vehiculos.find((v) => parseInt(v.id) === parseInt(r.vehiculo)) %>
+            <td><%= r.nombre %></td>
+            <td><%= v.marca %> <%= v.modelo %> <%= v.anyo %></td>
+            <td><%= r.fecha %></td>
+            <% }) %>
+        </tr>
+    </tbody>
+</table>
+
+<div>
+    <a href="/reservas">Volver</a>
+</div>
