@@ -33,6 +33,9 @@
                             <button id="btnAccesibilidad" class="nav-link" data-bs-toggle="modal" data-bs-target="#modalAccesibilidad">Accesibilidad</button>
                         </li>
                     </ul>
+                    <div>
+                        <button class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasUsuario">Iniciar Sesión</button>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -87,6 +90,30 @@
                         <button type="button" class="btn btn-primary" id="modalAccesibilidadConfirmar" data-bs-dismiss="modal">Confirmar</button>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasUsuario" aria-labelledby="offcanvasUsuarioTitle">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasUsuarioTitle">Iniciar Sesión</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <form class="m-3 p-3 border rounded">
+                    <fieldset>
+                        <div class="mb-3">
+                            <label for="formLoginUsername" class="form-label">Usuario</label>
+                            <input type="text" id="formLoginUsuario" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="formLoginPassword" class="form-label">Contraseña</label>
+                            <input type="password" id="formLoginPassword" class="form-control">
+                        </div>
+                        <button class="btn btn-primary">Iniciar Sesión</button>
+                    </fieldset>
+                    <div class="my-3">
+                        <a href="/registrarse">Registrarse</a>
+                    </div>
+                </form>
             </div>
         </div>
     </body>

@@ -1,8 +1,9 @@
+<h1>Vehículos Disponibles</h1>
+<button class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasFiltrarVehiculos">Filtrar</button>
 <div class="row row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-
     <% vehiculos.forEach(v => { %>
     <div class="col">
-        <div class="card shadow">
+        <div class="card shadow ">
             <div class="ratio ratio-16x9 ">
                 <img src="img/vehiculos/<%= v.imagen %>" class="card-img-top bg-light w-100 h-100 object-fit-contain">
             </div>
@@ -32,3 +33,44 @@
 
 
 </div>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasFiltrarVehiculos" aria-labelledby="offcanvasFiltrarVehiculosTitle">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasFiltrarVehiculosTitle">Filtrar Vehículos</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <form class="m-3 p-3 border rounded">
+            <fieldset class="border-bottom mb-3 pb-3">
+                <legend class="fs-5">Color</legend>
+                <div>
+                    <input type="checkbox" class="btn-check" id="filtroVehiculosColor-all" checked>
+                    <label class="btn" for="filtroVehiculosColor-all">Todos</label>
+                    <% opciones.color.forEach(c => { %>
+                    <input type="checkbox" class="btn-check" id="filtroVehiculosColor-<%= c.replace(/\s+/g, '-') %>">
+                    <label class="btn" for="filtroVehiculosColor-<%= c.replace(/\s+/g, '-') %>"><%= myUtils.capitalize(c) %></label>
+                    <% }) %>
+                </div>
+            </fieldset>
+            <fieldset class="border-bottom pb-3 mb-3">
+                <legend class="fs-5">Plazas</legend>
+                <div>
+                    <input type="checkbox" class="btn-check" id="filtroVehiculosNumeroPlazas-all" checked>
+                    <label class="btn" for="filtroVehiculosNumeroPlazas-all">Todos</label>
+                    <% opciones.numero_plazas.forEach(p => { %>
+                    <input type="checkbox" class="btn-check" id="filtroVehiculosNumeroPlazas-<%= p %>">
+                    <label class="btn" for="filtroVehiculosNumeroPlazas-<%= p %>"><%= p %></label>
+                    <% }) %>
+                </div>
+            </fieldset>
+            <fieldset class="border-bottom pb-3 mb-3">
+                <legend class="fs-5">Autonomía mínima</legend>
+                <input type="range" class="form-range" min="0" max="1000" value="0" id="filtroAutonomia">
+                <output for="filtroAutonomia" id="filtroAutonomiaValor" aria-hidden="true"></output>
+            </fieldset>
+            <button class="btn btn-primary">Confirmar</button>
+        </form>
+    </div>
+</div>
+
+<script src="/js/filtrarVehiculos.js"></script>
