@@ -1,0 +1,34 @@
+<div class="row row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+
+    <% vehiculos.forEach(v => { %>
+    <div class="col">
+        <div class="card shadow">
+            <div class="ratio ratio-16x9 ">
+                <img src="img/vehiculos/<%= v.imagen %>" class="card-img-top bg-light w-100 h-100 object-fit-contain">
+            </div>
+            <div class="row card-body">
+                <h5 class="card-title"><%= v.marca %> <%= v.modelo %> <span class="
+                            <% if (v.estado==="disponible") { %>text-bg-success
+                            <% } else if (v.estado==="reservado") { %>text-bg-danger
+                            <% } else { %>text-bg-warning
+                            <% } %>
+                           badge"> <%= myUtils.capitalize(v.estado) %></span> </h5>
+                <div class="card-text">
+                    <ul>
+                        <li>Matrícula: <%= v.matricula %></li>
+                        <li>Año: <%= v.anyo_matriculacion %></li>
+                        <li>Número de plazas: <%= v.numero_plazas %></li>
+                        <li>Autonomía: <%= v.autonomia_km %>km</li>
+                        <li>Color: <%= myUtils.capitalize(v.color) %></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card-footer text-center">
+                <a href="/reservas/<%= v.id_vehiculo %>" class="btn btn-primary">Reservar</a>
+            </div>
+        </div>
+    </div>
+    <% }) %>
+
+
+</div>

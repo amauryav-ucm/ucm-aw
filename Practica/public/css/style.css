@@ -1,0 +1,4 @@
+:root {
+    --root-font: 16px;
+    font-size: var(--root-font);
+}
