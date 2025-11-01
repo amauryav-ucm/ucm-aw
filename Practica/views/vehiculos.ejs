@@ -60,7 +60,7 @@
 
             </fieldset>
             <fieldset class="border-bottom pb-3 mb-3">
-                <legend class="fs-5">Plazas</legend>
+                <legend class="fs-5">Número de plazas</legend>
                 <div class="form-check ~form-check-inline">
                     <input type="checkbox" class="form-check-input " id="filtroVehiculosNumeroPlazas-all" <% if (filtros.numero_plazas.length===0) { %> checked <% } %>>
                     <label class="form-check-label" for="filtroVehiculosNumeroPlazas-all">Todos</label>
@@ -78,8 +78,17 @@
                 <input type="range" class="form-range" min="0" max="1000" step="50" value="<% if (!filtros.autonomia_km) { %>0<% } else { %><%= filtros.autonomia_km %><% } %>" id="filtroAutonomia" name="autonomia_km">
                 <output for="filtroAutonomia" id="filtroAutonomiaValor" aria-hidden="true"></output>
             </fieldset>
-            <button type="submit" class="btn btn-primary" id="filtroVehiculosConfirm">Confirmar</button>
-            <button type="reset" class="btn btn-secondary" id="filtroVehiculosReset">Limpiar Filtros</button>
+            <fieldset>
+                <div class="g-1 row row-cols-1 row-cols-md-2">
+                    <div class="col">
+                        <button id="filtroVehiculosConfirm" class="btn btn-primary" type="submit">Confirmar</button>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-secondary" type="reset" id="filtroVehiculosReset">Limpiar Filtros</button>
+                    </div>
+                </div>
+            </fieldset>
+
         </form>
     </div>
 </div>
