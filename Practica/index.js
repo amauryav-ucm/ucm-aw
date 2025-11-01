@@ -40,8 +40,22 @@ const myUtils = require('./utils/utils');
 app.locals.myUtils = myUtils;
 
 // Routes
+app.use((req, res, next) => {
+    res.locals.active = {};
+    next();
+});
+
 const mainRoutes = require('./routes/index');
 app.use('/', mainRoutes);
+
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).render('internalerror');
+});
+
+app.use((req, res) => {
+    res.status(404).render('notfound');
+});
 
 // Server
 app.listen(PORT, () => {

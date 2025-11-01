@@ -58,7 +58,11 @@ router.get('/vehiculos', (req, res) => {
 });
 
 router.get('/registrarse', (req, res) => {
-    res.render('registrarse', { active: {} });
+    res.render('registrarse');
+});
+
+router.post('/reservas', (req, res) => {
+    throw new Error('Not implemented');
 });
 
 module.exports = router;
