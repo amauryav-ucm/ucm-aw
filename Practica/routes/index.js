@@ -23,10 +23,11 @@ router.get('/reservas/:id', (req, res) => {
 
 router.get('/vehiculos', (req, res) => {
     let filtros = req.query;
-    filtros.color = filtros.color.split(',');
-    filtros.numero_plazas = filtros.numero_plazas
-        .split(',')
-        .map((p) => parseInt(p));
+    if (filtros.color) filtros.color = filtros.color.split(',');
+    if (filtros.numero_plazas)
+        filtros.numero_plazas = filtros.numero_plazas
+            .split(',')
+            .map((p) => parseInt(p));
     let vehiculosFiltrados = req.app.locals.vehiculos.filter((v) => {
         return (
             (!filtros.color || filtros.color.includes(v.color)) &&
