@@ -1,6 +1,10 @@
 <h1>Vehículos Disponibles</h1>
 <button class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasFiltrarVehiculos">Filtrar</button>
-<div class="row row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+
+<div class="row row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-3">
+    <% if (vehiculos.length===0) { %>
+    <h5>No se han encontrado vehículos</h5>
+    <% } %>
     <% vehiculos.forEach(v => { %>
     <div class="col">
         <div class="card shadow ">
@@ -40,14 +44,14 @@
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-        <form class="m-3 p-3 border rounded">
+        <form class="m-3 p-3 border rounded" id="filtroVehiculosForm" method="GET">
             <fieldset class="border-bottom mb-3 pb-3">
                 <legend class="fs-5">Color</legend>
                 <div>
-                    <input type="checkbox" class="btn-check" id="filtroVehiculosColor-all" checked>
+                    <input type="checkbox" class="btn-check" id="filtroVehiculosColor-all" <% if (filtros.color.length===0) { %> checked <% } %>>
                     <label class="btn" for="filtroVehiculosColor-all">Todos</label>
                     <% opciones.color.forEach(c => { %>
-                    <input type="checkbox" class="btn-check" id="filtroVehiculosColor-<%= c.replace(/\s+/g, '-') %>">
+                    <input type="checkbox" class="btn-check filtroVehiculosColor-option" id="filtroVehiculosColor-<%= c.replace(/\s+/g, '-') %>" <% if (filtros.color && filtros.color.includes(c)) { %> checked <% } %> name="color" value="<%= c %>">
                     <label class="btn" for="filtroVehiculosColor-<%= c.replace(/\s+/g, '-') %>"><%= myUtils.capitalize(c) %></label>
                     <% }) %>
                 </div>
@@ -55,20 +59,20 @@
             <fieldset class="border-bottom pb-3 mb-3">
                 <legend class="fs-5">Plazas</legend>
                 <div>
-                    <input type="checkbox" class="btn-check" id="filtroVehiculosNumeroPlazas-all" checked>
+                    <input type="checkbox" class="btn-check" id="filtroVehiculosNumeroPlazas-all" <% if (filtros.numero_plazas.length===0) { %> checked <% } %>>
                     <label class="btn" for="filtroVehiculosNumeroPlazas-all">Todos</label>
                     <% opciones.numero_plazas.forEach(p => { %>
-                    <input type="checkbox" class="btn-check" id="filtroVehiculosNumeroPlazas-<%= p %>">
+                    <input type="checkbox" class="btn-check filtroVehiculosNumeroPlazas-option" id="filtroVehiculosNumeroPlazas-<%= p %>" <% if (filtros.numero_plazas && filtros.numero_plazas.includes(p)) { %> checked <% } %> name="numero_plazas" value="<%= p %>">
                     <label class="btn" for="filtroVehiculosNumeroPlazas-<%= p %>"><%= p %></label>
                     <% }) %>
                 </div>
             </fieldset>
             <fieldset class="border-bottom pb-3 mb-3">
                 <legend class="fs-5">Autonomía mínima</legend>
-                <input type="range" class="form-range" min="0" max="1000" value="0" id="filtroAutonomia">
+                <input type="range" class="form-range" min="0" max="1000" value="<% if (!filtros.autonomia_km) { %>0<% } else { %><%= filtros.autonomia_km %><% } %>" id="filtroAutonomia" name="autonomia_km">
                 <output for="filtroAutonomia" id="filtroAutonomiaValor" aria-hidden="true"></output>
             </fieldset>
-            <button class="btn btn-primary">Confirmar</button>
+            <button type="submit" class="btn btn-primary" id="filtroVehiculosConfirm">Confirmar</button>
         </form>
     </div>
 </div>

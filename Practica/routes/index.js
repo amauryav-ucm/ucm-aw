@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const myUtils = require('../utils/utils.js');
 
 router.get('/', (req, res) => {
     res.render('index', { active: { inicio: true } });
@@ -23,26 +24,27 @@ router.get('/reservas/:id', (req, res) => {
 
 router.get('/vehiculos', (req, res) => {
     let filtros = req.query;
-    if (filtros.color) filtros.color = filtros.color.split(',');
-    if (filtros.numero_plazas)
-        filtros.numero_plazas = filtros.numero_plazas
-            .split(',')
-            .map((p) => parseInt(p));
+    filtros.color = myUtils.normalizeQueryParams(filtros.color);
+    filtros.numero_plazas = myUtils
+        .normalizeQueryParams(filtros.numero_plazas)
+        .map((p) => parseInt(p));
+    filtros.estado = myUtils.normalizeQueryParams(filtros.estado);
     let vehiculosFiltrados = req.app.locals.vehiculos.filter((v) => {
         return (
-            (!filtros.color || filtros.color.includes(v.color)) &&
-            (!filtros.numero_plazas ||
+            (filtros.color.length === 0 || filtros.color.includes(v.color)) &&
+            (filtros.numero_plazas.length === 0 ||
                 filtros.numero_plazas.includes(parseInt(v.numero_plazas))) &&
             (!filtros.autonomia_km ||
                 parseInt(v.autonomia_km) >= parseInt(filtros.autonomia_km)) &&
-            ((filtros.estado && filtros.estado.split(',').includes(v.estado)) ||
-                (!filtros.estado && v.estado === 'disponible'))
+            ((filtros.estado.length === 0 && v.estado === 'disponible') ||
+                filtros.estado.includes(v.estado))
         );
     });
     color = new Set(req.app.locals.vehiculos.map((v) => v.color));
     numero_plazas = new Set(
         req.app.locals.vehiculos.map((v) => v.numero_plazas)
     );
+    console.log(filtros);
     res.render('vehiculos.ejs', {
         active: { vehiculos: true },
         myUtils: req.app.locals.myUtils,
