@@ -1,3 +1,9 @@
 {
-    "prettier.prettierPath": "./Practica/node_modules/prettier"
+    "prettier.prettierPath": "./Practica/node_modules/prettier",
+    "emmet.includeLanguages": {
+        "ejs": "html"
+    },
+    "[html]": {
+        "editor.defaultFormatter": "j69.ejs-beautify"
+    }
 }

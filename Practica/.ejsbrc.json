@@ -1,0 +1,21 @@
+{
+    "indent_size": 4,
+    "indent_with_tabs": false,
+    "indent_inner_html": false,
+    "indent_body_inner_html": true,
+    "indent_head_inner_html": true,
+    "wrap_attributes": "auto",
+    "wrap_line_length": 160,
+    "wrap_attributes_indent_size": 4,
+    "preserve_newlines": true,
+    "max_preserve_newlines": 2,
+    "brace_style": "collapse",
+    "space_before_conditional": true,
+    "space_after_anon_function": false,
+    "space_after_named_function": false,
+    "unescape_strings": false,
+    "operator_position": "before-newline",
+    "keep_array_indentation": false,
+    "content_unformatted": ["pre", "textarea"],
+    "templating": ["erb", "django", "handlebars", "php"]
+}

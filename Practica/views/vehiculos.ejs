@@ -58,18 +58,13 @@
             <fieldset class="border-bottom mb-3 pb-3">
                 <legend class="fs-5">Color</legend>
                 <div class="form-check ~form-check-inline">
-                    <input type="checkbox" class="form-check-input <%= filtros.color.length===0 ? 'js-checked' : '' %>" id="filtroVehiculosColor-all" />
+                    <input type="checkbox" class="form-check-input" id="filtroVehiculosColor-all" <%= filtros.color.length===0 ? 'checked' : '' %> />
                     <label class="form-check-label" for="filtroVehiculosColor-all">Todos</label>
                 </div>
                 <% opciones.color.forEach(c => { %>
                 <div class="form-check ~form-check-inline">
-                    <input
-                        type="checkbox"
-                        class="form-check-input filtroVehiculosColor-option <%= filtros.color && filtros.color.includes(c) ? 'js-checked' : '' %>"
-                        id="filtroVehiculosColor-<%= c.replace(/\s+/g, '-') %>"
-                        name="color"
-                        value="<%= c %>"
-                    />
+                    <input type="checkbox" class="form-check-input filtroVehiculosColor-option" id="filtroVehiculosColor-<%= c.replace(/\s+/g, '-') %>"
+                        name="color" value="<%= c %>" <%= filtros.color && filtros.color.includes(c) ? 'checked' : '' %> />
                     <label class="form-check-label" for="filtroVehiculosColor-<%= c.replace(/\s+/g, '-') %>"><%= myUtils.capitalize(c) %></label>
                 </div>
                 <% }) %>
@@ -77,38 +72,22 @@
             <fieldset class="border-bottom pb-3 mb-3">
                 <legend class="fs-5">Número de plazas</legend>
                 <div class="form-check ~form-check-inline">
-                    <input
-                        type="checkbox"
-                        class="form-check-input <%= filtros.numero_plazas.length===0 ? 'js-checked' : '' %>"
-                        id="filtroVehiculosNumeroPlazas-all"
-                    />
+                    <input type="checkbox" class="form-check-input" id="filtroVehiculosNumeroPlazas-all"
+                        <%= filtros.numero_plazas.length===0 ? 'checked' : '' %> />
                     <label class="form-check-label" for="filtroVehiculosNumeroPlazas-all">Todos</label>
                 </div>
                 <% opciones.numero_plazas.forEach(p => { %>
                 <div class="form-check ~form-check-inline">
-                    <input
-                        type="checkbox"
-                        class="form-check-input filtroVehiculosNumeroPlazas-option <%= filtros.numero_plazas && filtros.numero_plazas.includes(p) ? 'js-checked' : '' %>"
-                        id="filtroVehiculosNumeroPlazas-<%= p %>"
-                        name="numero_plazas"
-                        value="<%= p %>"
-                    />
+                    <input type="checkbox" class="form-check-input filtroVehiculosNumeroPlazas-option" id="filtroVehiculosNumeroPlazas-<%= p %>"
+                        name="numero_plazas" value="<%= p %>" <%= filtros.numero_plazas && filtros.numero_plazas.includes(p) ? 'checked' : '' %> />
                     <label class="form-check-label" for="filtroVehiculosNumeroPlazas-<%= p %>"><%= p %></label>
                 </div>
                 <% }) %>
             </fieldset>
             <fieldset class="border-bottom pb-3 mb-3">
                 <legend class="fs-5">Autonomía mínima</legend>
-                <input
-                    type="range"
-                    class="form-range"
-                    min="0"
-                    max="1000"
-                    step="50"
-                    value="<% if (!filtros.autonomia_km) { %>0<% } else { %><%= filtros.autonomia_km %><% } %>"
-                    id="filtroAutonomia"
-                    name="autonomia_km"
-                />
+                <input type="range" class="form-range" min="0" max="1000" step="50"
+                    value="<% if (!filtros.autonomia_km) { %>0<% } else { %><%= filtros.autonomia_km %><% } %>" id="filtroAutonomia" name="autonomia_km" />
                 <output for="filtroAutonomia" id="filtroAutonomiaValor" aria-hidden="true"></output>
             </fieldset>
             <fieldset>
