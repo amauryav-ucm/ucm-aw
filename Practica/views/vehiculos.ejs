@@ -58,16 +58,15 @@
             <fieldset class="border-bottom mb-3 pb-3">
                 <legend class="fs-5">Color</legend>
                 <div class="form-check ~form-check-inline">
-                    <input type="checkbox" class="form-check-input" id="filtroVehiculosColor-all" <%= filtros.color.length===0 ? 'checked' : '' %> />
+                    <input type="checkbox" class="form-check-input <%= filtros.color.length===0 ? 'js-checked' : '' %>" id="filtroVehiculosColor-all" />
                     <label class="form-check-label" for="filtroVehiculosColor-all">Todos</label>
                 </div>
                 <% opciones.color.forEach(c => { %>
                 <div class="form-check ~form-check-inline">
                     <input
                         type="checkbox"
-                        class="form-check-input filtroVehiculosColor-option"
+                        class="form-check-input filtroVehiculosColor-option <%= filtros.color && filtros.color.includes(c) ? 'js-checked' : '' %>"
                         id="filtroVehiculosColor-<%= c.replace(/\s+/g, '-') %>"
-                        <%= filtros.color && filtros.color.includes(c) ? 'checked' : '' %>
                         name="color"
                         value="<%= c %>"
                     />
@@ -80,9 +79,8 @@
                 <div class="form-check ~form-check-inline">
                     <input
                         type="checkbox"
-                        class="form-check-input"
+                        class="form-check-input <%= filtros.numero_plazas.length===0 ? 'js-checked' : '' %>"
                         id="filtroVehiculosNumeroPlazas-all"
-                        <%= filtros.numero_plazas.length===0 ? 'checked' : '' %>
                     />
                     <label class="form-check-label" for="filtroVehiculosNumeroPlazas-all">Todos</label>
                 </div>
@@ -90,11 +88,10 @@
                 <div class="form-check ~form-check-inline">
                     <input
                         type="checkbox"
-                        class="form-check-input filtroVehiculosNumeroPlazas-option"
+                        class="form-check-input filtroVehiculosNumeroPlazas-option <%= filtros.numero_plazas && filtros.numero_plazas.includes(p) ? 'js-checked' : '' %>"
                         id="filtroVehiculosNumeroPlazas-<%= p %>"
-                        <%= filtros.numero_plazas && filtros.numero_plazas.includes(c) ? 'checked' : '' %>
-                        name="color"
-                        value="<%= c %>"
+                        name="numero_plazas"
+                        value="<%= p %>"
                     />
                     <label class="form-check-label" for="filtroVehiculosNumeroPlazas-<%= p %>"><%= p %></label>
                 </div>

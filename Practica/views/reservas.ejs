@@ -5,9 +5,9 @@
             <div class="mb-3">
                 <label for="campo-vehiculo" class="form-label">Vehículo</label>
                 <select id="campo-vehiculo" required="" class="form-select" name="vehiculo">
-                    <option value="" <%= selected.vehiculo ? '' : 'selected' %>>Selecciona un vehículo</option>
+                    <option value="" class="<%= selected.vehiculo ? '' : 'js-selected' %>">Selecciona un vehículo</option>
                     <% vehiculos.forEach(v => { %>
-                    <option value="<%= v.id_vehiculo %>" <% parseInt(selected.vehiculo)===parseInt(v.id_vehiculo) ? 'selected' : '' %>>
+                    <option value="<%= v.id_vehiculo %>" class="<%= parseInt(selected.vehiculo)===parseInt(v.id_vehiculo) ? 'js-selected' : '' %>">
                         <%= v.marca %> <%= v.modelo %> <%= v.anyo %>
                     </option>
                     <% }) %></select
