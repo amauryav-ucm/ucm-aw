@@ -7,24 +7,36 @@
     <% } %>
     <% vehiculos.forEach(v => { %>
     <div class="col">
-        <div class="card shadow ">
-            <div class="ratio ratio-16x9 ">
-                <img src="img/vehiculos/<%= v.imagen %>" class="card-img-top bg-light w-100 h-100 object-fit-contain" alt="<%= v.marca %> <%= v.modelo %>">
+        <div class="card shadow">
+            <div class="ratio ratio-16x9">
+                <img src="img/vehiculos/<%= v.imagen %>" class="card-img-top bg-light w-100 h-100 object-fit-contain" alt="<%= v.marca %> <%= v.modelo %>" />
             </div>
             <div class="row card-body">
-                <h5 class="card-title"><%= v.marca %> <%= v.modelo %> <span class="
-                            <% if (v.estado==="disponible") { %>text-bg-success
-                            <% } else if (v.estado==="reservado") { %>text-bg-danger
-                            <% } else { %>text-bg-warning
-                            <% } %>
-                           badge"> <%= myUtils.capitalize(v.estado) %></span> </h5>
+                <% let badgeClass = ''; if(v.estado==='disponible') badgeClass = 'text-bg-success'; else if(v.estado==='reservado') badgeClass='text-bg-danger';
+                else badgeClass='texx-bg-warning'; %>
+                <h5 class="card-title"><%= v.marca %> <%= v.modelo %> <span class="badge <%= badgeClass %>"> <%= myUtils.capitalize(v.estado) %></span></h5>
                 <div class="card-text">
                     <ul>
-                        <li>Matrícula: <%= v.matricula %></li>
-                        <li>Año: <%= v.anyo_matriculacion %></li>
-                        <li>Número de plazas: <%= v.numero_plazas %></li>
-                        <li>Autonomía: <%= v.autonomia_km %>km</li>
-                        <li>Color: <%= myUtils.capitalize(v.color) %></li>
+                        <li>
+                            Matrícula:
+                            <%= v.matricula %>
+                        </li>
+                        <li>
+                            Año:
+                            <%= v.anyo_matriculacion %>
+                        </li>
+                        <li>
+                            Número de plazas:
+                            <%= v.numero_plazas %>
+                        </li>
+                        <li>
+                            Autonomía:
+                            <%= v.autonomia_km %>km
+                        </li>
+                        <li>
+                            Color:
+                            <%= myUtils.capitalize(v.color) %>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -34,8 +46,6 @@
         </div>
     </div>
     <% }) %>
-
-
 </div>
 
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasFiltrarVehiculos" aria-labelledby="offcanvasFiltrarVehiculosTitle">
@@ -48,34 +58,60 @@
             <fieldset class="border-bottom mb-3 pb-3">
                 <legend class="fs-5">Color</legend>
                 <div class="form-check ~form-check-inline">
-                    <input type="checkbox" class="form-check-input" id="filtroVehiculosColor-all" <% if (filtros.color.length===0) { %> checked <% } %>>
+                    <input type="checkbox" class="form-check-input" id="filtroVehiculosColor-all" <%= filtros.color.length===0 ? 'checked' : '' %> />
                     <label class="form-check-label" for="filtroVehiculosColor-all">Todos</label>
                 </div>
                 <% opciones.color.forEach(c => { %>
                 <div class="form-check ~form-check-inline">
-                    <input type="checkbox" class="form-check-input filtroVehiculosColor-option" id="filtroVehiculosColor-<%= c.replace(/\s+/g, '-') %>" <% if (filtros.color && filtros.color.includes(c)) { %> checked <% } %> name="color" value="<%= c %>">
+                    <input
+                        type="checkbox"
+                        class="form-check-input filtroVehiculosColor-option"
+                        id="filtroVehiculosColor-<%= c.replace(/\s+/g, '-') %>"
+                        <%= filtros.color && filtros.color.includes(c) ? 'checked' : '' %>
+                        name="color"
+                        value="<%= c %>"
+                    />
                     <label class="form-check-label" for="filtroVehiculosColor-<%= c.replace(/\s+/g, '-') %>"><%= myUtils.capitalize(c) %></label>
                 </div>
                 <% }) %>
-
             </fieldset>
             <fieldset class="border-bottom pb-3 mb-3">
                 <legend class="fs-5">Número de plazas</legend>
                 <div class="form-check ~form-check-inline">
-                    <input type="checkbox" class="form-check-input " id="filtroVehiculosNumeroPlazas-all" <% if (filtros.numero_plazas.length===0) { %> checked <% } %>>
+                    <input
+                        type="checkbox"
+                        class="form-check-input"
+                        id="filtroVehiculosNumeroPlazas-all"
+                        <%= filtros.numero_plazas.length===0 ? 'checked' : '' %>
+                    />
                     <label class="form-check-label" for="filtroVehiculosNumeroPlazas-all">Todos</label>
                 </div>
                 <% opciones.numero_plazas.forEach(p => { %>
                 <div class="form-check ~form-check-inline">
-                    <input type="checkbox" class="form-check-input filtroVehiculosNumeroPlazas-option" id="filtroVehiculosNumeroPlazas-<%= p %>" <% if (filtros.numero_plazas && filtros.numero_plazas.includes(p)) { %> checked <% } %> name="numero_plazas" value="<%= p %>">
+                    <input
+                        type="checkbox"
+                        class="form-check-input filtroVehiculosNumeroPlazas-option"
+                        id="filtroVehiculosNumeroPlazas-<%= p %>"
+                        <%= filtros.numero_plazas && filtros.numero_plazas.includes(c) ? 'checked' : '' %>
+                        name="color"
+                        value="<%= c %>"
+                    />
                     <label class="form-check-label" for="filtroVehiculosNumeroPlazas-<%= p %>"><%= p %></label>
                 </div>
                 <% }) %>
-
             </fieldset>
             <fieldset class="border-bottom pb-3 mb-3">
                 <legend class="fs-5">Autonomía mínima</legend>
-                <input type="range" class="form-range" min="0" max="1000" step="50" value="<% if (!filtros.autonomia_km) { %>0<% } else { %><%= filtros.autonomia_km %><% } %>" id="filtroAutonomia" name="autonomia_km">
+                <input
+                    type="range"
+                    class="form-range"
+                    min="0"
+                    max="1000"
+                    step="50"
+                    value="<% if (!filtros.autonomia_km) { %>0<% } else { %><%= filtros.autonomia_km %><% } %>"
+                    id="filtroAutonomia"
+                    name="autonomia_km"
+                />
                 <output for="filtroAutonomia" id="filtroAutonomiaValor" aria-hidden="true"></output>
             </fieldset>
             <fieldset>
@@ -88,7 +124,6 @@
                     </div>
                 </div>
             </fieldset>
-
         </form>
     </div>
 </div>

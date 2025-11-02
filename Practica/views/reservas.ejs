@@ -5,39 +5,40 @@
             <div class="mb-3">
                 <label for="campo-vehiculo" class="form-label">Vehículo</label>
                 <select id="campo-vehiculo" required="" class="form-select" name="vehiculo">
-                    <option value="" <% if (!selected.vehiculo) { %> selected <% } %>>
-                        Selecciona un vehículo
-                    </option>
+                    <option value="" <%= selected.vehiculo ? '' : 'selected' %>>Selecciona un vehículo</option>
                     <% vehiculos.forEach(v => { %>
-                    <option value=<%= v.id_vehiculo %> <% if (parseInt(selected.vehiculo)===parseInt(v.id_vehiculo)) { %> selected <% } %>>
-                        <%= v.marca %>
-                        <%= v.modelo %>
-                        <%= v.anyo %></option>
-                    <% }) %>
-                </select><span class="invalid-feedback">Debe seleccionar un vehículo</span>
+                    <option value="<%= v.id_vehiculo %>" <% parseInt(selected.vehiculo)===parseInt(v.id_vehiculo) ? 'selected' : '' %>>
+                        <%= v.marca %> <%= v.modelo %> <%= v.anyo %>
+                    </option>
+                    <% }) %></select
+                ><span class="invalid-feedback">Debe seleccionar un vehículo</span>
             </div>
             <div class="row g-3 mb-3 row-cols-1 row-cols-md-2">
                 <div class="col">
                     <label for="campo-fecha-inicio" class="form-label">Fecha de inicio</label>
-                    <input type="date" id="campo-fecha-inicio" required="" class="form-control" name="fecha"><span class="invalid-feedback">La fecha de inicio no puede ser anterior a la fecha
-                        actual</span>
+                    <input type="date" id="campo-fecha-inicio" required="" class="form-control" name="fecha" /><span class="invalid-feedback"
+                        >La fecha de inicio no puede ser anterior a la fecha actual</span
+                    >
                 </div>
                 <div class="col">
                     <label for="campo-hora-inicio" class="form-label">Hora de inicio</label>
-                    <input type="time" id="campo-hora-inicio" required="" class="form-control" name="fecha"><span class="invalid-feedback">La fecha de inicio no puede ser anterior a la fecha
-                        actual</span>
+                    <input type="time" id="campo-hora-inicio" required="" class="form-control" name="fecha" /><span class="invalid-feedback"
+                        >La fecha de inicio no puede ser anterior a la fecha actual</span
+                    >
                 </div>
             </div>
             <div class="row g-3 mb-3 row-cols-1 row-cols-md-2">
                 <div class="col">
                     <label for="campo-fecha-fin" class="form-label">Fecha de fin</label>
-                    <input type="date" id="campo-fecha-fin" required="" class="form-control" name="fecha"><span class="invalid-feedback">La fecha de fin no puede ser anterior a la fecha
-                        actual</span>
+                    <input type="date" id="campo-fecha-fin" required="" class="form-control" name="fecha" /><span class="invalid-feedback"
+                        >La fecha de fin no puede ser anterior a la fecha actual</span
+                    >
                 </div>
                 <div class="col">
                     <label for="campo-hora-fin" class="form-label">Hora de fin</label>
-                    <input type="time" id="campo-hora-fin" required="" class="form-control" name="fecha"><span class="invalid-feedback">La fecha de fin no puede ser anterior a la fecha
-                        actual</span>
+                    <input type="time" id="campo-hora-fin" required="" class="form-control" name="fecha" /><span class="invalid-feedback"
+                        >La fecha de fin no puede ser anterior a la fecha actual</span
+                    >
                 </div>
             </div>
         </div>
@@ -46,20 +47,13 @@
     <fieldset>
         <div class="g-3 row pt-4 row-cols-1 row-cols-md-2 text-end justify-content-end">
             <div class="col">
-                <button class="btn btn-secondary" type="reset" aria-label="Botón para limpiar datos del formulario">
-                    Limpiar Fromulario
-                </button>
+                <button class="btn btn-secondary" type="reset" aria-label="Botón para limpiar datos del formulario">Limpiar Fromulario</button>
             </div>
             <div class="col-md-2">
-                <button id="submit-button" class="btn btn-primary" type="button" aria-label="Botón para enviar datos del formulario">
-                    Enviar
-                </button>
+                <button id="submit-button" class="btn btn-primary" type="button" aria-label="Botón para enviar datos del formulario">Enviar</button>
             </div>
         </div>
     </fieldset>
-
-
-
 
     <div class="modal fade" id="modalConfirmacion" tabindex="-1" aria-labelledby="modalConfirmacionLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -68,9 +62,7 @@
                     <h5 class="modal-title" id="modalConfirmacionLabel">Modal title</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    ...
-                </div>
+                <div class="modal-body">...</div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save changes</button>
@@ -78,15 +70,12 @@
             </div>
         </div>
     </div>
-
 </form>
 
 <script src="/js/bootstrap.min.js"></script>
 <script>
-    modal = new bootstrap.Modal(document.getElementById('modalConfirmacion'))
-    document.getElementById('submit-button')
-        .addEventListener('click', (e) => {
-
-            modal.show()
-        })
+    modal = new bootstrap.Modal(document.getElementById("modalConfirmacion"));
+    document.getElementById("submit-button").addEventListener("click", (e) => {
+        modal.show();
+    });
 </script>
