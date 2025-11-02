@@ -5,7 +5,7 @@
             <div class="mb-3">
                 <label for="campo-vehiculo" class="form-label">Vehículo</label>
                 <select id="campo-vehiculo" required="" class="form-select" name="vehiculo">
-                    <option value="0" <% if (!selected.vehiculo) { %> selected <% } %>>
+                    <option value="" <% if (!selected.vehiculo) { %> selected <% } %>>
                         Selecciona un vehículo
                     </option>
                     <% vehiculos.forEach(v => { %>
