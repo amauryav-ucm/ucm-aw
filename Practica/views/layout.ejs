@@ -50,8 +50,13 @@
 
                 <!-- Boton de iniciar sesion -->
                 <div>
-                    <button class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasUsuario" aria-controls="offcanvasUsuario"
-                        aria-expanded="false">Iniciar Sesión</button>
+                    <% if (locals.user) { %>
+                    <a href="#offcanvasUsuario" data-bs-toggle="offcanvas">
+                        <img src="/img/personas_2/<%= user.profilePicture %>" width="30" height="30" class="d-inline-block align-text-top rounded">
+                    </a>
+                    <% } else { %>
+                    <a class="btn btn-primary" href="/login">Iniciar Sesión</a>
+                    <% } %>
                 </div>
             </div>
         </div>
@@ -125,28 +130,8 @@
 
     <!-- Offcanvas de opciones de usuario -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasUsuario" aria-labelledby="offcanvasUsuarioTitle">
-        <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasUsuarioTitle">Iniciar Sesión</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <form class="m-3 p-3 border rounded">
-                <fieldset>
-                    <div class="mb-3">
-                        <label for="formLoginUsername" class="form-label">Usuario</label>
-                        <input type="text" id="formLoginUsername" class="form-control" />
-                    </div>
-                    <div class="mb-3">
-                        <label for="formLoginPassword" class="form-label">Contraseña</label>
-                        <input type="password" id="formLoginPassword" class="form-control" />
-                    </div>
-                    <button class="btn btn-primary">Iniciar Sesión</button>
-                </fieldset>
-                <div class="my-3">
-                    <a href="/registrarse">Registrarse</a>
-                </div>
-            </form>
-        </div>
+
+
     </div>
 </body>
 

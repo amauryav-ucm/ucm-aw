@@ -1,0 +1,28 @@
+<form id="formLogin" aria-label="Formulario de inicio de sesión" method="POST" class="rounded border p-5">
+    <fieldset>
+        <legend>Iniciar Sesión</legend>
+        <div class="border-top border-bottom py-3">
+            <% if (locals.wrongCredentials) { %>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <h5 class="alert-heading">Credenciales incorrectas</h5>
+                El nombre de usuario o contraseña son incorrectos
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+            </div>
+            <% } %>
+            <div class="mb-3">
+                <label for="formLoginUsername" class="form-label">Usuario</label>
+                <input type="text" id="formLoginUsername" class="form-control <%= locals.wrongCredentials ? 'is-invalid' : '' %>" name="username" />
+            </div>
+            <div class="mb-3">
+                <label for="formLoginPassword" class="form-label">Contraseña</label>
+                <input type="password" id="formLoginPassword" class="form-control <%= locals.wrongCredentials ? 'is-invalid' : '' %>" name="password" />
+            </div>
+        </div>
+    </fieldset>
+    <div class="pt-4">
+        <button class="btn btn-primary">Iniciar Sesión</button>
+        <div class="my-3">
+            <a href="/registrarse">Registrarse</a>
+        </div>
+    </div>
+</form>
