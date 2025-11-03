@@ -30,7 +30,10 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 // Simulated database (in-memory)
-const usuarios = [{ username: "admin", password: "admin", profilePicture: "steveCurros.png" }];
+const usuarios = [
+    { username: "admin", password: "admin", profilePicture: "steveCurros.png" },
+    { username: "ivan", password: "ivan", profilePicture: "ivan.jpg" },
+];
 app.locals.usuarios = usuarios;
 
 const vehiculos = require("./data/vehiculos.json");
