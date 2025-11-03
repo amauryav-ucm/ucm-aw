@@ -17,5 +17,6 @@
     "operator_position": "before-newline",
     "keep_array_indentation": false,
     "content_unformatted": ["pre", "textarea"],
-    "templating": ["erb", "django", "handlebars", "php"]
+    "templating": ["erb", "django", "handlebars", "php"],
+    "self_closing_tags": false
 }

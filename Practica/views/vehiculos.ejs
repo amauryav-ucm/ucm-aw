@@ -9,7 +9,7 @@
     <div class="col">
         <div class="card shadow">
             <div class="ratio ratio-16x9">
-                <img src="img/vehiculos/<%= v.imagen %>" class="card-img-top bg-light w-100 h-100 object-fit-contain" alt="<%= v.marca %> <%= v.modelo %>" />
+                <img src="img/vehiculos/<%= v.imagen %>" class="card-img-top bg-light w-100 h-100 object-fit-contain" alt="<%= v.marca %> <%= v.modelo %>">
             </div>
             <div class="row card-body">
                 <% let badgeClass = ''; if(v.estado==='disponible') badgeClass = 'text-bg-success'; else if(v.estado==='reservado') badgeClass='text-bg-danger';
@@ -58,13 +58,13 @@
             <fieldset class="border-bottom mb-3 pb-3">
                 <legend class="fs-5">Color</legend>
                 <div class="form-check ~form-check-inline">
-                    <input type="checkbox" class="form-check-input" id="filtroVehiculosColor-all" <%= filtros.color.length===0 ? 'checked' : '' %> />
+                    <input type="checkbox" class="form-check-input" id="filtroVehiculosColor-all" <%= filtros.color.length===0 ? 'checked' : '' %>>
                     <label class="form-check-label" for="filtroVehiculosColor-all">Todos</label>
                 </div>
                 <% opciones.color.forEach(c => { %>
                 <div class="form-check ~form-check-inline">
                     <input type="checkbox" class="form-check-input filtroVehiculosColor-option" id="filtroVehiculosColor-<%= c.replace(/\s+/g, '-') %>"
-                        name="color" value="<%= c %>" <%= filtros.color && filtros.color.includes(c) ? 'checked' : '' %> />
+                        name="color" value="<%= c %>" <%= filtros.color && filtros.color.includes(c) ? 'checked' : '' %>>
                     <label class="form-check-label" for="filtroVehiculosColor-<%= c.replace(/\s+/g, '-') %>"><%= myUtils.capitalize(c) %></label>
                 </div>
                 <% }) %>
@@ -73,13 +73,13 @@
                 <legend class="fs-5">Número de plazas</legend>
                 <div class="form-check ~form-check-inline">
                     <input type="checkbox" class="form-check-input" id="filtroVehiculosNumeroPlazas-all"
-                        <%= filtros.numero_plazas.length===0 ? 'checked' : '' %> />
+                        <%= filtros.numero_plazas.length===0 ? 'checked' : '' %>>
                     <label class="form-check-label" for="filtroVehiculosNumeroPlazas-all">Todos</label>
                 </div>
                 <% opciones.numero_plazas.forEach(p => { %>
                 <div class="form-check ~form-check-inline">
                     <input type="checkbox" class="form-check-input filtroVehiculosNumeroPlazas-option" id="filtroVehiculosNumeroPlazas-<%= p %>"
-                        name="numero_plazas" value="<%= p %>" <%= filtros.numero_plazas && filtros.numero_plazas.includes(p) ? 'checked' : '' %> />
+                        name="numero_plazas" value="<%= p %>" <%= filtros.numero_plazas && filtros.numero_plazas.includes(p) ? 'checked' : '' %>>
                     <label class="form-check-label" for="filtroVehiculosNumeroPlazas-<%= p %>"><%= p %></label>
                 </div>
                 <% }) %>
@@ -87,7 +87,7 @@
             <fieldset class="border-bottom pb-3 mb-3">
                 <legend class="fs-5">Autonomía mínima</legend>
                 <input type="range" class="form-range" min="0" max="1000" step="50"
-                    value="<% if (!filtros.autonomia_km) { %>0<% } else { %><%= filtros.autonomia_km %><% } %>" id="filtroAutonomia" name="autonomia_km" />
+                    value="<% if (!filtros.autonomia_km) { %>0<% } else { %><%= filtros.autonomia_km %><% } %>" id="filtroAutonomia" name="autonomia_km">
                 <output for="filtroAutonomia" id="filtroAutonomiaValor" aria-hidden="true"></output>
             </fieldset>
             <fieldset>
