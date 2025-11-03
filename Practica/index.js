@@ -31,8 +31,8 @@ app.set("view engine", "ejs");
 
 // Simulated database (in-memory)
 const usuarios = [
-    { username: "admin", password: "admin", profilePicture: "steveCurros.png" },
-    { username: "ivan", password: "ivan", profilePicture: "ivan.jpg" },
+    { username: "admin", password: "admin", profilePicture: "steveCurros.png", role: "admin" },
+    { username: "ivan", password: "ivan", profilePicture: "ivan.jpg", role: "employee" },
 ];
 app.locals.usuarios = usuarios;
 
@@ -45,6 +45,10 @@ app.locals.myUtils = myUtils;
 // Routes
 app.use((req, res, next) => {
     res.locals.active = {};
+    if (req.session.username) {
+        const user = usuarios.find((u) => u.username.toLowerCase() === req.session.username.toLowerCase());
+        if (user) res.locals.user = { username: user.username, profilePicture: user.profilePicture, role: user.role };
+    }
     next();
 });
 

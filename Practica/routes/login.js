@@ -10,7 +10,8 @@ router.post("/", (req, res) => {
     const credentials = req.body;
     const user = usuarios.find((u) => u.username === credentials.username.toLowerCase() && u.password === credentials.password);
     if (user) {
-        req.session.user = user;
+        req.session.username = user.username;
+        res.locals.user = { username: user.username, profilePicture: user.profilePicture, role: user.role };
         res.redirect("/");
     } else {
         res.render("login", {

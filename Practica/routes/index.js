@@ -2,15 +2,17 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-    const user = req.session.user;
-    if (user) {
-        req.app.locals.user = { username: user.username, profilePicture: user.profilePicture };
-    }
     res.render("index", { active: { inicio: true } });
 });
 
 router.get("/registrarse", (req, res) => {
     res.render("registrarse");
+});
+
+router.post("/logout", (req, res) => {
+    req.session.username = null;
+    req.app.locals.user = null;
+    res.redirect("/");
 });
 
 module.exports = router;
