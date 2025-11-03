@@ -1,9 +1,10 @@
+<!-- Layout comun para todas las paginas -->
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="UTF-8" />
-    <title>Mi proyecto</title>
+    <title>PureVolt</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
@@ -14,45 +15,69 @@
 </head>
 
 <body>
+    <!-- Barra de navegacion -->
     <nav class="navbar navbar-expand-md navbar-light bg-body-secondary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">PureVolt</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+            <!-- Nombre de la empresa -->
+            <a class="navbar-brand" href="/inicio">PureVolt</a>
+
+            <!-- Menu hamburguesa para mostrar y ocultar la nav -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarPureVolt" aria-controls="navbarPureVolt"
+                aria-expanded="false" aria-label="Alternar barra de navegación">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <!-- Cuerpo de la barra de navegacion -->
+            <div class="collapse navbar-collapse" id="navbarPureVolt">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <% if(!active) {active = {}} %>
+                    <!-- Marcamos con active y con aria-current=page la sección seleccionada -->
                     <li class="nav-item">
-                        <a class="nav-link <% if(active.inicio){ %>active<% } %>" aria-current="page" href="/">Inicio</a>
+                        <a class="nav-link <%- active.inicio ? 'active' : '' %>" <%- active.inicio ? 'aria-current="page"' : '' %> href="/">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <% if(active.vehiculos){ %>active<% } %>" href="/vehiculos">Vehículos disponibles</a>
+                        <a class="nav-link <%- active.vehiculos ? 'active' : '' %>" <%- active.vehiculos ? 'aria-current="page"' : '' %>
+                            href="/vehiculos">Vehículos disponibles</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <% if(active.reservas){ %>active<% } %>" href="/reservas">Reservar vehículo</a>
+                        <a class="nav-link <%- active.reservas ? 'active' : '' %>" <%- active.reservas ? 'aria-current="page"' : '' %> href="/reservas">Reservar
+                            vehículo</a>
                     </li>
                     <li class="nav-item">
                         <button id="btnAccesibilidad" class="nav-link" data-bs-toggle="modal" data-bs-target="#modalAccesibilidad">Accesibilidad</button>
                     </li>
                 </ul>
+
+                <!-- Boton de iniciar sesion -->
                 <div>
-                    <button class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasUsuario">Iniciar Sesión</button>
+                    <button class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasUsuario" aria-controls="offcanvasUsuario"
+                        aria-expanded="false">Iniciar Sesión</button>
                 </div>
             </div>
         </div>
     </nav>
-    <main class="container my-3 my-md-5"><%- body %></main>
-    <div id="modalAccesibilidad" class="modal" tabindex="-1">
+    <!-- Cuerpo de la pagina -->
+    <main class="container my-3 my-md-5">
+        <!-- Contenido de la pagina -->
+        <%- body %>
+    </main>
+
+    <!-- Modal de opciones de accesibilidad -->
+    <div id="modalAccesibilidad" class="modal" tabindex="-1" aria-labelledby="modalAccesibilidadTitle">
         <div class="modal-dialog">
             <div class="modal-content">
+
+                <!-- Cabecera del modal -->
                 <div class="modal-header">
-                    <h5 class="modal-title">Opciones de accesibilidad</h5>
+                    <h5 class="modal-title" id="modalAccesibilidadTitle">Opciones de accesibilidad</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+
+                <!-- Cuerpo del modal -->
                 <div class="modal-body">
                     <form>
+
+                        <!-- Modos de color -->
                         <fieldset>
                             <legend class="fs-5">Modo de color</legend>
                             <div class="form-check">
@@ -71,6 +96,7 @@
                             </div>
                         </fieldset>
 
+                        <!-- Tamaños de fuente -->
                         <fieldset>
                             <legend class="fs-5">Tamaño de fuente</legend>
                             <div class="form-check">
@@ -88,12 +114,16 @@
                         </fieldset>
                     </form>
                 </div>
+
+                <!-- Footer del modal -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="modalAccesibilidadConfirmar" data-bs-dismiss="modal">Confirmar</button>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Offcanvas de opciones de usuario -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasUsuario" aria-labelledby="offcanvasUsuarioTitle">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasUsuarioTitle">Iniciar Sesión</h5>
