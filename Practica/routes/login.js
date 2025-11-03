@@ -8,7 +8,7 @@ router.get("/", (req, res) => {
 router.post("/", (req, res) => {
     const usuarios = req.app.locals.usuarios;
     const credentials = req.body;
-    const user = usuarios.find((u) => u.username === credentials.username && u.password === credentials.password);
+    const user = usuarios.find((u) => u.username === credentials.username.toLowerCase() && u.password === credentials.password);
     if (user) {
         req.session.user = user;
         res.redirect("/");
