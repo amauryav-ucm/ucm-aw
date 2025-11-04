@@ -162,11 +162,11 @@
                     <span class="fs-5"><%= user.role === "admin" ? "Administrador" : "Empleado" %></span>
                 </div>
                 <div class="mb-3 d-flex align-items-center">
-                    <img src="/img/personas_2/<%= user.profilePicture %>" width="40" height="40" class="d-inline-block align-text-top rounded-circle border"
-                        alt="<%= 'Perfil de ' + user.username %>">
-                    <span class="ms-2"><%= user.username %></span>
+                    <img src="/img/personas_2/<%= user.profilePicture %>" width="40" height="40"
+                        class="d-inline-block align-text-top rounded-circle border me-2" alt="<%= 'Perfil de ' + user.username %>">
+                    <span><%= user.username %></span>
                 </div>
-                <form class="text-center" method="post" action="/logout" novalidate>
+                <form class="text-center" method="post" action="/logout">
                     <button type="submit" class="btn btn-primary">Cerrar Sesión</button>
                 </form>
             </div>

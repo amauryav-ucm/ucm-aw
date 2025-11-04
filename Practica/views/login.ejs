@@ -2,6 +2,8 @@
     <fieldset>
         <legend>Iniciar Sesión</legend>
         <div class="border-top border-bottom py-3">
+
+            <!-- Mostramos una alerta de error si se han introducido las credenciales incorrectas -->
             <% if (locals.wrongCredentials) { %>
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <h5 class="alert-heading">Credenciales incorrectas</h5>
@@ -9,6 +11,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
             </div>
             <% } %>
+
+            <!-- Campos del formulario -->
             <div class="mb-3">
                 <label for="formLoginUsername" class="form-label">Usuario</label>
                 <input type="text" id="formLoginUsername" class="form-control <%= locals.wrongCredentials ? 'is-invalid' : '' %>" name="username">
@@ -18,11 +22,13 @@
                 <input type="password" id="formLoginPassword" class="form-control <%= locals.wrongCredentials ? 'is-invalid' : '' %>" name="password">
             </div>
         </div>
-    </fieldset>
-    <div class="pt-4">
-        <button class="btn btn-primary">Iniciar Sesión</button>
-        <div class="my-3">
-            <a href="/registrarse">Registrarse</a>
+
+        <!-- Boton de iniciar sesion y enlace para registrarse -->
+        <div class="pt-4">
+            <button class="btn btn-primary">Iniciar Sesión</button>
+            <div class="my-3">
+                <a href="/registrarse">Registrarse</a>
+            </div>
         </div>
-    </div>
+    </fieldset>
 </form>
