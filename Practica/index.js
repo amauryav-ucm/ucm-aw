@@ -66,11 +66,11 @@ app.use("/login", routesLogin);
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
-    res.status(500).render("internalerror");
+    res.status(500).render("500");
 });
 
 app.use((req, res) => {
-    res.status(404).render("notfound");
+    res.status(404).render("404");
 });
 
 // Server

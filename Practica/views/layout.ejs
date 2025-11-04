@@ -28,9 +28,9 @@
             <!-- Nombre de la empresa -->
             <a class="navbar-brand" href="/">PureVolt</a>
 
-            <!-- Boton de usuario, order-md-last hace que aparezca a la derecha del todo en pantallas md o mas grandes-->
-            <div class="float-end order-md-last">
-                <a href="#offcanvasUsuario" data-bs-toggle="offcanvas" aria-controls="offcanvasUsuario" aria-label="Abrir panel de usuario">
+            <!-- Boton de usuario para pantallas menos de md -->
+            <div class="float-end d-md-none">
+                <a href="#offcanvasUsuario" data-bs-toggle="offcanvas" aria-controls="offcanvasUsuario" aria-label="Abrir panel de usuario" class="d-block">
                     <img src="/img/personas_2/<%= locals.user ? user.profilePicture : 'noUser.png' %>" width="40" height="40"
                         class="d-inline-block align-text-top rounded-circle border"
                         alt="<%= locals.user ? 'Perfil de ' + user.username : 'Usuario no autenticado' %>">
@@ -59,12 +59,21 @@
                     <!-- Opciones de administrador -->
                     <% if (locals.user && locals.user.role === "admin") { %>
                     <li class="nav-item">
-                        <a class="nav-link <%- active.reservas ? 'active' : '' %>" <%- active.reservas ? 'aria-current="page"' : '' %>
+                        <a class="nav-link <%- active.administracion ? 'active' : '' %>" <%- active.administracion ? 'aria-current="page"' : '' %>
                             href="/admin">Administración</a>
                     </li>
 
                     <% } %>
                 </ul>
+            </div>
+
+            <!-- Boton de usuario para pantallas md o mas -->
+            <div class="float-end d-none d-md-block">
+                <a href="#offcanvasUsuario" data-bs-toggle="offcanvas" aria-controls="offcanvasUsuario" aria-label="Abrir panel de usuario" class="d-block">
+                    <img src="/img/personas_2/<%= locals.user ? user.profilePicture : 'noUser.png' %>" width="40" height="40"
+                        class="d-inline-block align-text-top rounded-circle border"
+                        alt="<%= locals.user ? 'Perfil de ' + user.username : 'Usuario no autenticado' %>">
+                </a>
             </div>
         </div>
     </nav>
@@ -148,8 +157,16 @@
 
         <!-- Cuerpo -->
         <div class="offcanvas-body">
-            <div class="m-3 p-3 border rounded text-center">
-                <form method="post" action="/logout" novalidate>
+            <div class="m-3 p-3 border rounded">
+                <div class="mb-3">
+                    <span class="fs-5"><%= user.role === "admin" ? "Administrador" : "Empleado" %></span>
+                </div>
+                <div class="mb-3 d-flex align-items-center">
+                    <img src="/img/personas_2/<%= user.profilePicture %>" width="40" height="40" class="d-inline-block align-text-top rounded-circle border"
+                        alt="<%= 'Perfil de ' + user.username %>">
+                    <span class="ms-2"><%= user.username %></span>
+                </div>
+                <form class="text-center" method="post" action="/logout" novalidate>
                     <button type="submit" class="btn btn-primary">Cerrar Sesión</button>
                 </form>
             </div>
