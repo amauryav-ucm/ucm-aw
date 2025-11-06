@@ -30,7 +30,16 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 // Simulated database (in-memory)
-const usuarios = [{ id_usuario: 1, correo: "admin@purevolt.es", nombre: "Steve Curros", password: "admin", profilePicture: "steveCurros.png", rol: "admin" }];
+const usuarios = [
+    {
+        id_usuario: 1,
+        correo: "admin@purevolt.es",
+        nombre: "Steve Curros",
+        password: "$2b$10$8ApUW/TFMo.b6a/VCf5k7eEF1HiIHIT6g52hTuC2Ey/r9ekxWhh2O",
+        profilePicture: "steveCurros.png",
+        rol: "admin",
+    },
+];
 app.locals.usuarios = usuarios;
 
 const vehiculos = require("./data/vehiculos.json");
@@ -63,6 +72,9 @@ app.use("/reservas", routesReservas);
 
 const routesLogin = require("./routes/login");
 app.use("/login", routesLogin);
+
+const routesRegistrarse = require("./routes/registrarse");
+app.use("/registrarse", routesRegistrarse);
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
