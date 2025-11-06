@@ -8,10 +8,10 @@ router.get("/", (req, res) => {
 router.post("/", (req, res) => {
     const usuarios = req.app.locals.usuarios;
     const credentials = req.body;
-    const user = usuarios.find((u) => u.username === credentials.username.toLowerCase() && u.password === credentials.password);
+    const user = usuarios.find((u) => u.correo === credentials.correo.toLowerCase() && u.password === credentials.password);
     if (user) {
-        req.session.username = user.username;
-        res.locals.user = { username: user.username, profilePicture: user.profilePicture, role: user.role };
+        req.session.id_usuario = user.id_usuario;
+        console.log(`El usuario con id: ${user.id_usuario} ha iniciado sesión correctamente`);
         res.redirect("/");
     } else {
         res.render("login", {

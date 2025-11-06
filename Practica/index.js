@@ -30,14 +30,13 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 // Simulated database (in-memory)
-const usuarios = [
-    { username: "admin", password: "admin", profilePicture: "steveCurros.png", role: "admin" },
-    { username: "ivan", password: "ivan", profilePicture: "ivan.jpg", role: "employee" },
-];
+const usuarios = [{ id_usuario: 1, correo: "admin@purevolt.es", nombre: "Steve Curros", password: "admin", profilePicture: "steveCurros.png", rol: "admin" }];
 app.locals.usuarios = usuarios;
 
 const vehiculos = require("./data/vehiculos.json");
 app.locals.vehiculos = vehiculos;
+const concesionarios = require("./data/concesionarios.json");
+app.locals.concesionarios = concesionarios;
 
 const myUtils = require("./utils/utils");
 app.locals.myUtils = myUtils;
@@ -45,9 +44,10 @@ app.locals.myUtils = myUtils;
 // Routes
 app.use((req, res, next) => {
     res.locals.active = {};
-    if (req.session.username) {
-        const user = usuarios.find((u) => u.username.toLowerCase() === req.session.username.toLowerCase());
-        if (user) res.locals.user = { username: user.username, profilePicture: user.profilePicture, role: user.role };
+    if (req.session.id_usuario) {
+        console.log(`Usuario con sesion iniciada en la session: ${req.session.id_usuario}`);
+        const user = usuarios.find((u) => u.id_usuario === req.session.id_usuario);
+        if (user) res.locals.user = { correo: user.correo, nombre: user.nombre, profilePicture: user.profilePicture, rol: user.rol };
     }
     next();
 });

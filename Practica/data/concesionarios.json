@@ -1,0 +1,23 @@
+[
+    {
+        "id_concesionario": 1,
+        "nombre": "PureVolt Sevilla",
+        "ciudad": "Sevilla",
+        "dirección": "Av. de la Palmera 123",
+        "teléfono_contacto": "954123456"
+    },
+    {
+        "id_concesionario": 2,
+        "nombre": "PureVolt Madrid",
+        "ciudad": "Madrid",
+        "dirección": "Calle Alcalá 890",
+        "teléfono_contacto": "915678901"
+    },
+    {
+        "id_concesionario": 3,
+        "nombre": "PureVolt Bilbao",
+        "ciudad": "Bilbao",
+        "dirección": "Gran Vía 45",
+        "teléfono_contacto": "944112233"
+    }
+]

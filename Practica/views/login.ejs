@@ -14,12 +14,15 @@
 
             <!-- Campos del formulario -->
             <div class="mb-3">
-                <label for="formLoginUsername" class="form-label">Usuario</label>
-                <input type="text" id="formLoginUsername" class="form-control <%= locals.wrongCredentials ? 'is-invalid' : '' %>" name="username">
+                <label for="formLoginEmail" class="form-label">Correo Electrónico</label>
+                <input type="text" id="formLoginEmail" class="form-control" name="correo" required pattern="^[a-zA-Z0-9]+@purevolt.es$"
+                    placeholder="ejemplo@purevolt.es">
+                <span class="invalid-feedback">Por favor ingresa tu correo electrónico empresarial (@purevolt.es)</span>
             </div>
             <div class="mb-3">
                 <label for="formLoginPassword" class="form-label">Contraseña</label>
-                <input type="password" id="formLoginPassword" class="form-control <%= locals.wrongCredentials ? 'is-invalid' : '' %>" name="password">
+                <input type="password" id="formLoginPassword" class="form-control" name="password" required>
+                <span class="invalid-feedback">Por favor ingresa tu contraseña</span>
             </div>
         </div>
 

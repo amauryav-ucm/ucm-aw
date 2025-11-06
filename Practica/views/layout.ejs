@@ -33,7 +33,7 @@
                 <a href="#offcanvasUsuario" data-bs-toggle="offcanvas" aria-controls="offcanvasUsuario" aria-label="Abrir panel de usuario" class="d-block">
                     <img src="/img/personas_2/<%= locals.user ? user.profilePicture : 'noUser.png' %>" width="40" height="40"
                         class="d-inline-block align-text-top rounded-circle border"
-                        alt="<%= locals.user ? 'Perfil de ' + user.username : 'Usuario no autenticado' %>">
+                        alt="<%= locals.user ? 'Perfil de ' + user.nombre : 'Usuario no autenticado' %>">
                 </a>
             </div>
 
@@ -57,7 +57,7 @@
                     </li>
 
                     <!-- Opciones de administrador -->
-                    <% if (locals.user && locals.user.role === "admin") { %>
+                    <% if (locals.user && locals.user.rol === "admin") { %>
                     <li class="nav-item">
                         <a class="nav-link <%- active.administracion ? 'active' : '' %>" <%- active.administracion ? 'aria-current="page"' : '' %>
                             href="/admin">Administración</a>
@@ -72,7 +72,7 @@
                 <a href="#offcanvasUsuario" data-bs-toggle="offcanvas" aria-controls="offcanvasUsuario" aria-label="Abrir panel de usuario" class="d-block">
                     <img src="/img/personas_2/<%= locals.user ? user.profilePicture : 'noUser.png' %>" width="40" height="40"
                         class="d-inline-block align-text-top rounded-circle border"
-                        alt="<%= locals.user ? 'Perfil de ' + user.username : 'Usuario no autenticado' %>">
+                        alt="<%= locals.user ? 'Perfil de ' + user.nombre : 'Usuario no autenticado' %>">
                 </a>
             </div>
         </div>
@@ -159,12 +159,12 @@
         <div class="offcanvas-body">
             <div class="m-3 p-3 border rounded">
                 <div class="mb-3">
-                    <span class="fs-5"><%= user.role === "admin" ? "Administrador" : "Empleado" %></span>
+                    <span class="fs-5"><%= user.rol === "admin" ? "Administrador" : "Empleado" %></span>
                 </div>
                 <div class="mb-3 d-flex align-items-center">
                     <img src="/img/personas_2/<%= user.profilePicture %>" width="40" height="40"
-                        class="d-inline-block align-text-top rounded-circle border me-2" alt="<%= 'Perfil de ' + user.username %>">
-                    <span><%= user.username %></span>
+                        class="d-inline-block align-text-top rounded-circle border me-2" alt="<%= 'Perfil de ' + user.nombre %>">
+                    <span><%= user.nombre %></span>
                 </div>
                 <form class="text-center" method="post" action="/logout">
                     <button type="submit" class="btn btn-primary">Cerrar Sesión</button>
@@ -186,9 +186,10 @@
             <form class="m-3 p-3 border rounded needs-validation" method="post" action="/login" novalidate>
                 <fieldset>
                     <div class="mb-3">
-                        <label for="formLoginUsername" class="form-label">Usuario</label>
-                        <input type="text" id="formLoginUsername" class="form-control" name="username" required>
-                        <span class="invalid-feedback">Por favor ingresa tu nombre de usuario</span>
+                        <label for="formLoginEmail" class="form-label">Correo Electrónico</label>
+                        <input type="text" id="formLoginEmail" class="form-control" name="correo" required pattern="^[a-zA-Z0-9]+@purevolt.es$"
+                            placeholder="ejemplo@purevolt.es">
+                        <span class="invalid-feedback">Por favor ingresa tu correo electrónico empresarial (@purevolt.es)</span>
                     </div>
                     <div class="mb-3">
                         <label for="formLoginPassword" class="form-label">Contraseña</label>
