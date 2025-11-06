@@ -11,7 +11,6 @@ router.post("/", (req, res) => {
     const user = usuarios.find((u) => u.correo === credentials.correo.toLowerCase() && u.password === credentials.password);
     if (user) {
         req.session.id_usuario = user.id_usuario;
-        console.log(`El usuario con id: ${user.id_usuario} ha iniciado sesión correctamente`);
         res.redirect("/");
     } else {
         res.render("login", {
