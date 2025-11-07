@@ -52,12 +52,22 @@ app.locals.myUtils = myUtils;
 
 // Routes
 app.use((req, res, next) => {
-    res.locals.active = {};
+    if (!res.locals.active) res.locals.active = {};
+    next();
+});
+
+app.use((req, res, next) => {
     if (req.session.id_usuario) {
         console.log(`Usuario con sesion iniciada en la session: ${req.session.id_usuario}`);
         const user = usuarios.find((u) => u.id_usuario === req.session.id_usuario);
         if (user) res.locals.user = { correo: user.correo, nombre: user.nombre, profilePicture: user.profilePicture, rol: user.rol };
     }
+    next();
+});
+
+app.use((req, res, next) => {
+    const acc = req.session.accessibility || {};
+    res.locals.accessibility = { theme: acc.theme || "dark", fontSize: acc.fontSize || "md" };
     next();
 });
 
@@ -75,6 +85,9 @@ app.use("/login", routesLogin);
 
 const routesRegistrarse = require("./routes/registrarse");
 app.use("/registrarse", routesRegistrarse);
+
+const routesAccesibilidad = require("./routes/accesibilidad");
+app.use("/accesibilidad", routesAccesibilidad);
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
