@@ -7,14 +7,23 @@ router.use((req, res, next) => {
 });
 
 router.get("/", (req, res) => {
-    res.render("reservas.ejs", {
+    res.render("reservas", {
         vehiculos: req.app.locals.vehiculos,
         selected: {},
     });
 });
 
+router.post("/", (req, res) => {
+    console.log(req.body);
+    res.redirect("/reservas/confirmacion");
+});
+
+router.get("/confirmacion", (req, res) => {
+    res.render("reservas-confirmacion");
+});
+
 router.get("/:id", (req, res) => {
-    res.render("reservas.ejs", {
+    res.render("reservas", {
         vehiculos: req.app.locals.vehiculos,
         selected: { vehiculo: req.params.id },
     });
