@@ -19,7 +19,7 @@ function nuevoUsuario(user, cb) {
         connection.beginTransaction((err) => {
             if (err) return manejarError(err);
 
-            usuariosModel.readUsuario({ correo: user.correo }, connection, (err, rows) => {
+            usuariosModel.readUsuarios({ correo: user.correo }, connection, (err, rows) => {
                 if (err) return manejarError(err);
                 if (rows.length > 0) {
                     return connection.rollback(() => {
@@ -41,7 +41,7 @@ function nuevoUsuario(user, cb) {
     });
 }
 
-function buscarUsuario(user, cb) {
+function buscarUsuarios(user, cb) {
     dbPool.getConnection((err, connection) => {
         if (err) {
             console.log(err);
@@ -51,7 +51,7 @@ function buscarUsuario(user, cb) {
         connection.beginTransaction((err) => {
             if (err) return manejarError(err);
 
-            usuariosModel.readUsuario(user, connection, (err, rows) => {
+            usuariosModel.readUsuarios(user, connection, (err, rows) => {
                 if (err) return manejarError(err);
 
                 connection.commit((err) => {
@@ -66,5 +66,5 @@ function buscarUsuario(user, cb) {
 
 module.exports = {
     nuevoUsuario: nuevoUsuario,
-    buscarUsuario: buscarUsuario,
+    buscarUsuarios: buscarUsuarios,
 };

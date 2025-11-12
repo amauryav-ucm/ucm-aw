@@ -1,10 +1,30 @@
 const express = require("express");
 const router = express.Router();
 const myUtils = require("../utils/utils.js");
+const vehiculosService = require("../services/vehiculosService");
+const usuariosService = require("../services/usuariosService.js");
 
 router.use((req, res, next) => {
     res.locals.active = { vehiculos: true };
     next();
+});
+
+router.use((req, res, next) => {
+    if (!req.session.id_usuario) return res.redirect("/login");
+    usuariosService.buscarUsuarios({ id_usuario: req.session.id_usuario }, (err, rows) => {
+        if (err) return next(err);
+
+        if (!rows || rows.length < 1) {
+            req.session.id_usuario = null;
+            return res.redirect("/login");
+        }
+        const id_concesionario = rows[0].id_concesionario;
+        vehiculosService.buscarVehiculos({ id_concesionario: id_concesionario }, (err, rows) => {
+            if (err) return next(err);
+            res.locals.vehiculos = rows;
+            return next();
+        });
+    });
 });
 
 router.get("/", (req, res) => {
@@ -16,7 +36,7 @@ router.get("/", (req, res) => {
     filtros.estado = myUtils.paramsToArray(filtros.estado);
 
     // Creamos la lista de vehiculos que cumplen los filtros
-    let vehiculosFiltrados = req.app.locals.vehiculos.filter((v) => {
+    let vehiculosFiltrados = res.locals.vehiculos.filter((v) => {
         return (
             (filtros.color.length === 0 || filtros.color.includes(v.color)) &&
             (filtros.numero_plazas.length === 0 || filtros.numero_plazas.includes(parseInt(v.numero_plazas))) &&
@@ -27,8 +47,8 @@ router.get("/", (req, res) => {
 
     // Creamos sets con las opciones disponibles de color y numero de plazas para mostrarlas en los filtros
     let opciones = {};
-    opciones.color = new Set(req.app.locals.vehiculos.map((v) => v.color));
-    opciones.numero_plazas = new Set(req.app.locals.vehiculos.map((v) => v.numero_plazas));
+    opciones.color = new Set(res.locals.vehiculos.map((v) => v.color));
+    opciones.numero_plazas = new Set(res.locals.vehiculos.map((v) => v.numero_plazas));
 
     console.log(filtros);
     res.render("vehiculos.ejs", {

@@ -8,7 +8,7 @@
                     <option value="" <%= selected.vehiculo ? '' : 'selected' %>>Selecciona un vehículo</option>
                     <% vehiculos.forEach(v => { %>
                     <option value="<%= v.id_vehiculo %>" <%= parseInt(selected.vehiculo)===parseInt(v.id_vehiculo) ? 'selected' : '' %>>
-                        <%= v.marca %> <%= v.modelo %> <%= v.anyo %>
+                        <%= v.matricula %> - <%= v.marca %> <%= v.modelo %> <%= v.anyo %>
                     </option>
                     <% }) %>
                 </select>

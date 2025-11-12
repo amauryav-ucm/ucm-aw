@@ -43,6 +43,7 @@
                     <li class="nav-item">
                         <a class="nav-link <%- active.inicio ? 'active' : '' %>" <%- active.inicio ? 'aria-current="page"' : '' %> href="/">Inicio</a>
                     </li>
+                    <% if (locals.user) { %>
                     <li class="nav-item">
                         <a class="nav-link <%- active.vehiculos ? 'active' : '' %>" <%- active.vehiculos ? 'aria-current="page"' : '' %>
                             href="/vehiculos">Vehículos disponibles</a>
@@ -51,6 +52,7 @@
                         <a class="nav-link <%- active.reservas ? 'active' : '' %>" <%- active.reservas ? 'aria-current="page"' : '' %> href="/reservas">Reservar
                             vehículo</a>
                     </li>
+                    <% } %>
                     <li class="nav-item">
                         <button id="btnAccesibilidad" class="nav-link" data-bs-toggle="modal" data-bs-target="#modalAccesibilidad">Accesibilidad</button>
                     </li>
@@ -156,8 +158,11 @@
         <!-- Cuerpo -->
         <div class="offcanvas-body">
             <div class="m-3 p-3 border rounded">
-                <div class="mb-3">
+                <div>
                     <span class="fs-5"><%= user.rol === "admin" ? "Administrador" : "Empleado" %></span>
+                </div>
+                <div class="mb-3">
+                    <span class="fs-6"><%= user.concesionario.nombre %></span>
                 </div>
                 <div class="mb-3 d-flex align-items-center">
                     <img src="/img/personas_2/<%= user.foto_perfil %>" width="40" height="40" class="d-inline-block align-text-top rounded-circle border me-2"

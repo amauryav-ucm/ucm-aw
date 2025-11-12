@@ -10,7 +10,7 @@ router.get("/", (req, res) => {
 
 router.post("/", (req, res) => {
     const credentials = req.body;
-    usuariosService.buscarUsuario({ correo: credentials.correo }, (err, rows) => {
+    usuariosService.buscarUsuarios({ correo: credentials.correo }, (err, rows) => {
         if (rows.length === 0) {
             console.log("Cuenta no encontrada");
             return res.render("login", { err: "El correo electrónico o constraseña son incorrectos" });

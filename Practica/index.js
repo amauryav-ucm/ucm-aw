@@ -6,6 +6,7 @@ const session = require("express-session");
 const expressLayouts = require("express-ejs-layouts");
 const db = require("./db/dbPool.js");
 const usuariosService = require("./services/usuariosService");
+const concesionariosService = require("./services/concesionariosService");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -31,17 +32,6 @@ app.use(express.static(path.join(__dirname, "public")));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
-// Simulated database (in-memory)
-usuariosService.buscarUsuario({}, (err, rows) => {
-    if (err) console.log(err);
-    app.locals.usuarios = rows;
-});
-
-const vehiculos = require("./data/vehiculos.json");
-app.locals.vehiculos = vehiculos;
-const concesionarios = require("./data/concesionarios.json");
-app.locals.concesionarios = concesionarios;
-
 const myUtils = require("./utils/utils");
 app.locals.myUtils = myUtils;
 
@@ -52,12 +42,24 @@ app.use((req, res, next) => {
 });
 
 app.use((req, res, next) => {
-    if (req.session.id_usuario) {
-        console.log(`Usuario con sesion iniciada en la session: ${req.session.id_usuario}`);
-        const user = app.locals.usuarios.find((u) => u.id_usuario === req.session.id_usuario);
-        if (user) res.locals.user = { correo: user.correo, nombre: user.nombre, foto_perfil: user.foto_perfil, rol: user.rol };
-    }
-    next();
+    if (!req.session.id_usuario) return next();
+
+    console.log(`Usuario con sesion iniciada en la session: ${req.session.id_usuario}`);
+    usuariosService.buscarUsuarios({ id_usuario: req.session.id_usuario }, (err, rows) => {
+        if (err) return next(err);
+
+        if (!rows || rows.length < 1) {
+            req.session.id_usuario = null;
+            return next();
+        }
+
+        const user = rows[0];
+        concesionariosService.buscarConcesionarios({ id_concesionario: user.id_concesionario }, (err, rows) => {
+            if (err || !rows || rows.length < 1) return next(err);
+            res.locals.user = { correo: user.correo, nombre: user.nombre, foto_perfil: user.foto_perfil, rol: user.rol, concesionario: rows[0] };
+            return next();
+        });
+    });
 });
 
 app.use((req, res, next) => {
@@ -84,13 +86,13 @@ app.use("/registrarse", routesRegistrarse);
 const routesAccesibilidad = require("./routes/accesibilidad");
 app.use("/accesibilidad", routesAccesibilidad);
 
+app.use((req, res) => {
+    res.status(404).render("404");
+});
+
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).render("500");
-});
-
-app.use((req, res) => {
-    res.status(404).render("404");
 });
 
 // Server

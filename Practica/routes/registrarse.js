@@ -1,13 +1,17 @@
 const express = require("express");
 const router = express.Router();
 const usuariosService = require("../services/usuariosService");
+const concesionariosService = require("../services/concesionariosService");
 
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
 router.use((req, res, next) => {
-    res.locals.concesionarios = req.app.locals.concesionarios;
-    next();
+    concesionariosService.buscarConcesionarios({}, (err, rows) => {
+        if (err) return next(err);
+        res.locals.concesionarios = rows;
+        return next();
+    });
 });
 
 router.get("/", (req, res) => {
@@ -28,7 +32,6 @@ router.post("/", (req, res) => {
         else {
             user.contrasena = hash;
             console.log(user);
-            req.app.locals.usuarios.push(user);
             // Hacer registro en la base de datos
             usuariosService.nuevoUsuario(user, (err, id) => {
                 if (err) {
