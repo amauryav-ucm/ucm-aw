@@ -4,6 +4,7 @@ const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const expressLayouts = require("express-ejs-layouts");
+const db = require("./db/dbPool.js");
 
 const app = express();
 const PORT = process.env.PORT || 3000;

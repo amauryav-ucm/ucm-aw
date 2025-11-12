@@ -3,6 +3,26 @@
         <legend>Datos de registro</legend>
         <div class="border-top border-bottom py-3 my-3">
 
+            <!-- Mostramos una alerta si ha ocurrido un error -->
+            <% if (locals.err) { %>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <h5 class="alert-heading">No se ha podido registrar la cuenta</h5>
+                <%= locals.err %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+            </div>
+            <% } %>
+
+            <!-- Mostramos una alerta si se ha registrado correctamente -->
+            <% if (locals.success) { %>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <h5 class="alert-heading">Enhorabuena</h5>
+                Tu cuenta se ha creado correctamente
+                <hr>
+                <a href="/login" class="btn btn-primary">Iniciar Sesión</a>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+            </div>
+            <% } %>
+
             <!-- Se ponen en la misma fila en pantallas md o mas -->
             <div class="row g-3 mb-3 row-cols-1 row-cols-md-2">
                 <div class="col">

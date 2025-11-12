@@ -1,13 +1,17 @@
 const express = require("express");
 const router = express.Router();
+const usuariosService = require("../services/usuariosService");
 
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
+router.use((req, res, next) => {
+    res.locals.concesionarios = req.app.locals.concesionarios;
+    next();
+});
+
 router.get("/", (req, res) => {
-    res.render("registrarse", {
-        concesionarios: req.app.locals.concesionarios,
-    });
+    res.render("registrarse", {});
 });
 
 router.post("/", (req, res) => {
@@ -24,12 +28,23 @@ router.post("/", (req, res) => {
     bcrypt.hash(body.password, saltRounds, (err, hash) => {
         if (err) console.log(err);
         else {
-            user.password = hash;
+            user.contrasena = hash;
             console.log(user);
             req.app.locals.usuarios.push(user);
             // Hacer registro en la base de datos
-
-            res.redirect("/login");
+            usuariosService.nuevoUsuario(user, (err, id) => {
+                if (err) {
+                    console.log(err.message);
+                    res.render("registrarse", {
+                        err: err.message,
+                    });
+                } else {
+                    console.log(`Registrado un nuevo usuario con id ${id}`);
+                    res.render("registrarse", {
+                        success: true,
+                    });
+                }
+            });
         }
     });
 });
