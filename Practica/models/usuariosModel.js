@@ -17,15 +17,16 @@ function readUsuario(user, connection, cb) {
     const filtros = Object.keys(user);
 
     // Creamos la clausula where
-    const where = filtros.map((k) => `${k} = ?`).join("AND");
+    const where = filtros.length > 0 ? "WHERE " + filtros.map((k) => `${k} = ?`).join("AND") : "";
 
     // Unimos toda la query
-    const sql = `SELECT * FROM usuarios WHERE ${where}`;
-
+    const sql = `SELECT * FROM usuarios ${where}`;
+    console.log(sql);
     // Creamos el array de valores marcadores
     const params = filtros.map((k) => user[k]);
 
     connection.query(sql, params, (err, rows) => {
+        console.log(rows);
         return cb(err, rows);
     });
 }

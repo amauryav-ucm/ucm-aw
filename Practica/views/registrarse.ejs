@@ -40,13 +40,14 @@
 
             <div class="mb-3">
                 <label for="formRegisterEmail" class="form-label">Correo Electrónico</label>
-                <input type="email" id="formRegisterEmail" class="form-control" name="email" required pattern="^[a-zA-Z0-9]+@purevolt.es$"
+                <input type="email" id="formRegisterEmail" class="form-control" name="correo" required pattern="^[a-zA-Z0-9]+@purevolt.es$"
                     placeholder="ejemplo@purevolt.es">
                 <span class="invalid-feedback">Usa tu correo electrónico empresarial (@purevolt.es)</span>
             </div>
             <div class="mb-3">
                 <label for="formRegisterPassword" class="form-label">Contraseña</label>
-                <input type="password" id="formRegisterPassword" class="form-control" name="password" required pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}">
+                <input type="password" id="formRegisterPassword" class="form-control" name="contrasena" required
+                    pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}">
                 <span class="invalid-feedback">La contraseña debe tener como mínimo 8 caracteres y debe contener al menos una mayúscula, una minúscula y un
                     número</span>
             </div>
@@ -57,7 +58,7 @@
             </div>
             <div class="mb-3">
                 <label for="formRegisterConcesionario" class="form-label">Concesionario</label>
-                <select id="formRegisterConcesionario" class="form-select" name="concesionario" required>
+                <select id="formRegisterConcesionario" class="form-select" name="id_concesionario" required>
                     <option value="">Selecciona un concesionario</option>
                     <% concesionarios.forEach(c => { %>
                     <option value=<%= c.id_concesionario %>><%= c.nombre %></option>

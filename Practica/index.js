@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const expressLayouts = require("express-ejs-layouts");
 const db = require("./db/dbPool.js");
+const usuariosService = require("./services/usuariosService");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -31,17 +32,10 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 // Simulated database (in-memory)
-const usuarios = [
-    {
-        id_usuario: 1,
-        correo: "admin@purevolt.es",
-        nombre: "Steve Curros",
-        password: "$2b$10$8ApUW/TFMo.b6a/VCf5k7eEF1HiIHIT6g52hTuC2Ey/r9ekxWhh2O",
-        profilePicture: "steveCurros.png",
-        rol: "admin",
-    },
-];
-app.locals.usuarios = usuarios;
+usuariosService.buscarUsuario({}, (err, rows) => {
+    if (err) console.log(err);
+    app.locals.usuarios = rows;
+});
 
 const vehiculos = require("./data/vehiculos.json");
 app.locals.vehiculos = vehiculos;
@@ -60,8 +54,8 @@ app.use((req, res, next) => {
 app.use((req, res, next) => {
     if (req.session.id_usuario) {
         console.log(`Usuario con sesion iniciada en la session: ${req.session.id_usuario}`);
-        const user = usuarios.find((u) => u.id_usuario === req.session.id_usuario);
-        if (user) res.locals.user = { correo: user.correo, nombre: user.nombre, profilePicture: user.profilePicture, rol: user.rol };
+        const user = app.locals.usuarios.find((u) => u.id_usuario === req.session.id_usuario);
+        if (user) res.locals.user = { correo: user.correo, nombre: user.nombre, foto_perfil: user.foto_perfil, rol: user.rol };
     }
     next();
 });

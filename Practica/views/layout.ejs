@@ -30,7 +30,7 @@
             <!-- Boton de usuario para pantallas menos de md -->
             <div class="float-end d-md-none">
                 <a href="#offcanvasUsuario" data-bs-toggle="offcanvas" aria-controls="offcanvasUsuario" aria-label="Abrir panel de usuario" class="d-block">
-                    <img src="/img/personas_2/<%= locals.user ? user.profilePicture : 'noUser.png' %>" width="40" height="40"
+                    <img src="/img/personas_2/<%= locals.user ? user.foto_perfil : 'noUser.png' %>" width="40" height="40"
                         class="d-inline-block align-text-top rounded-circle border"
                         alt="<%= locals.user ? 'Perfil de ' + user.nombre : 'Usuario no autenticado' %>">
                 </a>
@@ -69,7 +69,7 @@
             <!-- Boton de usuario para pantallas md o mas -->
             <div class="float-end d-none d-md-block">
                 <a href="#offcanvasUsuario" data-bs-toggle="offcanvas" aria-controls="offcanvasUsuario" aria-label="Abrir panel de usuario" class="d-block">
-                    <img src="/img/personas_2/<%= locals.user ? user.profilePicture : 'noUser.png' %>" width="40" height="40"
+                    <img src="/img/personas_2/<%= locals.user ? user.foto_perfil : 'noUser.png' %>" width="40" height="40"
                         class="d-inline-block align-text-top rounded-circle border"
                         alt="<%= locals.user ? 'Perfil de ' + user.nombre : 'Usuario no autenticado' %>">
                 </a>
@@ -160,8 +160,8 @@
                     <span class="fs-5"><%= user.rol === "admin" ? "Administrador" : "Empleado" %></span>
                 </div>
                 <div class="mb-3 d-flex align-items-center">
-                    <img src="/img/personas_2/<%= user.profilePicture %>" width="40" height="40"
-                        class="d-inline-block align-text-top rounded-circle border me-2" alt="<%= 'Perfil de ' + user.nombre %>">
+                    <img src="/img/personas_2/<%= user.foto_perfil %>" width="40" height="40" class="d-inline-block align-text-top rounded-circle border me-2"
+                        alt="<%= 'Perfil de ' + user.nombre %>">
                     <span><%= user.nombre %></span>
                 </div>
                 <form class="text-center" method="post" action="/logout">
@@ -191,7 +191,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="formLoginPassword" class="form-label">Contraseña</label>
-                        <input type="password" id="formLoginPassword" class="form-control" name="password" required>
+                        <input type="password" id="formLoginPassword" class="form-control" name="contrasena" required>
                         <span class="invalid-feedback">Por favor ingresa tu contraseña</span>
                     </div>
                     <button class="btn btn-primary">Iniciar Sesión</button>

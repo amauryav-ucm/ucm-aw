@@ -17,15 +17,13 @@ router.get("/", (req, res) => {
 router.post("/", (req, res) => {
     const body = req.body;
     const user = {
-        id_usuario: 2,
         nombre: body.nombre + " " + body.apellidos,
-        correo: body.email,
+        correo: body.correo,
         rol: "empleado",
         telefono: body.telefono,
-        id_concesionario: body.concesionario,
-        profilePicture: "noUser.png",
+        id_concesionario: body.id_concesionario,
     };
-    bcrypt.hash(body.password, saltRounds, (err, hash) => {
+    bcrypt.hash(body.contrasena, saltRounds, (err, hash) => {
         if (err) console.log(err);
         else {
             user.contrasena = hash;
