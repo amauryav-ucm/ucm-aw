@@ -8,11 +8,16 @@ router.get("/", (req, res) => {
     res.render("login");
 });
 
+router.post("/", (req, res, next) => {
+    req.body.correo = req.body.correo + "@purevolt.es";
+    next();
+});
+
 router.post("/", (req, res) => {
     const credentials = req.body;
-    usuariosService.buscarUsuarios({ correo: credentials.correo }, (err, rows) => {
+    usuariosService.read({ correo: credentials.correo }, (err, rows) => {
         if (rows.length === 0) {
-            console.log("Cuenta no encontrada");
+            console.log(`DEBUG Cuenta no encontrada: ${credentials.correo}`);
             return res.render("login", { err: "El correo electrónico o constraseña son incorrectos" });
         }
         user = rows[0];
@@ -23,7 +28,7 @@ router.post("/", (req, res) => {
             }
 
             if (!result) {
-                console.log("Contrasena incorrecta");
+                console.log(`DEBUG Contrasena incorrecta para: ${credentials.correo}`);
                 return res.render("login", { err: "El correo electrónico o constraseña son incorrectos" });
             } else {
                 req.session.id_usuario = user.id_usuario;

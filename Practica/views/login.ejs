@@ -15,8 +15,10 @@
             <!-- Campos del formulario -->
             <div class="mb-3">
                 <label for="formLoginEmail" class="form-label">Correo Electrónico</label>
-                <input type="text" id="formLoginEmail" class="form-control" name="correo" required pattern="^[a-zA-Z0-9]+@purevolt.es$"
-                    placeholder="ejemplo@purevolt.es">
+                <div class="input-group">
+                    <input type="text" id="formLoginEmail" class="form-control" name="correo" required>
+                    <span class="input-group-text" id="basic-addon2">@purevolt.es</span>
+                </div>
                 <span class="invalid-feedback">Por favor ingresa tu correo electrónico empresarial (@purevolt.es)</span>
             </div>
             <div class="mb-3">

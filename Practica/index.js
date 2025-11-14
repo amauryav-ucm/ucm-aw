@@ -4,7 +4,7 @@ const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const expressLayouts = require("express-ejs-layouts");
-const db = require("./db/dbPool.js");
+
 const usuariosService = require("./services/usuariosService");
 const concesionariosService = require("./services/concesionariosService");
 
@@ -35,6 +35,44 @@ app.set("view engine", "ejs");
 const myUtils = require("./utils/utils");
 app.locals.myUtils = myUtils;
 
+app.post("*", (req, res, next) => {
+    console.log("DEBUG", req.body);
+    next();
+});
+
+function debugMiddleware(app) {
+    const originalUse = app.use.bind(app);
+
+    app.use = function (...args) {
+        const mw = args[args.length - 1];
+
+        if (typeof mw === "function") {
+            const name = mw.name || "anonymous";
+
+            const wrapped = function (req, res, next) {
+                console.log(`[MW START] ${name} -> ${req.method} ${req.url}`);
+
+                const wrappedNext = (err) => {
+                    if (err) {
+                        console.log(`[MW ERROR] ${name} ->`, err);
+                        return next(err);
+                    }
+                    console.log(`[MW NEXT] ${name}`);
+                    next();
+                };
+
+                return mw(req, res, wrappedNext);
+            };
+
+            args[args.length - 1] = wrapped;
+        }
+
+        return originalUse(...args);
+    };
+}
+
+debugMiddleware(app);
+
 // Routes
 app.use((req, res, next) => {
     if (!res.locals.active) res.locals.active = {};
@@ -44,8 +82,8 @@ app.use((req, res, next) => {
 app.use((req, res, next) => {
     if (!req.session.id_usuario) return next();
 
-    console.log(`Usuario con sesion iniciada en la session: ${req.session.id_usuario}`);
-    usuariosService.buscarUsuarios({ id_usuario: req.session.id_usuario }, (err, rows) => {
+    console.log(`DEBUG Usuario con sesion iniciada en la session: ${req.session.id_usuario}`);
+    usuariosService.read({ id_usuario: req.session.id_usuario }, (err, rows) => {
         if (err) return next(err);
 
         if (!rows || rows.length < 1) {
@@ -54,7 +92,7 @@ app.use((req, res, next) => {
         }
 
         const user = rows[0];
-        concesionariosService.buscarConcesionarios({ id_concesionario: user.id_concesionario }, (err, rows) => {
+        concesionariosService.read({ id_concesionario: user.id_concesionario }, (err, rows) => {
             if (err || !rows || rows.length < 1) return next(err);
             res.locals.user = { correo: user.correo, nombre: user.nombre, foto_perfil: user.foto_perfil, rol: user.rol, concesionario: rows[0] };
             return next();
@@ -86,13 +124,20 @@ app.use("/registrarse", routesRegistrarse);
 const routesAccesibilidad = require("./routes/accesibilidad");
 app.use("/accesibilidad", routesAccesibilidad);
 
-app.use((req, res) => {
-    res.status(404).render("404");
+const routesAdministracion = require("./routes/administracion");
+app.use("/administracion", routesAdministracion);
+
+app.use((req, res, next) => {
+    const err = new Error("Página no encontrada");
+    err.status = 404;
+    next(err);
 });
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
-    res.status(500).render("500");
+    res.render("error", {
+        err: err,
+    });
 });
 
 // Server

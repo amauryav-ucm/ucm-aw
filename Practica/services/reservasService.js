@@ -1,5 +1,5 @@
 const dbPool = require("../db/dbPool");
-const usuariosModel = require("../models/usuariosModel");
+const reservasModel = require("../models/reservasModel");
 
 function crearManejadorError(connection, cb) {
     return (err) => {
@@ -9,7 +9,7 @@ function crearManejadorError(connection, cb) {
     };
 }
 
-function create(usuario, cb) {
+function create(reserva, cb) {
     dbPool.getConnection((err, connection) => {
         if (err) {
             console.log(err);
@@ -19,29 +19,22 @@ function create(usuario, cb) {
         connection.beginTransaction((err) => {
             if (err) return manejarError(err);
 
-            usuariosModel.read({ correo: usuario.correo }, connection, (err, rows) => {
-                if (err) return manejarError(err);
-                if (rows.length > 0) {
-                    return connection.rollback(() => {
-                        connection.release();
-                        cb(new Error("Ya existe una cuenta con el correo electrónico introducido"));
-                    });
-                }
-                usuariosModel.create(usuario, connection, (err, id) => {
-                    if (err) return manejarError(err);
+            // Hacer logica de negocio
 
-                    connection.commit((err) => {
-                        if (err) return manejarError(err);
-                        connection.release();
-                        return cb(null, id);
-                    });
+            reservasModel.create(reserva, connection, (err, id) => {
+                if (err) return manejarError(err);
+
+                connection.commit((err) => {
+                    if (err) return manejarError(err);
+                    connection.release();
+                    return cb(null, id);
                 });
             });
         });
     });
 }
 
-function read(usuario, cb) {
+function read(reserva, cb) {
     dbPool.getConnection((err, connection) => {
         if (err) {
             console.log(err);
@@ -51,7 +44,7 @@ function read(usuario, cb) {
         connection.beginTransaction((err) => {
             if (err) return manejarError(err);
 
-            usuariosModel.read(usuario, connection, (err, rows, fields) => {
+            reservasModel.read(reserva, connection, (err, rows, fields) => {
                 if (err) return manejarError(err);
 
                 connection.commit((err) => {
@@ -65,6 +58,6 @@ function read(usuario, cb) {
 }
 
 module.exports = {
-    create: create,
     read: read,
+    create: create,
 };

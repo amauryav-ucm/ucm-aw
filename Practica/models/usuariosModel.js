@@ -1,33 +1,24 @@
-function createUsuario(user, connection, cb) {
+function create(user, connection, cb) {
     const sql = `INSERT INTO usuarios (nombre, correo, contrasena, rol, telefono, id_concesionario, preferencias_accesibilidad) 
                    VALUES (?, ?, ?, ?, ?, ?, ?)`;
 
     const params = [user.nombre, user.correo, user.contrasena, user.rol, user.telefono, user.id_concesionario, user.preferencias_accesibilidad];
 
-    connection.query(sql, params, (err, result) => {
-        return cb(err, result.insertId);
-    });
+    connection.query(sql, params, (err, result) => cb(err, result.insertId));
 }
 
-// encuentra un usuario o lista de usuarios basado en los atributos que se pasen por el objeto
-function readUsuarios(user, connection, cb) {
-    // Obtenemos los atributos del objeto
+function read(user, connection, cb) {
     const filtros = Object.keys(user);
-
-    // Creamos la clausula where
     const where = filtros.length > 0 ? "WHERE " + filtros.map((k) => `${k} = ?`).join("AND") : "";
-
-    // Unimos toda la query
     const sql = `SELECT * FROM usuarios ${where}`;
-    // Creamos el array de valores marcadores
     const params = filtros.map((k) => user[k]);
 
-    connection.query(sql, params, (err, rows) => {
-        return cb(err, rows);
+    connection.query(sql, params, (err, rows, fields) => {
+        return cb(err, rows, fields);
     });
 }
 
 module.exports = {
-    readUsuarios: readUsuarios,
-    createUsuario: createUsuario,
+    read: read,
+    create: create,
 };

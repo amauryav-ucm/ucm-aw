@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const vehiculosService = require("../services/vehiculosService");
-const usuariosService = require("../services/usuariosService.js");
+const usuariosService = require("../services/usuariosService");
 
 router.use((req, res, next) => {
     res.locals.active = { reservas: true };
@@ -10,7 +10,7 @@ router.use((req, res, next) => {
 
 router.use((req, res, next) => {
     if (!req.session.id_usuario) return res.redirect("/login");
-    usuariosService.buscarUsuarios({ id_usuario: req.session.id_usuario }, (err, rows) => {
+    usuariosService.read({ id_usuario: req.session.id_usuario }, (err, rows) => {
         if (err) return next(err);
 
         if (!rows || rows.length < 1) {
@@ -18,7 +18,7 @@ router.use((req, res, next) => {
             return res.redirect("/login");
         }
         const id_concesionario = rows[0].id_concesionario;
-        vehiculosService.buscarVehiculos({ id_concesionario: id_concesionario }, (err, rows) => {
+        vehiculosService.read({ id_concesionario: id_concesionario }, (err, rows) => {
             if (err) return next(err);
             res.locals.vehiculos = rows;
             return next();
@@ -33,7 +33,6 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-    console.log(req.body);
     res.redirect("/reservas/confirmacion");
 });
 

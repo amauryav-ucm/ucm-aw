@@ -1,0 +1,71 @@
+<% let iconSize=14 %>
+<% let id_col = fields.find(f=>f.name.startsWith("id_")).name %>
+<% let itemName = table.slice(0, -1) %>
+
+<base href="<%= base %>">
+
+<div class="row">
+    <div class="col-2">
+        <a href="/administracion" class="btn btn-secondary" aria-label="Volver" title="Volver">
+            <img src="/icons/arrow-left.svg" alt="Icono flecha izquierda" width="<%= iconSize %>" height="<%= iconSize %>">
+        </a>
+    </div>
+    <div class="col text-center">
+        <h1><%= myUtils.capitalize(itemName) + 's' %></h1>
+    </div>
+    <div class="col-2 text-end">
+        <a href="#" class="btn btn-primary" aria-label="Subir JSON de <%= itemName %>s" title="Subir JSON de <%= itemName %>s">
+            <img src="/icons/file-earmark-arrow-up.svg" alt="Icono subir" width="<%= iconSize %>" height="<%= iconSize %>">
+        </a>
+        <a href="/administracion" class="btn btn-success" aria-label="Insertar <%= itemName %>" title="Insertar <%= itemName %>">
+            <img src="/icons/plus-lg.svg" alt="Icono signo más" width="<%= iconSize %>" height="<%= iconSize %>">
+        </a>
+    </div>
+</div>
+
+
+<div class="table-responsive text-center">
+    <table class="table table-striped w-auto mt-5 mx-auto">
+        <thead>
+            <th scope="col">Control</th>
+            <% fields.forEach(f => { %>
+            <th scope="col"><%= f.name %></th>
+            <% }) %>
+        </thead>
+        <tbody>
+            <% rows.forEach(r => { %>
+            <tr>
+                <td class="d-flex">
+                    <a href="./update/<%= r[id_col] %>" class="btn btn-secondary mx-1" aria-label="Editar <%= itemName %>" title="Editar <%= itemName %>">
+                        <img src="/icons/pencil-square.svg" alt="Icono lápiz" width="<%= iconSize %>" height="<%= iconSize %>">
+                    </a>
+                    <button class="btn btn-danger mx-1" aria-label="Borrar <%= itemName %>" title="Borrar <%= itemName %>">
+                        <img src="/icons/trash-fill.svg" alt="Icono papelera" width="<%= iconSize %>" height="<%= iconSize %>">
+                    </button>
+                </td>
+                <% fields.forEach(f => { %>
+                <td class="text-truncate"><%= r[f.name] %></td>
+                <% }) %>
+            </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+
+<div class="modal fade" id="modalConfirmacion" tabindex="-1" aria-labelledby="modalConfirmacionLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalConfirmacionLabel">Atención</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div id="modalConfirmacionBody" class="modal-body">
+                Estás seguro que desas borrar
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>

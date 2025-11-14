@@ -9,7 +9,7 @@ function crearManejadorError(connection, cb) {
     };
 }
 
-function buscarVehiculos(vehiculo, cb) {
+function read(vehiculo, cb) {
     dbPool.getConnection((err, connection) => {
         if (err) {
             console.log(err);
@@ -19,13 +19,13 @@ function buscarVehiculos(vehiculo, cb) {
         connection.beginTransaction((err) => {
             if (err) return manejarError(err);
 
-            vehiculosModel.readVehiculos(vehiculo, connection, (err, rows) => {
+            vehiculosModel.read(vehiculo, connection, (err, rows, fields) => {
                 if (err) return manejarError(err);
 
                 connection.commit((err) => {
                     if (err) return manejarError(err);
                     connection.release();
-                    return cb(null, rows);
+                    return cb(null, rows, fields);
                 });
             });
         });
@@ -33,5 +33,5 @@ function buscarVehiculos(vehiculo, cb) {
 }
 
 module.exports = {
-    buscarVehiculos: buscarVehiculos,
+    read: read,
 };

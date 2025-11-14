@@ -18,6 +18,7 @@ formResSubmit.addEventListener("click", (e) => {
 });
 
 modalConfirmacion.addEventListener("show.bs.modal", () => {
+    console.log(formResVehiculo.options);
     modalConfirmacionBody.innerHTML = `
         <p>Seguro que desea reservar un ${formResVehiculo.options[formResVehiculo.value].text} desde el ${formResFechaIni.value} a las ${formResHoraIni.value} hasta el ${formResFechaFin.value} a las ${formResHoraFin.value} ?</p>
     `;

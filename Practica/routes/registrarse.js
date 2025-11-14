@@ -7,7 +7,7 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
 router.use((req, res, next) => {
-    concesionariosService.buscarConcesionarios({}, (err, rows) => {
+    concesionariosService.read({}, (err, rows) => {
         if (err) return next(err);
         res.locals.concesionarios = rows;
         return next();
@@ -28,14 +28,15 @@ router.post("/", (req, res) => {
         id_concesionario: body.id_concesionario,
     };
     bcrypt.hash(body.contrasena, saltRounds, (err, hash) => {
-        if (err) console.log(err);
+        if (err)
+            res.render("registrarse", {
+                err: err.message,
+            });
         else {
             user.contrasena = hash;
-            console.log(user);
             // Hacer registro en la base de datos
-            usuariosService.nuevoUsuario(user, (err, id) => {
+            usuariosService.create(user, (err, id) => {
                 if (err) {
-                    console.log(err.message);
                     res.render("registrarse", {
                         err: err.message,
                     });

@@ -9,7 +9,7 @@ function crearManejadorError(connection, cb) {
     };
 }
 
-function buscarConcesionarios(concesionario, cb) {
+function read(concesionario, cb) {
     dbPool.getConnection((err, connection) => {
         if (err) {
             console.log(err);
@@ -19,13 +19,13 @@ function buscarConcesionarios(concesionario, cb) {
         connection.beginTransaction((err) => {
             if (err) return manejarError(err);
 
-            concesionariosModel.readConcesionarios(concesionario, connection, (err, rows) => {
+            concesionariosModel.read(concesionario, connection, (err, rows, fields) => {
                 if (err) return manejarError(err);
 
                 connection.commit((err) => {
                     if (err) return manejarError(err);
                     connection.release();
-                    return cb(null, rows);
+                    return cb(null, rows, fields);
                 });
             });
         });
@@ -33,5 +33,5 @@ function buscarConcesionarios(concesionario, cb) {
 }
 
 module.exports = {
-    buscarConcesionarios: buscarConcesionarios,
+    read: read,
 };
