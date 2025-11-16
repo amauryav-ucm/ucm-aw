@@ -40,6 +40,7 @@ app.post("*", (req, res, next) => {
     next();
 });
 
+/*
 function debugMiddleware(app) {
     const originalUse = app.use.bind(app);
 
@@ -72,7 +73,7 @@ function debugMiddleware(app) {
 }
 
 debugMiddleware(app);
-
+*/
 // Routes
 app.use((req, res, next) => {
     if (!res.locals.active) res.locals.active = {};
