@@ -32,7 +32,16 @@ router.post("/", (req, res) => {
                 return res.render("login", { err: "El correo electrónico o constraseña son incorrectos" });
             } else {
                 req.session.id_usuario = user.id_usuario;
-                return res.redirect("/");
+                usuariosService.getPreferencias(req.session.id_usuario, (err, preferencias) => {
+                if (err) {
+                    console.error("Error al cargar preferencias:", err);
+                    req.session.accessibility = { theme: "dark", fontSize: "md" };
+                } else {
+                    req.session.accessibility = preferencias || { theme: "dark", fontSize: "md" };
+                }
+                    return res.redirect("/");
+                });
+
             }
         });
     });

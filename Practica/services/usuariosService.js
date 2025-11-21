@@ -64,7 +64,31 @@ function read(usuario, cb) {
     });
 }
 
+function setPreferencias(id_usuario, preferencias, cb) {
+    const preferenciasJSON = JSON.stringify(preferencias);
+
+    dbPool.getConnection((error, connection) => {
+        if (error) return cb(error);
+        usuariosModel.setPreferencias(id_usuario, preferenciasJSON, connection, (error, result) => {
+            connection.release();
+            return cb(error, result);
+        });
+    });
+}
+
+function getPreferencias(id_usuario, cb) {
+    dbPool.getConnection((error, connection) => {
+        if (error) return cb(error);
+        usuariosModel.getPreferencias(id_usuario, connection, (error, preferencias) => {
+            connection.release();
+            return cb(error, preferencias);
+        });
+    });
+}
+
 module.exports = {
     create: create,
     read: read,
+    setPreferencias: setPreferencias,
+    getPreferencias, getPreferencias
 };
