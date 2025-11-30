@@ -21,7 +21,7 @@ app.use(
         secret: "purevolt",
         resave: false,
         saveUninitialized: false,
-        cookie: { maxAge: 24*60*60*1000 }
+        cookie: { maxAge: 24 * 60 * 60 * 1000 },
     }),
 );
 app.use(expressLayouts);
@@ -40,8 +40,7 @@ app.post("*", (req, res, next) => {
     console.log("DEBUG", req.body);
     next();
 });
-
-/*
+/* 
 function debugMiddleware(app) {
     const originalUse = app.use.bind(app);
 
@@ -74,7 +73,7 @@ function debugMiddleware(app) {
 }
 
 debugMiddleware(app);
-*/
+ */
 // Routes
 app.use((req, res, next) => {
     if (!res.locals.active) res.locals.active = {};
@@ -96,7 +95,14 @@ app.use((req, res, next) => {
         const user = rows[0];
         concesionariosService.read({ id_concesionario: user.id_concesionario }, (err, rows) => {
             if (err || !rows || rows.length < 1) return next(err);
-            res.locals.user = { correo: user.correo, nombre: user.nombre, foto_perfil: user.foto_perfil, rol: user.rol, concesionario: rows[0] };
+            res.locals.user = {
+                id_usuario: user.id_usuario,
+                correo: user.correo,
+                nombre: user.nombre,
+                foto_perfil: user.foto_perfil,
+                rol: user.rol,
+                concesionario: rows[0],
+            };
             return next();
         });
     });

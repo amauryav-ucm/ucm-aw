@@ -2,9 +2,18 @@
     <fieldset>
         <legend>Datos de reserva</legend>
         <div class="border-top border-bottom py-3 my-3">
+
+            <% if (locals.err) { %>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <h5 class="alert-heading">No se ha podido realizar la reserva</h5>
+                <%= locals.err %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+            </div>
+            <% } %>
+
             <div class="mb-3">
                 <label for="formResVehiculo" class="form-label">Vehículo</label>
-                <select id="formResVehiculo" class="form-select" name="vehiculo" required>
+                <select id="formResVehiculo" class="form-select" name="id_vehiculo" required>
                     <option value="" <%= selected.vehiculo ? '' : 'selected' %>>Selecciona un vehículo</option>
                     <% vehiculos.forEach(v => { %>
                     <option value="<%= v.id_vehiculo %>" <%= parseInt(selected.vehiculo)===parseInt(v.id_vehiculo) ? 'selected' : '' %>>
@@ -14,30 +23,18 @@
                 </select>
                 <span class="invalid-feedback">Debe seleccionar un vehículo</span>
             </div>
-            <div class="row g-3 mb-3 row-cols-1 row-cols-md-2">
-                <div class="col">
-                    <label for="formResFechaIni" class="form-label">Fecha de inicio</label>
-                    <input type="date" id="formResFechaIni" class="form-control" name="fecha_ini" required>
-                    <span class="invalid-feedback">La fecha de inicio no puede ser anterior a la fecha actual</span>
-                </div>
-                <div class="col">
-                    <label for="formResHoraIni" class="form-label">Hora de inicio</label>
-                    <input type="time" id="formResHoraIni" class="form-control" name="hora_ini" required>
-                    <span class="invalid-feedback">Por favor indica la hora de inicio</span>
-                </div>
+            <div class="mb-3">
+                <label for="formResFechaIni" class="form-label">Fecha de inicio</label>
+                <input type="datetime-local" id="formResFechaIni" class="form-control" name="fecha_inicio" required>
+                <span class="invalid-feedback">Debe indicar una fecha de inicio posterior a la actual</span>
             </div>
-            <div class="row g-3 mb-3 row-cols-1 row-cols-md-2">
-                <div class="col">
-                    <label for="formResFechaFin" class="form-label">Fecha de fin</label>
-                    <input type="date" id="formResFechaFin" class="form-control" name="fecha_fin" required>
-                    <span class="invalid-feedback">La fecha de fin no puede ser anterior a la fecha de inicio</span>
-                </div>
-                <div class="col">
-                    <label for="formResHoraFin" class="form-label">Hora de fin</label>
-                    <input type="time" id="formResHoraFin" class="form-control" name="hora_fin" required>
-                    <span class="invalid-feedback">Por favor indica la hora de inicio</span>
-                </div>
+            <div class="mb-3">
+                <label for="formResFechaFin" class="form-label">Fecha de fin</label>
+                <input type="datetime-local" id="formResFechaFin" class="form-control" name="fecha_fin" required>
+                <span class="invalid-feedback">Debe indicar una fecha de fin posterior a la fecha de inicio</span>
             </div>
+            <input type="hidden" id="formResUsuario" name="id_usuario" value="<%= user.id_usuario %>">
+            <input type="hidden" id="formResEstado" name="estado" value="activa">
         </div>
     </fieldset>
 

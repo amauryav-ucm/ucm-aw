@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const vehiculosService = require("../services/vehiculosService");
 const usuariosService = require("../services/usuariosService");
+const reservasService = require("../services/reservasService");
 
 router.use((req, res, next) => {
     res.locals.active = { reservas: true };
@@ -33,7 +34,14 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res) => {
-    res.redirect("/reservas/confirmacion");
+    let reserva = req.body;
+    reserva.fecha_inicio = reserva.fecha_inicio.replace("T", " ") + ":00";
+    reserva.fecha_fin = reserva.fecha_fin.replace("T", " ") + ":00";
+    reservasService.create(reserva, (err, id) => {
+        if (err) return res.render("reservas", { selected: {}, err: err.message });
+
+        res.redirect("/reservas/confirmacion");
+    });
 });
 
 router.get("/confirmacion", (req, res) => {
