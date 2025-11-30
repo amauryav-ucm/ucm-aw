@@ -6,6 +6,7 @@ const reservasService = require("../services/reservasService");
 
 router.use((req, res, next) => {
     res.locals.active = { reservas: true };
+    res.locals.selected = {};
     next();
 });
 
@@ -28,9 +29,7 @@ router.use((req, res, next) => {
 });
 
 router.get("/", (req, res) => {
-    res.render("reservas", {
-        selected: {},
-    });
+    res.render("reservas");
 });
 
 router.post("/", (req, res) => {
@@ -38,7 +37,7 @@ router.post("/", (req, res) => {
     reserva.fecha_inicio = reserva.fecha_inicio.replace("T", " ") + ":00";
     reserva.fecha_fin = reserva.fecha_fin.replace("T", " ") + ":00";
     reservasService.create(reserva, (err, id) => {
-        if (err) return res.render("reservas", { selected: {}, err: err.message });
+        if (err) return res.render("reservas", { err: err.message });
 
         res.redirect("/reservas/confirmacion");
     });
