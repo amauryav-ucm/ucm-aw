@@ -56,6 +56,26 @@
     <div class="offcanvas-body">
         <form class="m-3 p-3 border rounded" id="filtroVehiculosForm" method="GET">
             <fieldset class="border-bottom mb-3 pb-3">
+                <legend class="fs-5">Ciudad</legend>
+                <% opciones.ciudad.forEach(c => { %>
+                <div class="form-check ~form-check-inline">
+                    <input type="checkbox" class="form-check-input" id="filtroVehiculosConcesionario-<%= c %>" name="ciudad" value="<%= c %>"
+                        <%= filtros.ciudad && filtros.ciudad.includes(c.toLowerCase()) ? 'checked' : '' %>>
+                    <label class="form-check-label" for="filtroVehiculosColor-<%= c %>"><%= c %></label>
+                </div>
+                <% }) %>
+            </fieldset>
+            <fieldset class="border-bottom mb-3 pb-3">
+                <legend class="fs-5">Concesionario</legend>
+                <% opciones.concesionario.forEach(c => { %>
+                <div class="form-check ~form-check-inline">
+                    <input type="checkbox" class="form-check-input" id="filtroVehiculosConcesionario-<%= c.id_concesionario %>" name="concesionario"
+                        value="<%= c.id_concesionario %>" <%= filtros.concesionario && filtros.concesionario.includes(c.id_concesionario) ? 'checked' : '' %>>
+                    <label class="form-check-label" for="filtroVehiculosColor-<%= c.id_concesionario %>"><%= c.nombre %></label>
+                </div>
+                <% }) %>
+            </fieldset>
+            <fieldset class="border-bottom mb-3 pb-3">
                 <legend class="fs-5">Color</legend>
                 <div class="form-check ~form-check-inline">
                     <input type="checkbox" class="form-check-input" id="filtroVehiculosColor-all" <%= filtros.color.length===0 ? 'checked' : '' %>>
