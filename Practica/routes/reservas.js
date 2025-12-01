@@ -3,6 +3,7 @@ const router = express.Router();
 const vehiculosService = require("../services/vehiculosService");
 const usuariosService = require("../services/usuariosService");
 const reservasService = require("../services/reservasService");
+const myUtils = require("../utils/utils");
 
 router.use((req, res, next) => {
     res.locals.active = { reservas: true };
@@ -45,6 +46,20 @@ router.post("/", (req, res) => {
 
 router.get("/confirmacion", (req, res) => {
     res.render("reservas-confirmacion");
+});
+
+router.use("/historial", (req, res) => {
+    reservasService.read({ id_usuario: req.session.id_usuario }, (err, reservas) => {
+        if (err) return next(err);
+        vehiculosService.read({}, (err, vehiculos) => {
+            if (err) return next(err);
+            reservas.forEach((r) => {
+                r.vehiculo = vehiculos.find((v) => v.id_vehiculo === r.id_vehiculo);
+            });
+            console.log(reservas);
+            return res.render("reservas-historial", { reservas: reservas, myUtils: myUtils });
+        });
+    });
 });
 
 router.get("/:id", (req, res) => {

@@ -1,0 +1,29 @@
+<h1>Historial de reservas</h1>
+
+<div class="table-responsive text-center">
+    <table class="table table-striped w-auto mt-5 mx-auto">
+        <thead>
+            <th scope="col">Identificador</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Vehículo</th>
+            <th scope="col">Fecha de Inicio</th>
+            <th scope="col">Fecha de Fin</th>
+            <th scope="col">Kilometros Recorridos</th>
+            <th scope="col">Incidencias Reportadas</th>
+        </thead>
+        <tbody>
+            <% reservas.forEach(r => { %>
+            <tr>
+                <% v = r.vehiculo %>
+                <td class="text-truncate"><%= r.id_reserva %></td>
+                <td class="text-truncate"><%= myUtils.capitalize(r.estado) %></td>
+                <td class="text-truncate"><%= v.matricula %> - <%= v.marca %> <%= v.modelo %></td>
+                <td class="text-truncate"><%= myUtils.formatDate(r.fecha_inicio) %></td>
+                <td class="text-truncate"><%= myUtils.formatDate(r.fecha_fin) %></td>
+                <td class="text-truncate"><%= r.kilometros_recorridos %></td>
+                <td class="text-truncate"><%= r.incidencias_reportadas %></td>
+            </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>

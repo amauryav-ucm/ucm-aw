@@ -21,7 +21,21 @@ function paramsToArray(param) {
     else return param;
 }
 
+function formatDate(d) {
+    const pad = (n) => String(n).padStart(2, "0");
+
+    const day = d.getDate();
+    const month = pad(d.getMonth() + 1);
+    const year = d.getFullYear();
+
+    const hours = pad(d.getHours());
+    const minutes = pad(d.getMinutes());
+
+    return `${day}/${month}/${year} ${hours}:${minutes}`;
+}
+
 module.exports = {
     capitalize: capitalize,
     paramsToArray: paramsToArray,
+    formatDate: formatDate,
 };
