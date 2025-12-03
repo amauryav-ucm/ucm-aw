@@ -17,7 +17,7 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 }).addTo(map);
 
 // Obtenemos los datos de los concesionarios
-const concesionarios = [];
+let concesionarios = [];
 
 // Por defecto definimos una ubicación random
 const ubicacionPorDefecto = [40, -3.5];
@@ -103,7 +103,6 @@ function limpiarMapa() {
 // Limpiamos el mapa y añadimos los marcadores de los concesionarios al mapa
 function mostrarTodos() {
   limpiarMapa();
-      mostrarTodos();
 
     if (!concesionarios || concesionarios.length === 0) {
     obtenerConcesionarios(function (err, datos) {
