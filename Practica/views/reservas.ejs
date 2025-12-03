@@ -1,7 +1,8 @@
-<form id="formRes" class="rounded border p-5 needs-validation" method="POST" action="/reservas">
+<form id="formRes" class="rounded border border-3 p-5 needs-validation shadow-lg" method="POST" action="/reservas">
     <fieldset>
-        <legend>Datos de reserva</legend>
-        <div class="border-top border-bottom py-3 my-3">
+        <legend class="text-center fw-bold">Datos de reserva</legend> 
+        
+        <div class="border-5 py-2 my-2">
 
             <% if (locals.err) { %>
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -12,7 +13,7 @@
             <% } %>
 
             <div class="mb-3">
-                <label for="formResVehiculo" class="form-label">Vehículo</label>
+                <label for="formResVehiculo" class="form-label fw-bold">Vehículo</label>
                 <select id="formResVehiculo" class="form-select" name="id_vehiculo" required>
                     <option value="" <%= selected.vehiculo ? '' : 'selected' %>>Selecciona un vehículo</option>
                     <% vehiculos.forEach(v => { %>
@@ -24,12 +25,12 @@
                 <span class="invalid-feedback">Debe seleccionar un vehículo</span>
             </div>
             <div class="mb-3">
-                <label for="formResFechaIni" class="form-label">Fecha de inicio</label>
+                <label for="formResFechaIni" class="form-label fw-bold">Fecha de inicio</label>
                 <input type="datetime-local" id="formResFechaIni" class="form-control" name="fecha_inicio" required>
                 <span class="invalid-feedback">Debe indicar una fecha de inicio posterior a la actual</span>
             </div>
             <div class="mb-3">
-                <label for="formResFechaFin" class="form-label">Fecha de fin</label>
+                <label for="formResFechaFin" class="form-label fw-bold">Fecha de fin</label>
                 <input type="datetime-local" id="formResFechaFin" class="form-control" name="fecha_fin" required>
                 <span class="invalid-feedback">Debe indicar una fecha de fin posterior a la fecha de inicio</span>
             </div>
@@ -39,11 +40,9 @@
     </fieldset>
 
     <fieldset>
-        <div class="d-flex">
+        <div class="d-flex justify-content-center">
             <button id="formResSubmit" class="btn btn-primary me-2" type="button">Enviar</button>
-
-            <button class="btn btn-secondary" type="reset">Limpiar Fromulario</button>
-
+            <button class="btn btn-secondary" type="reset">Limpiar Formulario</button>
         </div>
     </fieldset>
 
