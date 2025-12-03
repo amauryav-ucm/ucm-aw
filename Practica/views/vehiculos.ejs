@@ -1,48 +1,59 @@
-<h1>Vehículos Disponibles</h1>
+<h1 class="text-center">Vehículos Disponibles</h1>
 <button class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasFiltrarVehiculos">Filtrar</button>
 
-<div class="row row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-3">
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-3">
     <% if (vehiculos.length===0) { %>
-    <h5>No se han encontrado vehículos</h5>
+    <div class="col-12">
+        <h5>No se han encontrado vehículos</h5>
+    </div>
     <% } %>
     <% vehiculos.forEach(v => { %>
     <div class="col">
-        <div class="card shadow">
+        <div class="card shadow card-hover h-100 rounded-3 border-3">
             <div class="ratio ratio-16x9">
                 <img src="img/vehiculos/<%= v.imagen %>" class="card-img-top bg-light w-100 h-100 object-fit-contain" alt="<%= v.marca %> <%= v.modelo %>">
             </div>
-            <div class="row card-body">
-                <% let badgeClass = ''; if(v.estado==='disponible') badgeClass = 'text-bg-success'; else if(v.estado==='reservado') badgeClass='text-bg-danger';
-                else badgeClass='texx-bg-warning'; %>
-                <h5 class="card-title"><%= v.marca %> <%= v.modelo %> <span class="badge <%= badgeClass %>"> <%= myUtils.capitalize(v.estado) %></span></h5>
-                <div class="card-text">
-                    <ul>
-                        <li>
-                            Matrícula:
-                            <%= v.matricula %>
+            
+            <div class="p-3 border-bottom border-3">
+                <% let badgeClass = ''; 
+                   if(v.estado==='disponible') badgeClass = 'text-bg-success'; 
+                   else if(v.estado==='reservado') badgeClass='text-bg-danger';
+                   else badgeClass='text-bg-warning'; %>
+                
+                <h5 class="card-title d-flex justify-content-between align-items-center mb-0">
+                    <span><%= v.marca %> <%= v.modelo %></span>
+                    <span class="badge <%= badgeClass %>"><%= myUtils.capitalize(v.estado) %></span>
+                </h5>
+            </div>
+
+            <div class="card-body d-flex flex-column pt-3">
+                
+                <div class="card-text flex-grow-1">
+                    <ul class="list-unstyled">
+                        <li class="mb-1">
+                            <strong>Matrícula:</strong> <%= v.matricula %>
                         </li>
-                        <li>
-                            Año:
-                            <%= v.anyo_matriculacion %>
+                        <li class="mb-1">
+                            <strong>Año:</strong> <%= v.anyo_matriculacion %>
                         </li>
-                        <li>
-                            Número de plazas:
-                            <%= v.numero_plazas %>
+                        <li class="mb-1">
+                            <strong>Plazas:</strong> <%= v.numero_plazas %>
                         </li>
-                        <li>
-                            Autonomía:
-                            <%= v.autonomia_km %>km
+                        <li class="mb-1">
+                            <strong>Autonomía:</strong> <%= v.autonomia_km %> km
                         </li>
-                        <li>
-                            Color:
-                            <%= myUtils.capitalize(v.color) %>
+                        <li class="mb-1">
+                            <strong>Color:</strong> <%= myUtils.capitalize(v.color) %>
                         </li>
                     </ul>
                 </div>
             </div>
-            <div class="card-footer text-center">
+            
+            <div class="card-footer text-center pb-3 border-top border-3">
                 <a href="/reservas/<%= v.id_vehiculo %>"
-                    class="btn <%= v.id_concesionario !== user.concesionario.id_concesionario ? "btn-secondary disabled":"btn-primary" %>">Reservar</a>
+                    class="btn w-100 <%= v.id_concesionario !== user.concesionario.id_concesionario ? "btn-secondary disabled":"btn-primary" %>">
+                    Reservar
+                </a>
             </div>
         </div>
     </div>
@@ -59,7 +70,7 @@
             <fieldset class="border-bottom mb-3 pb-3">
                 <legend class="fs-5">Ciudad</legend>
                 <% opciones.ciudad.forEach(c => { %>
-                <div class="form-check ~form-check-inline">
+                <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="filtroVehiculosConcesionario-<%= c %>" name="ciudad" value="<%= c %>"
                         <%= filtros.ciudad && filtros.ciudad.includes(c.toLowerCase()) ? 'checked' : '' %>>
                     <label class="form-check-label" for="filtroVehiculosColor-<%= c %>"><%= c %></label>
@@ -69,7 +80,7 @@
             <fieldset class="border-bottom mb-3 pb-3">
                 <legend class="fs-5">Concesionario</legend>
                 <% opciones.concesionario.forEach(c => { %>
-                <div class="form-check ~form-check-inline">
+                <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="filtroVehiculosConcesionario-<%= c.id_concesionario %>" name="concesionario"
                         value="<%= c.id_concesionario %>" <%= filtros.concesionario && filtros.concesionario.includes(c.id_concesionario) ? 'checked' : '' %>>
                     <label class="form-check-label" for="filtroVehiculosColor-<%= c.id_concesionario %>"><%= c.nombre %></label>
@@ -78,12 +89,12 @@
             </fieldset>
             <fieldset class="border-bottom mb-3 pb-3">
                 <legend class="fs-5">Color</legend>
-                <div class="form-check ~form-check-inline">
+                <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="filtroVehiculosColor-all" <%= filtros.color.length===0 ? 'checked' : '' %>>
                     <label class="form-check-label" for="filtroVehiculosColor-all">Todos</label>
                 </div>
                 <% opciones.color.forEach(c => { %>
-                <div class="form-check ~form-check-inline">
+                <div class="form-check">
                     <input type="checkbox" class="form-check-input filtroVehiculosColor-option" id="filtroVehiculosColor-<%= c.replace(/\s+/g, '-') %>"
                         name="color" value="<%= c %>" <%= filtros.color && filtros.color.includes(c) ? 'checked' : '' %>>
                     <label class="form-check-label" for="filtroVehiculosColor-<%= c.replace(/\s+/g, '-') %>"><%= myUtils.capitalize(c) %></label>
@@ -92,13 +103,13 @@
             </fieldset>
             <fieldset class="border-bottom pb-3 mb-3">
                 <legend class="fs-5">Número de plazas</legend>
-                <div class="form-check ~form-check-inline">
+                <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="filtroVehiculosNumeroPlazas-all"
                         <%= filtros.numero_plazas.length===0 ? 'checked' : '' %>>
                     <label class="form-check-label" for="filtroVehiculosNumeroPlazas-all">Todos</label>
                 </div>
                 <% opciones.numero_plazas.forEach(p => { %>
-                <div class="form-check ~form-check-inline">
+                <div class="form-check">
                     <input type="checkbox" class="form-check-input filtroVehiculosNumeroPlazas-option" id="filtroVehiculosNumeroPlazas-<%= p %>"
                         name="numero_plazas" value="<%= p %>" <%= filtros.numero_plazas && filtros.numero_plazas.includes(p) ? 'checked' : '' %>>
                     <label class="form-check-label" for="filtroVehiculosNumeroPlazas-<%= p %>"><%= p %></label>
@@ -114,14 +125,15 @@
             <fieldset>
                 <div class="g-1 row row-cols-1 row-cols-md-2">
                     <div class="col">
-                        <button id="filtroVehiculosConfirm" class="btn btn-primary" type="submit">Confirmar</button>
+                        <button id="filtroVehiculosConfirm" class="btn btn-primary w-100" type="submit">Confirmar</button>
                     </div>
                     <div class="col">
-                        <button class="btn btn-secondary" type="reset" id="filtroVehiculosReset">Limpiar Filtros</button>
+                        <button class="btn btn-secondary w-100" type="reset" id="filtroVehiculosReset">Limpiar</button>
                     </div>
                 </div>
             </fieldset>
         </form>
+        
     </div>
 </div>
 
