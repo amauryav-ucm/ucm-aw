@@ -1,13 +1,13 @@
 html.font-sm {
-    font-size: 14px;
+    font-size: 80%;
 }
 
 html.font-md {
-    font-size: 16px;
+    font-size: 100%;
 }
 
 html.font-lg {
-    font-size: 20px;
+    font-size: 120%;
 }
 
 body {
