@@ -23,3 +23,22 @@ main {
 footer {
     padding: 1rem 0;
 }
+
+a.card-animacion {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-decoration: none;
+}
+
+a.card-animacion:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.175);
+    cursor: pointer;
+}
+
+.icon-animacion {
+    transition: transform 0.2s ease;
+}
+
+a.card-animacion:hover .icon-animacion {
+    transform: scale(1.3);
+}
