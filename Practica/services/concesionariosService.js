@@ -32,6 +32,18 @@ function read(concesionario, cb) {
     });
 }
 
+function obtenerUbicacionConcesionarios(callback) {
+  concesionariosModel.obtenerCoordenadasConcesionarios(pool, function (err, dealers) {
+    if (err) {
+      console.error('Error al obtener las coordenadas del usuario:', err);
+      return callback(err);
+    }
+    callback(null, dealers);
+  });
+}
+
+
 module.exports = {
     read: read,
+    obtenerUbicacionConcesionarios: obtenerUbicacionConcesionarios
 };

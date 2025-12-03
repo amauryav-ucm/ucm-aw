@@ -4,25 +4,16 @@
 
 <base href="<%= base %>">
 
-<div class="row">
-    <div class="col-2">
-        <a href="/administracion" class="btn btn-secondary" aria-label="Volver" title="Volver">
-            <img src="/icons/arrow-left.svg" alt="Icono flecha izquierda" width="<%= iconSize %>" height="<%= iconSize %>">
-        </a>
-    </div>
-    <div class="col text-center">
-        <h1><%= myUtils.capitalize(itemName) + 's' %></h1>
-    </div>
-    <div class="col-2 text-end">
-        <a href="#" class="btn btn-primary" aria-label="Subir JSON de <%= itemName %>s" title="Subir JSON de <%= itemName %>s">
-            <img src="/icons/file-earmark-arrow-up.svg" alt="Icono subir" width="<%= iconSize %>" height="<%= iconSize %>">
-        </a>
-        <a href="/administracion" class="btn btn-success" aria-label="Insertar <%= itemName %>" title="Insertar <%= itemName %>">
-            <img src="/icons/plus-lg.svg" alt="Icono signo más" width="<%= iconSize %>" height="<%= iconSize %>">
-        </a>
-    </div>
+<div class="row mb-3">
+  <div class="col"><h1>Administración</h1></div>
+  <div class="col-2 text-end">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalJsonImport" title="Subir JSON">
+      <img src="/icons/file-earmark-arrow-up.svg" alt="subir" width="18" height="18">
+    </button>
+  </div>
 </div>
 
+<%- include('import-json') %>
 
 <div class="table-responsive text-center">
     <table class="table table-striped w-auto mt-5 mx-auto">
@@ -69,3 +60,5 @@
         </div>
     </div>
 </div>
+
+<script src="/js/import-json.js"></script>
