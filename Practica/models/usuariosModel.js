@@ -9,7 +9,7 @@ function create(user, connection, cb) {
 
 function read(user, connection, cb) {
     const filtros = Object.keys(user);
-    const where = filtros.length > 0 ? "WHERE " + filtros.map((k) => `${k} = ?`).join("AND") : "";
+    const where = filtros.length > 0 ? "WHERE " + filtros.map((k) => `${k} = ?`).join(" AND ") : "";
     const sql = `SELECT * FROM usuarios ${where}`;
     const params = filtros.map((k) => user[k]);
 
@@ -35,15 +35,14 @@ function getPreferencias(user_id, connection, cb) {
     });
 }
 
-function setPreferencias(user_id, preferencias, connection, cb){
+function setPreferencias(user_id, preferencias, connection, cb) {
     const sql = `UPDATE usuarios SET preferencias_accesibilidad = ? WHERE id_usuario = ?`;
     const params = [preferencias, user_id];
 
     connection.query(sql, params, (err, result) => {
-        if (err)
-            return cb(err);
-        return cb(null,result)
-    })
+        if (err) return cb(err);
+        return cb(null, result);
+    });
 }
 
 module.exports = {

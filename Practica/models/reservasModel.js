@@ -15,7 +15,7 @@ function create(reserva, connection, cb) {
 
 function read(user, connection, cb) {
     const filtros = Object.keys(user);
-    const where = filtros.length > 0 ? "WHERE " + filtros.map((k) => `${k} = ?`).join("AND") : "";
+    const where = filtros.length > 0 ? "WHERE " + filtros.map((k) => `${k} = ?`).join(" AND ") : "";
     const sql = `SELECT * FROM reservas ${where}`;
     const params = filtros.map((k) => user[k]);
 

@@ -44,8 +44,8 @@ function remove(vehiculo, connection, cb) {
 }
 
 module.exports = {
-    read: read,
     create: create,
+    read: read,
     update: update,
     remove: remove,
 };
