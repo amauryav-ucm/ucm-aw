@@ -1,9 +1,7 @@
-<form id="formLogin" aria-label="Formulario de inicio de sesión" method="POST" class="rounded border p-5">
+<form id="formLogin" aria-label="Formulario de inicio de sesión" method="POST" class="rounded border border-3 p-5 needs-validation" novalidate>
     <fieldset>
-        <legend>Iniciar Sesión</legend>
-        <div class="border-top border-bottom py-3">
-
-            <!-- Mostramos una alerta de error si se han introducido las credenciales incorrectas -->
+        <legend class="text-center fw-bold">Iniciar Sesión</legend>
+        <div class="py-3">
             <% if (locals.err) { %>
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <h5 class="alert-heading">No se ha podido iniciar sesión</h5>
@@ -12,28 +10,25 @@
             </div>
             <% } %>
 
-            <!-- Campos del formulario -->
             <div class="mb-3">
-                <label for="formLoginEmail" class="form-label">Correo Electrónico</label>
+                <label for="formLoginEmail" class="form-label fw-bold">Correo Electrónico</label>
                 <div class="input-group">
-                    <input type="text" id="formLoginEmail" class="form-control" name="correo" required>
+                    <input type="text" id="formLoginEmail" class="form-control" name="correo" required 
+                        pattern="^[a-zA-Z0-9]+$" title="Solo se permiten letras y números.">
                     <span class="input-group-text" id="basic-addon2">@purevolt.es</span>
                 </div>
-                <span class="invalid-feedback">Por favor ingresa tu correo electrónico empresarial (@purevolt.es)</span>
+                <span class="invalid-feedback">Por favor, ingresa solo letras y números (la parte antes de @purevolt.es).</span>
             </div>
             <div class="mb-3">
-                <label for="formLoginPassword" class="form-label">Contraseña</label>
-                <input type="password" id="formLoginPassword" class="form-control" name="contrasena" required>
-                <span class="invalid-feedback">Por favor ingresa tu contraseña</span>
+                <label for="formLoginPassword" class="form-label fw-bold">Contraseña</label>
+                <input type="password" id="formLoginPassword" class="form-control" name="contrasena" required pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}">
+                <span class="invalid-feedback">La contraseña debe tener como mínimo 8 caracteres y debe contener al menos una mayúscula, una minúscula y un número</span>
             </div>
         </div>
 
-        <!-- Boton de iniciar sesion y enlace para registrarse -->
-        <div class="pt-4">
-            <button class="btn btn-primary">Iniciar Sesión</button>
-            <div class="my-3">
-                <a href="/registrarse">Registrarse</a>
-            </div>
+        <div class="pt-4 d-flex flex-column flex-md-row gap-5">
+            <button class="btn btn-primary flex-fill" type="submit">Iniciar Sesión</button>
+            <a href="/registrarse" class="btn btn-success flex-fill text-decoration-none">Registrarse</a>
         </div>
     </fieldset>
 </form>
