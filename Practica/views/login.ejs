@@ -13,16 +13,15 @@
             <div class="mb-3">
                 <label for="formLoginEmail" class="form-label fw-bold">Correo Electrónico</label>
                 <div class="input-group">
-                    <input type="text" id="formLoginEmail" class="form-control" name="correo" required 
-                        pattern="^[a-zA-Z0-9]+$" title="Solo se permiten letras y números.">
+                    <input type="text" id="formLoginEmail" class="form-control" name="correo" required pattern="^[a-zA-Z0-9]+$"
+                        title="Solo se permiten letras y números.">
                     <span class="input-group-text" id="basic-addon2">@purevolt.es</span>
                 </div>
                 <span class="invalid-feedback">Por favor, ingresa solo letras y números (la parte antes de @purevolt.es).</span>
             </div>
             <div class="mb-3">
                 <label for="formLoginPassword" class="form-label fw-bold">Contraseña</label>
-                <input type="password" id="formLoginPassword" class="form-control" name="contrasena" required pattern="(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}">
-                <span class="invalid-feedback">La contraseña debe tener como mínimo 8 caracteres y debe contener al menos una mayúscula, una minúscula y un número</span>
+                <input type="password" id="formLoginPassword" class="form-control" name="contrasena" required>
             </div>
         </div>
 

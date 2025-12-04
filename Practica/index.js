@@ -38,6 +38,7 @@ app.locals.myUtils = myUtils;
 
 app.post("*", (req, res, next) => {
     console.log("DEBUG", req.body);
+    console.log("DEBUG", req.url);
     next();
 });
 /* 
