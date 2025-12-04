@@ -190,16 +190,16 @@
 
         <!-- Titulo -->
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasUsuarioTitle">Iniciar Sesión</h5>
+            <h5 class="offcanvas-title text-center fw-bold" id="offcanvasUsuarioTitle">Iniciar Sesión</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
 
         <!-- Cuerpo -->
         <div class="offcanvas-body">
-            <form class="m-3 p-3 border rounded needs-validation" method="post" action="/login" novalidate>
+            <form class="border rounded p-4 needs-validation" method="post" action="/login" novalidate>
                 <fieldset>
-                    <div class="mb-3">
-                        <label for="formLoginEmail" class="form-label">Correo Electrónico</label>
+                    <div class="mb-2">
+                        <label for="formLoginEmail" class="form-label fw-bold">Correo Electrónico</label>
                         <div class="input-group">
                             <input type="text" id="formLoginEmail" class="form-control" name="correo" required>
                             <span class="input-group-text" id="basic-addon2">@purevolt.es</span>
@@ -207,15 +207,18 @@
                         <span class="invalid-feedback">Por favor ingresa tu correo electrónico empresarial (@purevolt.es)</span>
                     </div>
                     <div class="mb-3">
-                        <label for="formLoginPassword" class="form-label">Contraseña</label>
+                        <label for="formLoginPassword" class="form-label fw-bold">Contraseña</label>
                         <input type="password" id="formLoginPassword" class="form-control" name="contrasena" required>
                         <span class="invalid-feedback">Por favor ingresa tu contraseña</span>
                     </div>
-                    <button class="btn btn-primary">Iniciar Sesión</button>
+                    
+                    <div class="d-flex justify-content-center gap-4 mt-4">
+                        <button class="btn btn-primary">Iniciar Sesión</button>
+                        
+                        <a href="/registrarse" class="btn btn-success text-decoration-none">Registrarse</a>
+                    </div>
+
                 </fieldset>
-                <div class="my-3">
-                    <a href="/registrarse">Registrarse</a>
-                </div>
             </form>
         </div>
         <% } %>
