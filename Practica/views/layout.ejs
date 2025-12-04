@@ -189,16 +189,13 @@
                     <p class="text-secondary mb-3"><i class="bi bi-building me-1"></i> <%= user.concesionario.nombre %></p>
 
                     <!-- Botón de cerrar sesión -->
-                    <form method="post" action="/logout">
+                    <form class="mt-3 text-center" method="post" action="/logout">
                         <button type="submit" class="btn btn-outline-primary w">
                             <i class="bi bi-box-arrow-right me-1"></i> Cerrar Sesión
                         </button>
                     </form>
                 </div>
                 <a href="/reservas/historial">Mis Reservas</a>
-                <form class="mt-3 text-center" method="post" action="/logout">
-                    <button type="submit" class="btn btn-primary">Cerrar Sesión</button>
-                </form>
             </div>
         </div>
 
