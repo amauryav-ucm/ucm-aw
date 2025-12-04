@@ -54,6 +54,17 @@ function read(concesionario, cb) {
     });
 }
 
+function obtenerUbicacionConcesionarios(callback) {
+  concesionariosModel.obtenerCoordenadasConcesionarios(pool, function (err, dealers) {
+    if (err) {
+      console.error('Error al obtener las coordenadas del usuario:', err);
+      return callback(err);
+    }
+    callback(null, dealers);
+  });
+}
+
+
 function update(concesionario, cb) {
     dbPool.getConnection((err, connection) => {
         if (err) {
@@ -117,6 +128,7 @@ function remove(vehiculo, cb) {
 module.exports = {
     create: create,
     read: read,
+    obtenerUbicacionConcesionarios: obtenerUbicacionConcesionarios,
     update: update,
     remove: remove,
 };
