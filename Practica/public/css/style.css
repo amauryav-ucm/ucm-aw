@@ -106,3 +106,32 @@ a.card-animacion:hover .icon-animacion {
 .star-rating input:checked~label {
     color: #ffc107;
 }
+
+
+
+
+
+
+
+
+
+
+.carousel-item>div {
+    border-radius: 30px;
+    border: 5px solid gray;
+    box-shadow: 0 10px 30px black;
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 50px;
+    text-align: center;
+    transition: transform 0.5s ease, border-color 0.2s ease;
+}
+
+.carousel-item>div:hover {
+    transform: translateY(-10px);
+}
+
+.carousel-inner {
+    padding-bottom: 50px;
+    padding: 50px 0;
+}
