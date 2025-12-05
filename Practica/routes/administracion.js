@@ -22,6 +22,9 @@ router.use("/vehiculos", routerAdministracionVehiculos);
 const routerAdministracionConcesionarios = require("./administracionConcesionarios");
 router.use("/concesionarios", routerAdministracionConcesionarios);
 
+const routerAdministracionReservas = require("./administracionReservas");
+router.use("/reservas", routerAdministracionReservas);
+
 router.use((req, res, next) => {
     res.locals.myUtils = req.app.locals.myUtils;
     next();

@@ -1,0 +1,86 @@
+<% formTitle = "Modificar Reserva" %>
+<%
+const pad = n => String(n).padStart(2, "0");
+
+const dateValue = d=>{
+        d = new Date(d);
+        str =
+  d.getFullYear() + "-" +
+  pad(d.getMonth() + 1) + "-" +
+  pad(d.getDate()) + "T" +
+  pad(d.getHours()) + ":" +
+  pad(d.getMinutes());
+  return str
+}
+
+%>
+
+<form id="formLogin" method="POST" class="rounded border border-3 p-5 needs-validation" novalidate>
+    <fieldset>
+        <legend class="text-center fw-bold"><%= formTitle %></legend>
+        <div class="py-3">
+            <% if (locals.err) { %>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <h5 class="alert-heading">Ha ocurrido un error</h5>
+                <%= locals.err %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+            </div>
+            <% } %>
+
+            <% if (locals.success) { %>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <h5 class="alert-heading">Enhorabuena</h5>
+                La acción se ha completado con éxito
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+                <hr>
+                <a class="btn btn-secondary" href="/administracion/reservas">Volver</a>
+            </div>
+            <% } %>
+
+            <div class="mb-3">
+                <label for="id_reserva" class="form-label fw-bold">ID Reserva</label>
+                <input type="text" id="id_reserva" class="form-control-plaintext" name="id_reserva" value="<%= reserva.id_reserva %>" required readonly>
+            </div>
+
+
+            <div class="mb-3">
+                <label for="id_usuario" class="form-label fw-bold">ID Usuario</label>
+                <input type="text" id="id_usuario" class="form-control-plaintext" name="id_usuario" value="<%= reserva.id_usuario %>" required readonly>
+            </div>
+
+
+            <div class="mb-3">
+                <label for="id_vehiculo" class="form-label fw-bold">ID Vehiculo</label>
+                <input type="text" id="id_vehiculo" class="form-control-plaintext" name="id_vehiculo" value="<%= reserva.id_vehiculo %>" required readonly>
+            </div>
+
+            <div class="mb-3">
+                <label for="fecha_inicio" class="form-label fw-bold">Feha de Inicio</label>
+                <input type="datetime-local" id="fecha_inicio" class="form-control" name="fecha_inicio" value="<%= dateValue(reserva.fecha_inicio) %>" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="fecha_fin" class="form-label fw-bold">Feha de Fin</label>
+                <input type="datetime-local" id="fecha_fin" class="form-control" name="fecha_fin" value="<%= dateValue(reserva.fecha_fin) %>" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="kilometros_recorridos" class="form-label fw-bold">Kilómetros Recorridos</label>
+                <input type="number" id="kilometros_recorridos" class="form-control" name="kilometros_recorridos"
+                    value="<%= parseInt(reserva.kilometros_recorridos) %>">
+            </div>
+
+            <div class="mb-3">
+                <label for="incidencias_reportadas" class="form-label fw-bold">Incidencias</label>
+                <textarea rows="3" id="incidencias_reportadas" class="form-control"
+                    name="incidencias_reportadas"><%= reserva.incidencias_reportadas %></textarea>
+            </div>
+
+
+        </div>
+
+        <div class="pt-4">
+            <button class="btn btn-primary flex-fill" type="submit">Confirmar</button>
+        </div>
+    </fieldset>
+</form>

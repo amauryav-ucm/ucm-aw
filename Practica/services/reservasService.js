@@ -94,6 +94,66 @@ function finalizarReserva(id_reserva, cb) {
     });
 }
 
+function update(reserva, cb) {
+    dbPool.getConnection((err, connection) => {
+        if (err) {
+            console.log(err);
+            return cb(new Error("Ha ocurrido un error, intentalo de nuevo más tarde"));
+        }
+        const manejarError = crearManejadorError(connection, cb);
+        connection.beginTransaction((err) => {
+            if (err) return manejarError(err);
+            reservasModel.read({ id_reserva: reserva.id_reserva }, connection, (err, rows) => {
+                if (err) return manejarError(err);
+                if (rows.length === 0) {
+                    return connection.rollback(() => {
+                        connection.release();
+                        cb(new Error("No se ha encontrado el concesionario"));
+                    });
+                }
+                let oldReserva = rows[0];
+                let changes = {};
+                Object.keys(reserva).forEach((k) => {
+                    if (reserva[k] !== oldReserva[k]) changes[k] = reserva[k];
+                });
+                changes.id_reserva = reserva.id_reserva;
+                reservasModel.update(changes, connection, (err, result) => {
+                    if (err) return manejarError(err);
+
+                    connection.commit((err) => {
+                        if (err) return manejarError(err);
+                        connection.release();
+                        return cb(null, result);
+                    });
+                });
+            });
+        });
+    });
+}
+
+function remove(reserva, cb) {
+    dbPool.getConnection((err, connection) => {
+        if (err) {
+            console.log(err);
+            return cb(new Error("Ha ocurrido un error, intentalo de nuevo más tarde"));
+        }
+        const manejarError = crearManejadorError(connection, cb);
+        connection.beginTransaction((err) => {
+            if (err) return manejarError(err);
+
+            reservasModel.remove(reserva, connection, (err, result) => {
+                if (err) return manejarError(err);
+
+                connection.commit((err) => {
+                    if (err) return manejarError(err);
+                    connection.release();
+                    return cb(null, result.affectedRows);
+                });
+            });
+        });
+    });
+}
+
 function readComentariosYValoraciones(cb) {
     read({}, (err, rows) => {
         if (err) return cb(err);
@@ -120,6 +180,8 @@ function readComentariosYValoraciones(cb) {
 module.exports = {
     read: read,
     create: create,
+    update: update,
+    remove: remove,
     finalizarReserva: finalizarReserva,
     readComentariosYValoraciones: readComentariosYValoraciones,
 };

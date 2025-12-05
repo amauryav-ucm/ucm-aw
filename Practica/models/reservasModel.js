@@ -32,4 +32,15 @@ function update(reserva, connection, cb) {
     connection.query(sql, params, (err, result) => cb(err, result));
 }
 
-module.exports = { create: create, read: read, update: update };
+function remove(reserva, connection, cb) {
+    const filtros = Object.keys(reserva);
+    if (filtros.length === 0) {
+        return cb(new Error("Se requiere al menos un filtro"));
+    }
+    const where = "WHERE " + filtros.map((k) => `${k} = ?`).join(" AND ");
+    const sql = `DELETE FROM reservas ${where}`;
+    const params = filtros.map((k) => reserva[k]);
+    connection.query(sql, params, (err, result) => cb(err, result));
+}
+
+module.exports = { create: create, read: read, update: update, remove: remove };
