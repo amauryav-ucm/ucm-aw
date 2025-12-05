@@ -64,6 +64,17 @@ const dateValue = d=>{
                 <input type="datetime-local" id="fecha_fin" class="form-control" name="fecha_fin" value="<%= dateValue(reserva.fecha_fin) %>" required>
             </div>
 
+
+            <div class="mb-3">
+                <label for="estado" class="form-label fw-bold">Estado</label>
+                <select id="estado" class="form-select" name="estado" required>
+                    <% ["activa", "cancelada", "finalizada"].forEach(s => { %>
+                    <option value=<%= s %> <%= method==="update" && s===reserva.estado ? "selected" : "" %>><%=s.charAt(0).toUpperCase() + s.slice(1)%>
+                    </option>
+                    <% }) %>
+                </select>
+            </div>
+
             <div class="mb-3">
                 <label for="kilometros_recorridos" class="form-label fw-bold">Kilómetros Recorridos</label>
                 <input type="number" id="kilometros_recorridos" class="form-control" name="kilometros_recorridos"

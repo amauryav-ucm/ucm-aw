@@ -1,9 +1,11 @@
+<% let iconSize=14 %>
+
 <h1>Historial de reservas</h1>
 
 <div class="table-responsive text-center">
     <table class="table table-striped w-auto mt-5 mx-auto">
         <thead>
-            <th scope="col">Finalizar</th>
+            <th scope="col">Control</th>
             <th scope="col">Identificador</th>
             <th scope="col">Estado</th>
             <th scope="col">Vehículo</th>
@@ -17,13 +19,16 @@
             <tr>
                 <% v = r.vehiculo %>
                 <td>
-                    <% if (r.estado==="activa" || true) { %>
-                    <form method="POST" action="<%= `/reservas/finalizar/${r.id_reserva}` %>">
-                        <button class="btn <%= r.estado==="activa" ? "btn-primary" : "btn-secondary" %>"
-                            <%= r.estado==="activa" ? "" : "disabled" %>>Finalizar</button>
-                    </form>
-
-                    <% } %>
+                    <button class="btn <%= r.estado==="activa" ? "btn-danger" : "btn-secondary" %>" <%= r.estado==="activa" ? "" : "disabled" %>
+                        title="Cancelar Reserva <%= r.id_reserva %>" aria-label="Cancelar Reserva <%= r.id_reserva %>"
+                        onclick=<%= `showCancelModal(${r.id_reserva})`%>>
+                        <img src="/icons/ban.svg" alt="Icono cancelar" width="<%= iconSize %>" height="<%= iconSize %>">
+                    </button>
+                    <button class="btn <%= r.estado==="activa" ? "btn-primary" : "btn-secondary" %>" <%= r.estado==="activa" ? "" : "disabled" %>
+                        title="Finalizar Reserva <%= r.id_reserva %>" aria-label="Finalizar Reserva <%= r.id_reserva %>"
+                        onclick=<%= `showReturnModal(${r.id_reserva},${v.autonomia_actual})` %>>
+                        <img src="/icons/box-arrow-in-left.svg" alt="Icono devolver" width="<%= iconSize %>" height="<%= iconSize %>">
+                    </button>
                 </td>
                 <td class="text-truncate"><%= r.id_reserva %></td>
                 <td class="text-truncate"><%= myUtils.capitalize(r.estado) %></td>
@@ -37,3 +42,29 @@
         </tbody>
     </table>
 </div>
+
+
+<div class="modal fade" id="modalConfirmacion" tabindex="-1" aria-labelledby="modalConfirmacionLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="formDeleteConfirm" method="POST" class="needs-validation" novalidate>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalConfirmacionLabel">Atención</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div id="modalConfirmacionBody" class="modal-body">
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+
+
+                    <button type="submit" class="btn btn-primary">Confirmar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script defer src="/js/reservasHistorial.js"></script>

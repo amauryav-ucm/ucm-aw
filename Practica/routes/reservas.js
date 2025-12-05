@@ -11,12 +11,12 @@ router.use((req, res, next) => {
     next();
 });
 
-router.get('/comentarios', function (req, res) {
+router.get("/comentarios", function (req, res) {
     reservasService.readComentariosYValoraciones((err, clientesComentarios) => {
         if (err) {
-            return res.status(500).render('error', { message: 'Error al obtener comentarios' });
+            return res.status(500).render("error", { message: "Error al obtener comentarios" });
         }
-        res.render('comentarios', { clientesComentarios }); 
+        res.render("comentarios", { clientesComentarios });
     });
 });
 
@@ -77,8 +77,15 @@ router.get("/:id", (req, res) => {
     });
 });
 
-router.post("/finalizar/:id", (req, res) => {
-    reservasService.finalizarReserva(req.params.id, (err, result) => {
+router.post("/cancelar/:id", (req, res) => {
+    reservasService.cancelarReserva(req.params.id, (err, result) => {
+        if (err) return next(err);
+        res.redirect("/reservas/historial");
+    });
+});
+
+router.post("/finalizar", (req, res, next) => {
+    reservasService.finalizarReserva(req.body, (err, result) => {
         if (err) return next(err);
         res.redirect("/reservas/historial");
     });

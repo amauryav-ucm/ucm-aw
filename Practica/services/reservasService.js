@@ -62,7 +62,7 @@ function read(reserva, cb) {
     });
 }
 
-function finalizarReserva(id_reserva, cb) {
+function cancelarReserva(id_reserva, cb) {
     dbPool.getConnection((err, connection) => {
         if (err) {
             console.log(err);
@@ -76,7 +76,7 @@ function finalizarReserva(id_reserva, cb) {
                 if (err) return manejarError(err);
 
                 const id_vehiculo = rows[0].id_vehiculo;
-                reservasModel.update({ id_reserva: id_reserva, estado: "finalizada" }, connection, (err, result) => {
+                reservasModel.update({ id_reserva: id_reserva, estado: "cancelada" }, connection, (err, result) => {
                     if (err) return manejarError(err);
 
                     vehiculosModel.update({ id_vehiculo: id_vehiculo, estado: "disponible" }, connection, (err, result) => {
@@ -177,11 +177,67 @@ function readComentariosYValoraciones(cb) {
     });
 }
 
+function finalizarReserva(reserva, cb) {
+    dbPool.getConnection((err, connection) => {
+        if (err) {
+            console.log(err);
+            return cb(new Error("Ha ocurrido un error, intentalo de nuevo más tarde"));
+        }
+        const manejarError = crearManejadorError(connection, cb);
+        connection.beginTransaction((err) => {
+            if (err) return manejarError(err);
+            reserva.kilometros_recorridos = parseInt(reserva.kilometros_recorridos);
+
+            reservasModel.read({ id_reserva: reserva.id_reserva }, connection, (err, rows, fields) => {
+                if (err) return manejarError(err);
+                const oldReserva = rows[0];
+
+                vehiculosModel.read({ id_vehiculo: oldReserva.id_vehiculo }, connection, (err, rows, fields) => {
+                    if (err) return manejarError(err);
+                    const vehiculo = rows[0];
+                    console.log(vehiculo, oldReserva);
+                    reservasModel.update(
+                        {
+                            id_reserva: oldReserva.id_reserva,
+                            estado: "finalizada",
+                            kilometros_recorridos: reserva.kilometros_recorridos,
+                            incidencias_reportadas: reserva.incidencias_reportadas,
+                        },
+                        connection,
+                        (err, result) => {
+                            if (err) return manejarError(err);
+
+                            vehiculosModel.update(
+                                {
+                                    id_vehiculo: vehiculo.id_vehiculo,
+                                    estado: "disponible",
+                                    autonomia_actual: parseInt(vehiculo.autonomia_actual) - reserva.kilometros_recorridos,
+                                },
+                                connection,
+                                (err, result) => {
+                                    if (err) return manejarError(err);
+
+                                    connection.commit((err) => {
+                                        if (err) return manejarError(err);
+                                        connection.release();
+                                        return cb(null, result);
+                                    });
+                                },
+                            );
+                        },
+                    );
+                });
+            });
+        });
+    });
+}
+
 module.exports = {
     read: read,
     create: create,
     update: update,
     remove: remove,
+    cancelarReserva: cancelarReserva,
     finalizarReserva: finalizarReserva,
     readComentariosYValoraciones: readComentariosYValoraciones,
 };
