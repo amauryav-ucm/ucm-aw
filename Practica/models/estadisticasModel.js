@@ -5,7 +5,7 @@ function totalReservas(conn, cb) {
     });
 }
 
-function  reservasPorEstado(conn, cb) {
+function reservasPorEstado(conn, cb) {
     conn.query("SELECT estado, COUNT(*) AS total FROM reservas GROUP BY estado", function(err, rows) {
       if (err) return cb(err);
       const out = { activa:0, finalizada:0, cancelada:0 };
@@ -73,26 +73,27 @@ function kmsTotales(conn, cb) {
 
 function incidenciasPorVehiculo(conn, cb) {
     const sql = `
-      SELECT v.id_vehiculo, v.matricula, v.modelo, v.marca,
-             IFNULL(SUM(r.incidencias_reportadas),0) AS total_incidencias
-      FROM vehiculos v
-      LEFT JOIN reservas r ON r.id_vehiculo = v.id_vehiculo
+      SELECT v.id_vehiculo, v.matricula, v.modelo, v.marca, COUNT(r.incidencias_reportadas) AS total_incidencias
+      FROM vehiculos v LEFT JOIN reservas r ON r.id_vehiculo = v.id_vehiculo
+        AND r.incidencias_reportadas IS NOT NULL
+        AND r.incidencias_reportadas <> ''
       GROUP BY v.id_vehiculo
       ORDER BY total_incidencias DESC
-      LIMIT 10
+      LIMIT 10;
     `;
     conn.query(sql, function(err, rows) { if (err) return cb(err); cb(null, rows); });
 }
 
 function incidenciasPorConcesionario(conn, cb) {
     const sql = `
-      SELECT c.id_concesionario, c.nombre, IFNULL(SUM(r.incidencias_reportadas),0) AS total_incidencias
+      SELECT c.id_concesionario, c.nombre, COUNT(r.incidencias_reportadas) AS total_incidencias
       FROM concesionarios c
       LEFT JOIN vehiculos v ON v.id_concesionario = c.id_concesionario
-      LEFT JOIN reservas r ON r.id_vehiculo = v.id_vehiculo
+      LEFT JOIN reservas r ON r.id_vehiculo = v.id_vehiculo 
+        AND r.incidencias_reportadas IS NOT NULL 
+        AND r.incidencias_reportadas <> ''
       GROUP BY c.id_concesionario, c.nombre
       ORDER BY total_incidencias DESC
-      LIMIT 10
     `;
     conn.query(sql, function(err, rows) { if (err) return cb(err); cb(null, rows); });
 }

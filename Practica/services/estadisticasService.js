@@ -1,10 +1,7 @@
 const dbPool = require("../db/dbPool");
 const model = require("../models/estadisticasModel");
 
-
-
-module.exports = {
-  getAll: function(callback) {
+function getAll(callback) {
     dbPool.getConnection(function(err, conn) {
       if (err) return callback(err);
       const stats = {};
@@ -62,4 +59,7 @@ module.exports = {
       });
     });
   }
+
+module.exports = {
+  getAll: getAll
 };

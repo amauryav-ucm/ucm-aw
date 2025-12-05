@@ -29,12 +29,12 @@
     <h5 class="card-title">Reservas por concesionario</h5>
     <div class="table-responsive">
       <table class="table table-sm table-hover align-middle mb-0">
-        <thead class="table-light">
+        <thead class="table">
           <tr><th>Concesionario</th><th># Reservas</th></tr>
         </thead>
         <tbody>
           <% stats.reservas_por_concesionario.forEach(r => { %>
-            <tr><td><%= r.nombre %></td><td><%= r.num_reservas %></td></tr>
+            <tr><td><%= r.nombre %></td><td><%= r.total %></td></tr>
           <% }) %>
         </tbody>
       </table>
@@ -48,7 +48,7 @@
     <h5 class="card-title">Vehículos más usados (Top 10)</h5>
     <div class="table-responsive">
       <table class="table table-sm table-hover align-middle mb-0">
-        <thead class="table-light">
+        <thead class="table">
           <tr><th>Matrícula</th><th>Modelo</th><th>Veces</th></tr>
         </thead>
         <tbody>
@@ -68,7 +68,7 @@
     <p>Total kms: <strong><%= stats.kms_totales %></strong></p>
     <div class="table-responsive">
       <table class="table table-sm table-hover align-middle mb-0">
-        <thead class="table-light"><tr><th>Vehículo</th><th>Kms</th></tr></thead>
+        <thead class="table"><tr><th>Vehículo</th><th>Kms</th></tr></thead>
         <tbody>
           <% stats.kms_por_vehiculo.forEach(k => { %>
             <tr><td><%= k.matricula %></td><td><%= k.kms || 0 %></td></tr>
@@ -85,7 +85,7 @@
     <h5 class="card-title">Incidencias por vehículo</h5>
     <div class="table-responsive">
       <table class="table table-sm table-hover align-middle mb-0">
-        <thead class="table-light"><tr><th>Matrícula</th><th>Marca</th><th>Incidencias</th></tr></thead>
+        <thead class="table"><tr><th>Matrícula</th><th>Marca</th><th>Incidencias</th></tr></thead>
         <tbody>
           <% stats.incidencias_por_vehiculo.forEach(i => { %>
             <tr><td><%= i.matricula %></td><td><%= i.marca %></td><td><%= i.total_incidencias %></td></tr>
@@ -102,7 +102,7 @@
     <h5 class="card-title">Incidencias por concesionario</h5>
     <div class="table-responsive">
       <table class="table table-sm table-hover align-middle mb-0">
-        <thead class="table-light"><tr><th>Concesionario</th><th>Incidencias</th></tr></thead>
+        <thead class="table"><tr><th>Concesionario</th><th>Incidencias</th></tr></thead>
         <tbody>
           <% stats.incidencias_por_concesionario.forEach(ic => { %>
             <tr><td><%= ic.nombre %></td><td><%= ic.total_incidencias %></td></tr>
@@ -119,7 +119,7 @@
     <h5 class="card-title">Reservas por franja horaria</h5>
     <div class="table-responsive">
       <table class="table table-sm table-hover align-middle mb-0">
-        <thead class="table-light"><tr><th>Franja</th><th># Reservas</th></tr></thead>
+        <thead class="table"><tr><th>Franja</th><th># Reservas</th></tr></thead>
         <tbody>
           <% stats.reservas_por_franja.forEach(f => { %>
             <tr><td><%= f.franja %></td><td><%= f.total_reservas %></td></tr>
