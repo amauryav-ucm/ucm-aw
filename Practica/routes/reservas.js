@@ -11,6 +11,15 @@ router.use((req, res, next) => {
     next();
 });
 
+router.get('/comentarios', function (req, res) {
+    reservasService.readComentariosYValoraciones((err, clientesComentarios) => {
+        if (err) {
+            return res.status(500).render('error', { message: 'Error al obtener comentarios' });
+        }
+        res.render('comentarios', { clientesComentarios }); 
+    });
+});
+
 router.use((req, res, next) => {
     if (!req.session.id_usuario) return res.redirect("/login");
     usuariosService.read({ id_usuario: req.session.id_usuario }, (err, rows) => {
