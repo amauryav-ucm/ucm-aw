@@ -11,7 +11,7 @@
 <div class="row mb-5">
     <div class="col-2">
         <a href="/administracion" class="btn btn-secondary" aria-label="Volver" title="Volver">
-            <img src="/icons/arrow-left.svg" alt="Icono flecha izquierda" width="<%= iconSize %>" height="<%= iconSize %>">
+            <i class="bi bi-arrow-left" alt="Icono flecha izquierda"></i>
         </a>
     </div>
     <div class="col text-center">
@@ -19,10 +19,10 @@
     </div>
     <div class="col-2 text-end">
         <a href="#" class="btn btn-primary" aria-label="Subir JSON de <%= itemName %>s" title="Subir JSON de <%= itemName %>s">
-            <img src="/icons/file-earmark-arrow-up.svg" alt="Icono subir" width="<%= iconSize %>" height="<%= iconSize %>">
+            <i class="bi bi-file-earmark-arrow-up" alt="Icono subir"></i>
         </a>
         <a href="<%= insertUrl %>" class="btn btn-success" aria-label="Insertar <%= itemName %>" title="Insertar <%= itemName %>">
-            <img src="/icons/plus-lg.svg" alt="Icono signo más" width="<%= iconSize %>" height="<%= iconSize %>">
+            <i class="bi bi-plus-lg" alt="Icono signo más"></i>
         </a>
     </div>
 </div>
@@ -61,11 +61,11 @@
             <tr>
                 <td class="d-flex">
                     <a href="./update/<%= r[id_col] %>" class="btn btn-secondary mx-1" aria-label="Editar <%= itemName %>" title="Editar <%= itemName %>">
-                        <img src="/icons/pencil-square.svg" alt="Icono lápiz" width="<%= iconSize %>" height="<%= iconSize %>">
+                        <i class="bi bi-pencil-square" alt="Icono lápiz"></i>
                     </a>
                     <button class="btn btn-danger mx-1" aria-label="Borrar <%= itemName %>" title="Borrar <%= itemName %>"
                         onclick=<%= `showDeleteModal(${r[id_col]})` %>>
-                        <img src="/icons/trash-fill.svg" alt="Icono papelera" width="<%= iconSize %>" height="<%= iconSize %>">
+                        <i class="bi bi-trash-fill" alt="Icono papelera"></i>
                     </button>
                 </td>
                 <% fields.forEach(f => { %>
