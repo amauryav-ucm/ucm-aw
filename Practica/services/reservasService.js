@@ -94,8 +94,32 @@ function finalizarReserva(id_reserva, cb) {
     });
 }
 
+function readComentariosYValoraciones(cb) {
+    read({}, (err, rows) => {
+        if (err) return cb(err);
+        let resultado = [];
+        let clientes = new Map();
+        rows.forEach((row) => {
+            const id = row.id_cliente;
+            const valoracion = row.valoracion;
+
+            if (id !== null && valoracion !== null && (!clientes.has(id) || clientes.get(id).valoracion < valoracion)) {
+                clientes.set(id, {
+                    id: id,
+                    valoracion: valoracion,
+                    comentarios: row.comentarios,
+                });
+            }
+        });
+        resultado = Object.fromEntries(clientes);
+        console.log("RESULTADOOO", resultado);
+        return cb(null, resultado);
+    });
+}
+
 module.exports = {
     read: read,
     create: create,
     finalizarReserva: finalizarReserva,
+    readComentariosYValoraciones: readComentariosYValoraciones,
 };

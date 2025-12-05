@@ -1,0 +1,111 @@
+<!-- Botón (puede quedarse igual, no afecta)
+<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalJsonImport">
+  Importar JSON
+</button>-->
+
+<!-- Modal 
+<div class="modal fade" id="modalJsonImport" tabindex="-1" aria-labelledby="modalJsonImportLabel">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalJsonImportLabel">Subir ficheros JSON</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+
+      <form id="importJsonForm" enctype="multipart/form-data" method="post">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Vehículos (JSON)</label>
+            <input id="fileVehiculos" type="file" name="vehiculos" accept="application/json,.json" class="form-control">
+            <div class="form-text text-danger small d-none" id="errVeh"></div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Empleados (JSON)</label>
+            <input id="fileEmpleados" type="file" name="empleados" accept="application/json,.json" class="form-control">
+            <div class="form-text text-danger small d-none" id="errEmp"></div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Concesionarios (JSON)</label>
+            <input id="fileConces" type="file" name="concesionarios" accept="application/json,.json" class="form-control">
+            <div class="form-text text-danger small d-none" id="errCon"></div>
+          </div>
+
+          <div id="importResult" class="mt-2"></div>
+        </div>
+
+        <div class="modal-footer">
+          <small class="text-muted me-auto">Puedes subir uno o varios ficheros.</small>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button id="btnSubmitImport" type="button" class="btn btn-primary">Importar</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>-->
+
+<!-- Script de envío del formulario 
+<script>
+document.getElementById("btnSubmitImport").addEventListener("click", () => {
+    const form = document.getElementById("importJsonForm");
+    const data = new FormData(form);
+
+    fetch("/administracion/import-json", {
+        method: "POST",
+        body: data
+    })
+    .then(res => res.json())
+    .then(json => {
+        const resultDiv = document.getElementById("importResult");
+        if (json.ok) {
+            resultDiv.innerHTML = `<span class="text-success">Importación correcta</span>`;
+        } else {
+            resultDiv.innerHTML = `<span class="text-danger">${json.error}</span>`;
+        }
+    })
+    .catch(err => {
+        document.getElementById("importResult").innerHTML =
+            `<span class="text-danger">Error: ${err.message}</span>`;
+    });
+});
+</script> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container mt-4">
+  <h3 class="mb-3 text-center">Concesionarios en España</h3>
+
+  <div id="map-container" class="p-3 mx-auto">
+    <div id="map"></div>
+    <div id="calcular-distancia"></div>
+  </div>
+
+  <div class="text-center mt-3">
+    <button id="botonReiniciarMapa" class="btn btn-secondary">Reiniciar concesionarios</button>
+  </div>
+</div>

@@ -136,6 +136,9 @@ app.use("/accesibilidad", routesAccesibilidad);
 const routesAdministracion = require("./routes/administracion");
 app.use("/administracion", routesAdministracion);
 
+const routesConcesionarios = require("./routes/concesionarios");
+app.use("/concesionarios", routesConcesionarios);
+
 app.use((req, res, next) => {
     const err = new Error("Página no encontrada");
     err.status = 404;
