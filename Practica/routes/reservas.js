@@ -65,7 +65,6 @@ router.use("/historial", (req, res) => {
             reservas.forEach((r) => {
                 r.vehiculo = vehiculos.find((v) => v.id_vehiculo === r.id_vehiculo);
             });
-            console.log(reservas);
             return res.render("reservas-historial", { reservas: reservas, myUtils: myUtils });
         });
     });

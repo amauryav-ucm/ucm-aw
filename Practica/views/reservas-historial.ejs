@@ -54,7 +54,6 @@
                 </div>
                 <div id="modalConfirmacionBody" class="modal-body">
 
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -66,5 +65,71 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modalDevolucion" tabindex="-1" aria-labelledby="modalDevolucionLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="formDeleteConfirm" method="POST" class="needs-validation" novalidate action="/reservas/finalizar">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalDevolucionLabel">Atención</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div id="modalDevolucionBody" class="modal-body">
+                    <fieldset>
+                        <legend class="fs-5">Finalizar reserva</legend>
+                        <input id="devolcionIdReserva" type="hidden" name="id_reserva">
+                        <div class="mb-3">
+                            <label for="kilometros_recorridos" class="form-label">Kilometros Recorridos</label>
+                            <input id="kilometros_recorridos" name="kilometros_recorridos" type="number" class="form-control" min="0" required>
+                            <span id="devolucionKmFeedback" class="invalid-feedback"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label for="incidencias_reportadas" class="form-label">Incidencias</label>
+                            <textarea id="incidencias_reportadas" name="incidencias_reportadas" class="form-control" rows="4"></textarea>
+                        </div>
+
+
+                    </fieldset>
+                    <fieldset>
+                        <legend class="fs-5">Reseña</legend>
+
+                        <div class="mb-3">
+                            <label for="valoracion.nombre" class="form-label">Nombre de Cliente</label>
+                            <input type="text" id="valoracion.nombre" name="valoracion[nombre]" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <h5 for="valoracion[estrellas]" class="form-label fs-6">Valoración</h5>
+                            <div class="star-rating animated-stars">
+                                <input type="radio" id="star5" name="valoracion[estrellas]" value="5" required>
+                                <span class="invalid-feedback">Indica una valoración</span>
+                                <label for="star5" class="bi bi-star-fill"></label>
+                                <input type="radio" id="star4" name="valoracion[estrellas]" value="4">
+                                <label for="star4" class="bi bi-star-fill"></label>
+                                <input type="radio" id="star3" name="valoracion[estrellas]" value="3">
+                                <label for="star3" class="bi bi-star-fill"></label>
+                                <input type="radio" id="star2" name="valoracion[estrellas]" value="2">
+                                <label for="star2" class="bi bi-star-fill"></label>
+                                <input type="radio" id="star1" name="valoracion[estrellas]" value="1">
+                                <label for="star1" class="bi bi-star-fill"></label>
+                            </div>
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="valoracion.comentario" class="form-label">Comentario</label>
+                            <textarea id="valoracion.comantario" name="valoracion[comentario]" class="form-control" rows="4"></textarea>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+
+
+                    <button type="submit" class="btn btn-primary">Confirmar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 
 <script defer src="/js/reservasHistorial.js"></script>

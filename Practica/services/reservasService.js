@@ -195,13 +195,13 @@ function finalizarReserva(reserva, cb) {
                 vehiculosModel.read({ id_vehiculo: oldReserva.id_vehiculo }, connection, (err, rows, fields) => {
                     if (err) return manejarError(err);
                     const vehiculo = rows[0];
-                    console.log(vehiculo, oldReserva);
                     reservasModel.update(
                         {
                             id_reserva: oldReserva.id_reserva,
                             estado: "finalizada",
                             kilometros_recorridos: reserva.kilometros_recorridos,
                             incidencias_reportadas: reserva.incidencias_reportadas,
+                            valoracion: JSON.stringify(reserva.valoracion),
                         },
                         connection,
                         (err, result) => {

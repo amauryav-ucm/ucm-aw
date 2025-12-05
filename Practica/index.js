@@ -139,6 +139,9 @@ app.use("/administracion", routesAdministracion);
 const routesConcesionarios = require("./routes/concesionarios");
 app.use("/concesionarios", routesConcesionarios);
 
+const apiRoutes = require("./routes/api");
+app.use("/api", apiRoutes);
+
 app.use((req, res, next) => {
     const err = new Error("Página no encontrada");
     err.status = 404;
