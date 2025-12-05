@@ -1,0 +1,131 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="h3">Estadísticas</h1>
+  <a href="/administracion" class="btn btn-secondary">Volver</a>
+</div>
+
+<!-- Reservas totales -->
+<div class="card mb-4 shadow-sm">
+  <div class="card-body text-center">
+    <h5 class="card-title">Reservas totales</h5>
+    <p class="fs-2 fw-bold mb-0"><%= stats.total_reservas %></p>
+  </div>
+</div>
+
+<!-- Reservas por estado -->
+<div class="card mb-4 shadow-sm">
+  <div class="card-body">
+    <h5 class="card-title">Reservas por estado</h5>
+    <div class="d-flex gap-4">
+      <div class="text-success">Activas: <strong><%= stats.reservas_por_estado.activa || 0 %></strong></div>
+      <div class="text-primary">Finalizadas: <strong><%= stats.reservas_por_estado.finalizada || 0 %></strong></div>
+      <div class="text-danger">Canceladas: <strong><%= stats.reservas_por_estado.cancelada || 0 %></strong></div>
+    </div>
+  </div>
+</div>
+
+<!-- Reservas por concesionario -->
+<div class="card mb-4 shadow-sm">
+  <div class="card-body">
+    <h5 class="card-title">Reservas por concesionario</h5>
+    <div class="table-responsive">
+      <table class="table table-sm table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr><th>Concesionario</th><th># Reservas</th></tr>
+        </thead>
+        <tbody>
+          <% stats.reservas_por_concesionario.forEach(r => { %>
+            <tr><td><%= r.nombre %></td><td><%= r.num_reservas %></td></tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Vehículos más usados -->
+<div class="card mb-4 shadow-sm">
+  <div class="card-body">
+    <h5 class="card-title">Vehículos más usados (Top 10)</h5>
+    <div class="table-responsive">
+      <table class="table table-sm table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr><th>Matrícula</th><th>Modelo</th><th>Veces</th></tr>
+        </thead>
+        <tbody>
+          <% stats.vehiculos_mas_usados.forEach(v => { %>
+            <tr><td><%= v.matricula %></td><td><%= v.modelo %></td><td><%= v.veces_reservado %></td></tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Kilómetros totales y por vehículo -->
+<div class="card mb-4 shadow-sm">
+  <div class="card-body">
+    <h5 class="card-title">Kilómetros</h5>
+    <p>Total kms: <strong><%= stats.kms_totales %></strong></p>
+    <div class="table-responsive">
+      <table class="table table-sm table-hover align-middle mb-0">
+        <thead class="table-light"><tr><th>Vehículo</th><th>Kms</th></tr></thead>
+        <tbody>
+          <% stats.kms_por_vehiculo.forEach(k => { %>
+            <tr><td><%= k.matricula %></td><td><%= k.kms || 0 %></td></tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Incidencias por vehículo -->
+<div class="card mb-4 shadow-sm">
+  <div class="card-body">
+    <h5 class="card-title">Incidencias por vehículo</h5>
+    <div class="table-responsive">
+      <table class="table table-sm table-hover align-middle mb-0">
+        <thead class="table-light"><tr><th>Matrícula</th><th>Marca</th><th>Incidencias</th></tr></thead>
+        <tbody>
+          <% stats.incidencias_por_vehiculo.forEach(i => { %>
+            <tr><td><%= i.matricula %></td><td><%= i.marca %></td><td><%= i.total_incidencias %></td></tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Incidencias por concesionario -->
+<div class="card mb-4 shadow-sm">
+  <div class="card-body">
+    <h5 class="card-title">Incidencias por concesionario</h5>
+    <div class="table-responsive">
+      <table class="table table-sm table-hover align-middle mb-0">
+        <thead class="table-light"><tr><th>Concesionario</th><th>Incidencias</th></tr></thead>
+        <tbody>
+          <% stats.incidencias_por_concesionario.forEach(ic => { %>
+            <tr><td><%= ic.nombre %></td><td><%= ic.total_incidencias %></td></tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Reservas por franja horaria -->
+<div class="card mb-4 shadow-sm">
+  <div class="card-body">
+    <h5 class="card-title">Reservas por franja horaria</h5>
+    <div class="table-responsive">
+      <table class="table table-sm table-hover align-middle mb-0">
+        <thead class="table-light"><tr><th>Franja</th><th># Reservas</th></tr></thead>
+        <tbody>
+          <% stats.reservas_por_franja.forEach(f => { %>
+            <tr><td><%= f.franja %></td><td><%= f.total_reservas %></td></tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

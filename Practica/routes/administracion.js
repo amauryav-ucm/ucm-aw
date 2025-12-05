@@ -5,6 +5,7 @@ services["usuarios"] = require("../services/usuariosService");
 services["reservas"] = require("../services/reservasService");
 services["vehiculos"] = require("../services/vehiculosService");
 services["concesionarios"] = require("../services/concesionariosService");
+const estadisticasService = require("../services/estadisticasService");
 
 router.use("/*", (req, res, next) => {
     if (!req.session.id_usuario) return res.redirect("/login");
@@ -30,6 +31,13 @@ router.use((req, res, next) => {
     next();
 });
 
+router.get("/estadisticas", function(req, res) {
+  estadisticasService.getAll(function(err, stats) {
+    if (err) return res.status(500).send("Error estadísticas: " + err.message);
+    res.render("estadisticas", { stats });
+  });
+});
+
 router.get("/", (req, res) => {
     res.render("administracion");
 });
@@ -43,5 +51,6 @@ router.get("/:table", (req, res, next) => {
         return res.render("admin-table", { base: `/administracion/${table}/`, table: table, fields: fields, rows: rows });
     });
 });
+
 
 module.exports = router;
