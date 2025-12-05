@@ -63,6 +63,22 @@
                 <span class="invalid-feedback">Introduce número entre 1 y 10</span>
             </div>
 
+
+            <div class="mb-3">
+                <label for="autonomia_km" class="form-label fw-bold">Antonomía Máxima</label>
+                <input type="number" id="autonomia_km" class="form-control" min="1" max="10000" name="autonomia_km"
+                    value="<%= method==="update"?vehiculo.autonomia_km:"" %>" required>
+                <span class="invalid-feedback">Introduce número entre 1 y 10000</span>
+            </div>
+
+
+            <div class="mb-3">
+                <label for="autonomia_actual" class="form-label fw-bold">Antonomía Actual</label>
+                <input type="number" id="autonomia_actual" class="form-control" min="1" max="10000" name="autonomia_actual"
+                    value="<%= method==="update"?vehiculo.autonomia_actual:"" %>" required>
+                <span class="invalid-feedback">Introduce número entre 1 y 10000</span>
+            </div>
+
             <div class="mb-3">
                 <label for="color" class="form-label fw-bold">Color</label>
                 <input type="text" id="color" class="form-control" name="color" value="<%= method==="update"?vehiculo.color:"" %>" required>
