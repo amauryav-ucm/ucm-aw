@@ -27,6 +27,9 @@ router.post("/", (req, res) => {
         telefono: body.telefono,
         id_concesionario: body.id_concesionario,
     };
+    if (/(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}/.test(user.contrasena)) {
+        res.render("registrarse", { err: new Error("La contraseña no cumple los requisitos") });
+    }
     bcrypt.hash(body.contrasena, saltRounds, (err, hash) => {
         if (err)
             res.render("registrarse", {

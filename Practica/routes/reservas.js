@@ -68,4 +68,11 @@ router.get("/:id", (req, res) => {
     });
 });
 
+router.post("/finalizar/:id", (req, res) => {
+    reservasService.finalizarReserva(req.params.id, (err, result) => {
+        if (err) return next(err);
+        res.redirect("/reservas/historial");
+    });
+});
+
 module.exports = router;

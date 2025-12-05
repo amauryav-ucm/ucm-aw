@@ -24,4 +24,12 @@ function read(user, connection, cb) {
     });
 }
 
-module.exports = { create: create, read: read };
+function update(reserva, connection, cb) {
+    const changes = Object.keys(reserva).filter((k) => k !== "id_reserva");
+    if (changes.length <= 0) return;
+    const sql = "UPDATE reservas SET " + changes.map((k) => `${k} = ?`).join(", ") + ` WHERE id_reserva = ${reserva.id_reserva}`;
+    const params = changes.map((k) => reserva[k]);
+    connection.query(sql, params, (err, result) => cb(err, result));
+}
+
+module.exports = { create: create, read: read, update: update };

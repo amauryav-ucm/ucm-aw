@@ -3,6 +3,7 @@
 <div class="table-responsive text-center">
     <table class="table table-striped w-auto mt-5 mx-auto">
         <thead>
+            <th scope="col">Finalizar</th>
             <th scope="col">Identificador</th>
             <th scope="col">Estado</th>
             <th scope="col">Vehículo</th>
@@ -15,6 +16,15 @@
             <% reservas.forEach(r => { %>
             <tr>
                 <% v = r.vehiculo %>
+                <td>
+                    <% if (r.estado==="activa" || true) { %>
+                    <form method="POST" action="<%= `/reservas/finalizar/${r.id_reserva}` %>">
+                        <button class="btn <%= r.estado==="activa" ? "btn-primary" : "btn-secondary" %>"
+                            <%= r.estado==="activa" ? "" : "disabled" %>>Finalizar</button>
+                    </form>
+
+                    <% } %>
+                </td>
                 <td class="text-truncate"><%= r.id_reserva %></td>
                 <td class="text-truncate"><%= myUtils.capitalize(r.estado) %></td>
                 <td class="text-truncate"><%= v.matricula %> - <%= v.marca %> <%= v.modelo %></td>

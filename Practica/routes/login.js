@@ -33,15 +33,14 @@ router.post("/", (req, res) => {
             } else {
                 req.session.id_usuario = user.id_usuario;
                 usuariosService.getPreferencias(req.session.id_usuario, (err, preferencias) => {
-                if (err) {
-                    console.error("Error al cargar preferencias:", err);
-                    req.session.accessibility = { theme: "dark", fontSize: "md" };
-                } else {
-                    req.session.accessibility = preferencias || { theme: "dark", fontSize: "md" };
-                }
+                    if (err) {
+                        console.error("Error al cargar preferencias:", err);
+                        req.session.accessibility = { theme: "dark", fontSize: "md" };
+                    } else {
+                        req.session.accessibility = preferencias || { theme: "dark", fontSize: "md" };
+                    }
                     return res.redirect("/");
                 });
-
             }
         });
     });
