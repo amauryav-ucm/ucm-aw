@@ -1,22 +1,20 @@
-module.exports = {
-  totalReservas(conn, cb) {
+function totalReservas(conn, cb) {
     conn.query("SELECT COUNT(*) AS total_reservas FROM reservas", function(err, rows) {
       if (err) return cb(err);
       cb(null, (rows[0] && rows[0].total_reservas) || 0);
     });
-  },
+}
 
-  reservasPorEstado(conn, cb) {
+function  reservasPorEstado(conn, cb) {
     conn.query("SELECT estado, COUNT(*) AS total FROM reservas GROUP BY estado", function(err, rows) {
       if (err) return cb(err);
-      // devolver como objeto {activa: X, finalizada: Y, cancelada: Z}
       const out = { activa:0, finalizada:0, cancelada:0 };
       rows.forEach(r => { out[r.estado] = r.total; });
       cb(null, out);
     });
-  },
+}
 
-  reservasPorConcesionario(conn, cb) {
+function reservasPorConcesionario(conn, cb) {
     const sql = `
       SELECT c.id_concesionario, c.nombre, COUNT(r.id_reserva) AS total
       FROM concesionarios c
@@ -26,9 +24,9 @@ module.exports = {
       ORDER BY total DESC
     `;
     conn.query(sql, function(err, rows) { if (err) return cb(err); cb(null, rows); });
-  },
+}
 
-  vehiculosMasUsados(conn, cb) {
+function vehiculosMasUsados(conn, cb) {
     const sql = `
       SELECT v.id_vehiculo, v.matricula, v.modelo, COUNT(r.id_reserva) AS veces_reservado
       FROM vehiculos v
@@ -38,9 +36,9 @@ module.exports = {
       LIMIT 10
     `;
     conn.query(sql, function(err, rows) { if (err) return cb(err); cb(null, rows); });
-  },
+}
 
-  vehiculosPorConcesionario(conn, cb) {
+function vehiculosPorConcesionario(conn, cb) {
     const sql = `
       SELECT c.id_concesionario, c.nombre AS concesionario, v.id_vehiculo, v.matricula, v.modelo,
              COUNT(r.id_reserva) AS veces_reservado
@@ -52,9 +50,9 @@ module.exports = {
       LIMIT 100
     `;
     conn.query(sql, function(err, rows) { if (err) return cb(err); cb(null, rows); });
-  },
+}
 
-  kmsPorVehiculo(conn, cb) {
+function kmsPorVehiculo(conn, cb) {
     const sql = `
       SELECT v.id_vehiculo, v.matricula, v.modelo, IFNULL(SUM(r.kilometros_recorridos),0) AS kms
       FROM vehiculos v
@@ -64,16 +62,16 @@ module.exports = {
       LIMIT 10
     `;
     conn.query(sql, function(err, rows) { if (err) return cb(err); cb(null, rows); });
-  },
+}
 
-  kmsTotales(conn, cb) {
+function kmsTotales(conn, cb) {
     conn.query("SELECT IFNULL(SUM(kilometros_recorridos),0) AS kms_totales FROM reservas", function(err, rows) {
       if (err) return cb(err);
       cb(null, (rows[0] && rows[0].kms_totales) || 0);
     });
-  },
+}
 
-  incidenciasPorVehiculo(conn, cb) {
+function incidenciasPorVehiculo(conn, cb) {
     const sql = `
       SELECT v.id_vehiculo, v.matricula, v.modelo, v.marca,
              IFNULL(SUM(r.incidencias_reportadas),0) AS total_incidencias
@@ -84,9 +82,9 @@ module.exports = {
       LIMIT 10
     `;
     conn.query(sql, function(err, rows) { if (err) return cb(err); cb(null, rows); });
-  },
+}
 
-  incidenciasPorConcesionario(conn, cb) {
+function incidenciasPorConcesionario(conn, cb) {
     const sql = `
       SELECT c.id_concesionario, c.nombre, IFNULL(SUM(r.incidencias_reportadas),0) AS total_incidencias
       FROM concesionarios c
@@ -97,9 +95,9 @@ module.exports = {
       LIMIT 10
     `;
     conn.query(sql, function(err, rows) { if (err) return cb(err); cb(null, rows); });
-  },
+}
 
-  reservasPorFranja(conn, cb) {
+function reservasPorFranja(conn, cb) {
     const sql = `
       SELECT 
         CASE
@@ -117,5 +115,17 @@ module.exports = {
       ORDER BY total_reservas DESC
     `;
     conn.query(sql, function(err, rows) { if (err) return cb(err); cb(null, rows); });
-  }
+}
+
+module.exports = {
+    totalReservas: totalReservas,
+    reservasPorEstado: reservasPorEstado,
+    reservasPorConcesionario: reservasPorConcesionario,
+    vehiculosMasUsados: vehiculosMasUsados,
+    vehiculosPorConcesionario: vehiculosPorConcesionario,
+    kmsPorVehiculo: kmsPorVehiculo,
+    kmsTotales: kmsTotales,
+    incidenciasPorVehiculo: incidenciasPorVehiculo,
+    incidenciasPorConcesionario: incidenciasPorConcesionario,
+    reservasPorFranja: reservasPorFranja
 };
