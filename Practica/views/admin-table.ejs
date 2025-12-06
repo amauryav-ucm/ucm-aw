@@ -79,7 +79,7 @@
             <label for="jsonFileConcesionarios" class="form-label">Fichero .json (array de concesionarios)</label>
             <input id="jsonFileConcesionarios" name="file" type="file" class="form-control" accept=".json,application/json" required>
             <div class="form-text">
-              Cada elemento debe tener la propiedad <code>id_concesionario</code>.
+              Cada elemento debe tener la propiedad <code>nombre</code>.
             </div>
           </div>
         </div>
@@ -92,6 +92,54 @@
   </div>
 </div>
 
+<!-- EMPLEADOS -->
+<!-- Botón que abre el modal -->
+<button type="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#uploadJsonEmpleados"
+        aria-label="Subir JSON de empleados"
+        title="Subir JSON de empleados">
+  <i class="bi bi-file-earmark-arrow-up" alt="Icono subir"></i>
+</button>
+
+<!-- Modal mínimo para subir JSON -->
+<div class="modal fade" id="uploadJsonEmpleados" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <form action="/login/upload-json" method="post" enctype="multipart/form-data">
+        <div class="modal-header">
+          <h5 class="modal-title">Subir JSON de Empleados</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="jsonFileEmpleados" class="form-label">Fichero .json (array de empleados)</label>
+            <input id="jsonFileEmpleados"
+                   name="file"
+                   type="file"
+                   class="form-control"
+                   accept=".json,application/json"
+                   required>
+            <div class="form-text">
+              Cada elemento debe tener la propiedad <code>correo</code> (usada como identificador único).
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn-primary">
+            Subir
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 <% if (locals.err) { %>
 <div class="alert alert-danger alert-dismissible fade show" role="alert">

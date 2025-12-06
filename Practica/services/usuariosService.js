@@ -86,9 +86,71 @@ function getPreferencias(id_usuario, cb) {
     });
 }
 
+function upsertMany(lista, cb) {
+    dbPool.getConnection((err, connection) => {
+        if (err) return cb(err);
+
+        const manejarError = crearManejadorError(connection, cb);
+        const resultados = [];  // acumulamos aqui info
+
+        connection.beginTransaction(err => {
+            if (err) return manejarError(err);
+
+            let i = 0;
+
+            function procesar() {
+                if (i >= lista.length) {
+                    return connection.commit(err => {
+                        if (err) return manejarError(err);
+                        connection.release();
+                        cb(null, resultados);
+                    });
+                }
+
+                const e = lista[i];
+                usuariosModel.read({ correo: e.correo , rol: "empleado"}, connection, (err, rows) => {
+                    if (err) return manejarError(err);
+
+                    if (rows.length > 0) {
+                        // UPDATE
+                        e.id_usuario = rows[0].id_usuario;
+                        usuariosModel.update(e, connection, (err, updateInfo) => {
+                            if (err) return manejarError(err);
+                            resultados.push({
+                                correo: e.correo,
+                                accion: updateInfo.changedRows > 0 ? "actualizado" : "sin_cambios"
+                            });
+
+                            i++;
+                            procesar();
+                        });
+                    } else {
+                        // INSERT
+                        usuariosModel.create(e, connection, (err, insertId) => {
+                            if (err) return manejarError(err);
+
+                            resultados.push({
+                                correo: e.correo,
+                                accion: "insertado",
+                                id: insertId
+                            });
+
+                            i++;
+                            procesar();
+                        });
+                    }
+                });
+            }
+
+            procesar();
+        });
+    });
+}
+
 module.exports = {
     create: create,
     read: read,
     setPreferencias: setPreferencias,
-    getPreferencias, getPreferencias
+    getPreferencias, getPreferencias,
+    upsertMany: upsertMany
 };

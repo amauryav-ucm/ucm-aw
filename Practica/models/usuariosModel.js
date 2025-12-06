@@ -1,11 +1,26 @@
 function create(user, connection, cb) {
-    const sql = `INSERT INTO usuarios (nombre, correo, contrasena, rol, telefono, id_concesionario, preferencias_accesibilidad) 
-                   VALUES (?, ?, ?, ?, ?, ?, ?)`;
+    const sql = `
+        INSERT INTO usuarios
+          (nombre, correo, contrasena, rol, telefono, id_concesionario, preferencias_accesibilidad)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+    `;
 
-    const params = [user.nombre, user.correo, user.contrasena, user.rol, user.telefono, user.id_concesionario, user.preferencias_accesibilidad];
+    const params = [
+        user.nombre,
+        user.correo,
+        user.contrasena,
+        user.rol,
+        user.telefono,
+        user.id_concesionario,
+        JSON.stringify(user.preferencias_accesibilidad || null)
+    ];
 
-    connection.query(sql, params, (err, result) => cb(err, result.insertId));
+    connection.query(sql, params, (err, result) => {
+        if (err) return cb(err);       // <--- evita crash si falla la query
+        cb(null, result.insertId);     // <--- seguro
+    });
 }
+
 
 function read(user, connection, cb) {
     const filtros = Object.keys(user);
@@ -16,6 +31,21 @@ function read(user, connection, cb) {
     connection.query(sql, params, (err, rows, fields) => {
         return cb(err, rows, fields);
     });
+}
+
+function update(user, connection, cb) {
+    const changes = Object.keys(user).filter(k => k !== "id_usuario");
+    if (changes.length <= 0) return cb(null, { affectedRows: 0 });
+
+    const sql = "UPDATE usuarios SET " + changes.map(k => `${k} = ?`).join(", ") + " WHERE id_usuario = ?";
+    const params = changes.map(k => {
+        const val = user[k];
+        // si es objeto o array, convertir a JSON
+        return (typeof val === "object" && val !== null) ? JSON.stringify(val) : val;
+    });
+    params.push(user.id_usuario);
+
+    connection.query(sql, params, (err, result) => cb(err, result));
 }
 
 function getPreferencias(user_id, connection, cb) {
@@ -50,4 +80,5 @@ module.exports = {
     create: create,
     getPreferencias: getPreferencias,
     setPreferencias: setPreferencias,
+    update: update
 };
