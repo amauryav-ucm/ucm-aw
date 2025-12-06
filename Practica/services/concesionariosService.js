@@ -124,10 +124,72 @@ function remove(concesionario, cb) {
     });
 }
 
+function upsertMany(lista, cb) {
+    dbPool.getConnection((err, connection) => {
+        if (err) return cb(err);
+
+        const manejarError = crearManejadorError(connection, cb);
+        const resultados = [];  // acumulamos aqui info
+
+        connection.beginTransaction(err => {
+            if (err) return manejarError(err);
+
+            let i = 0;
+
+            function procesar() {
+                if (i >= lista.length) {
+                    return connection.commit(err => {
+                        if (err) return manejarError(err);
+                        connection.release();
+                        cb(null, resultados);
+                    });
+                }
+
+                const c = lista[i];
+                concesionariosModel.read({ nombre: c.nombre }, connection, (err, rows) => {
+                    if (err) return manejarError(err);
+
+                    if (rows.length > 0) {
+                        // UPDATE
+                        c.id_concesionario = rows[0].id_concesionario;
+                        concesionariosModel.update(c, connection, (err, updateInfo) => {
+                            if (err) return manejarError(err);
+                            resultados.push({
+                                nombre: c.nombre,
+                                accion: updateInfo.changedRows > 0 ? "actualizado" : "sin_cambios"
+                            });
+
+                            i++;
+                            procesar();
+                        });
+                    } else {
+                        // INSERT
+                        concesionariosModel.create(c, connection, (err, insertId) => {
+                            if (err) return manejarError(err);
+
+                            resultados.push({
+                                nombre: c.nombre,
+                                accion: "insertado",
+                                id: insertId
+                            });
+
+                            i++;
+                            procesar();
+                        });
+                    }
+                });
+            }
+
+            procesar();
+        });
+    });
+}
+
 module.exports = {
     create: create,
     read: read,
     obtenerUbicacionConcesionarios: obtenerUbicacionConcesionarios,
     update: update,
     remove: remove,
+    upsertMany: upsertMany
 };

@@ -28,7 +28,7 @@
 </div>
 
 
-
+<!-- VEHICULOS -->
 <!-- botón que abre el modal -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadJsonModal" aria-label="Subir JSON de <%= itemName %>s" title="Subir JSON de <%= itemName %>s">
   <i class="bi bi-file-earmark-arrow-up" alt="Icono subir"></i>
@@ -58,6 +58,40 @@
     </div>
   </div>
 </div>
+
+<!-- CONCESIONARIOS -->
+<!-- botón que abre el modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#uploadJsonConcesionarios" aria-label="Subir JSON de concesionarios" title="Subir JSON de concesionarios">
+  <i class="bi bi-file-earmark-arrow-up" alt="Icono subir"></i>
+</button>
+
+<!-- modal mínimo para subir JSON -->
+<div class="modal fade" id="uploadJsonConcesionarios" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="/concesionarios/upload-json" method="post" enctype="multipart/form-data">
+        <div class="modal-header">
+          <h5 class="modal-title">Subir JSON de Concesionarios</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="jsonFileConcesionarios" class="form-label">Fichero .json (array de concesionarios)</label>
+            <input id="jsonFileConcesionarios" name="file" type="file" class="form-control" accept=".json,application/json" required>
+            <div class="form-text">
+              Cada elemento debe tener la propiedad <code>id_concesionario</code>.
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Subir</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 
 <% if (locals.err) { %>
 <div class="alert alert-danger alert-dismissible fade show" role="alert">
