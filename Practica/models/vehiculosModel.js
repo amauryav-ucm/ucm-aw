@@ -1,6 +1,6 @@
 function create(vehiculo, connection, cb) {
     const sql = `INSERT INTO vehiculos (matricula, marca, modelo, anyo_matriculacion, numero_plazas, autonomia_km, color, imagen, estado, id_concesionario, autonomia_actual) 
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
     const params = [
         vehiculo.matricula,
         vehiculo.marca,
