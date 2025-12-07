@@ -29,8 +29,9 @@ router.use((req, res, next) => {
             req.session.id_usuario = null;
             return res.redirect("/login");
         }
-        const id_concesionario = rows[0].id_concesionario;
-        vehiculosService.read({ id_concesionario: id_concesionario, activo: true }, (err, rows) => {
+        filter = { activo: true };
+        if (rows[0].rol === "empleado") filter.id_concesionario = rows[0].id_concesionario;
+        vehiculosService.read(filter, (err, rows) => {
             if (err) return next(err);
             res.locals.vehiculos = rows;
             return next();
