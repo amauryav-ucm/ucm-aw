@@ -11,7 +11,7 @@ const iconoPorDefecto = L.icon({
 // Definimos el mapa con una ubicación pro defecto
 const map = L.map('map').setView([40.4, -3.7], 6);
 
-const noExisteConcesionarios = false;
+
 
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   maxZoom: 18,
@@ -65,11 +65,7 @@ function obtenerConcesionarios(callback) {
     })
     .then(function (payload) {
       if (!payload || payload.ok !== true) throw new Error('Error al obtener datos de la API');
-      debugger;
-      if(payload.data.length === 0)
-        noExisteConcesionarios = true
-      else
-        noExisteConcesionarios = false
+
       const datos = (payload.data || []).map(function (d) {
         const nombre = d.nombre || '';
         const latitud = (d.latitud !== undefined && d.latitud !== null) ? parseFloat(d.latitud) : null;
@@ -110,7 +106,7 @@ function limpiarMapa() {
 function mostrarTodos() {
   limpiarMapa();
 
-    if (!concesionarios || concesionarios.length === 0 || concesionarios.data.length === 0) {
+    if (!concesionarios || concesionarios.length === 0) {
       obtenerConcesionarios(function (err, datos) {
         if (err) {
           alert('No se han podido cargar los concesionarios.');
