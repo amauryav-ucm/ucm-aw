@@ -79,7 +79,7 @@
                     <li class="nav-item">
                         <button id="btnAccesibilidad" class="nav-link" data-bs-toggle="modal" data-bs-target="#modalAccesibilidad">Accesibilidad</button>
                     </li>
-                     <% if (locals.user) { %>
+                    <% if (locals.user) { %>
                     <li class="nav-item">
                         <a class="nav-link <%- active.misreservas ? 'active' : '' %>" <%- active.misreservas ? 'aria-current="page"' : '' %>
                             href="/reservas/historial">Mis Reservas</a>
@@ -208,7 +208,7 @@
                         </button>
                     </form>
                 </div>
-¡            </div>
+            </div>
         </div>
 
         <% } else { %>
