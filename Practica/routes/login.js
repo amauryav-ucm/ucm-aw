@@ -52,9 +52,13 @@ router.post("/upload-json", upload.single("file"), (req, res) => {
     });
 });
 
-router.post("/", (req, res) => {
+router.post("/", (req, res, next) => {
     const credentials = req.body;
     usuariosService.read({ correo: credentials.correo, activo: true }, (err, rows) => {
+        if (err) {
+            err.status = 500;
+            return next(err);
+        }
         if (rows.length === 0) {
             console.log(`DEBUG Cuenta no encontrada: ${credentials.correo}`);
             return res.render("login", { err: "El correo electrónico o constraseña son incorrectos" });
