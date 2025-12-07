@@ -22,7 +22,7 @@ router.get("/comentarios", function (req, res) {
 
 router.use((req, res, next) => {
     if (!req.session.id_usuario) return res.redirect("/login");
-    usuariosService.read({ id_usuario: req.session.id_usuario }, (err, rows) => {
+    usuariosService.read({ id_usuario: req.session.id_usuario, activo: true }, (err, rows) => {
         if (err) return next(err);
 
         if (!rows || rows.length < 1) {
@@ -30,7 +30,7 @@ router.use((req, res, next) => {
             return res.redirect("/login");
         }
         const id_concesionario = rows[0].id_concesionario;
-        vehiculosService.read({ id_concesionario: id_concesionario }, (err, rows) => {
+        vehiculosService.read({ id_concesionario: id_concesionario, activo: true }, (err, rows) => {
             if (err) return next(err);
             res.locals.vehiculos = rows;
             return next();
@@ -58,9 +58,9 @@ router.get("/confirmacion", (req, res) => {
 });
 
 router.use("/historial", (req, res) => {
-    reservasService.read({ id_usuario: req.session.id_usuario }, (err, reservas) => {
+    reservasService.read({ id_usuario: req.session.id_usuario, activo: true }, (err, reservas) => {
         if (err) return next(err);
-        vehiculosService.read({}, (err, vehiculos) => {
+        vehiculosService.read({ activo: true }, (err, vehiculos) => {
             if (err) return next(err);
             reservas.forEach((r) => {
                 r.vehiculo = vehiculos.find((v) => v.id_vehiculo === r.id_vehiculo);

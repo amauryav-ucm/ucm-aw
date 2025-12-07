@@ -41,40 +41,7 @@ app.post("*", (req, res, next) => {
     console.log("DEBUG", req.url);
     next();
 });
-/* 
-function debugMiddleware(app) {
-    const originalUse = app.use.bind(app);
 
-    app.use = function (...args) {
-        const mw = args[args.length - 1];
-
-        if (typeof mw === "function") {
-            const name = mw.name || "anonymous";
-
-            const wrapped = function (req, res, next) {
-                console.log(`[MW START] ${name} -> ${req.method} ${req.url}`);
-
-                const wrappedNext = (err) => {
-                    if (err) {
-                        console.log(`[MW ERROR] ${name} ->`, err);
-                        return next(err);
-                    }
-                    console.log(`[MW NEXT] ${name}`);
-                    next();
-                };
-
-                return mw(req, res, wrappedNext);
-            };
-
-            args[args.length - 1] = wrapped;
-        }
-
-        return originalUse(...args);
-    };
-}
-
-debugMiddleware(app);
- */
 // Routes
 app.use((req, res, next) => {
     if (!res.locals.active) res.locals.active = {};
@@ -149,15 +116,9 @@ app.use((req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-    console.error(err.stack);
-    const status = err.status || 500;
-    res.status(status);
-    if (status === 404) {
-        return res.render("404", { err, url: req.originalUrl });
-    }
-    res.render("500", {
-        err,
-    });
+    console.log("Fddsa");
+    err.status = err.status || 500;
+    return res.render("error", { err: err });
 });
 // Server
 app.listen(PORT, () => {

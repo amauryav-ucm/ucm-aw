@@ -1,0 +1,15 @@
+[
+  {
+    "matricula": "1443-LKK",
+    "marca": "Ferrari",
+    "modelo": "Modelo1",
+    "anyo_matriculacion": 2025,
+    "numero_plazas": 5,
+    "autonomia_km": 300,
+    "color": "gris",
+    "imagen": "byd_seal1.png",
+    "estado": "disponible",
+    "id_concesionario": 3121,
+    "autonomia_actual": 570
+  }
+]

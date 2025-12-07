@@ -26,16 +26,19 @@ router.use("/concesionarios", routerAdministracionConcesionarios);
 const routerAdministracionReservas = require("./administracionReservas");
 router.use("/reservas", routerAdministracionReservas);
 
+const routerAdministracionUsuarios = require("./administracionUsuarios");
+router.use("/usuarios", routerAdministracionUsuarios);
+
 router.use((req, res, next) => {
     res.locals.myUtils = req.app.locals.myUtils;
     next();
 });
 
-router.get("/estadisticas", function(req, res) {
-  estadisticasService.getAll(function(err, stats) {
-    if (err) return res.status(500).send("Error estadísticas: " + err.message);
-    res.render("estadisticas", { stats });
-  });
+router.get("/estadisticas", function (req, res) {
+    estadisticasService.getAll(function (err, stats) {
+        if (err) return res.status(500).send("Error estadísticas: " + err.message);
+        res.render("estadisticas", { stats });
+    });
 });
 
 router.get("/", (req, res) => {
@@ -46,11 +49,15 @@ router.get("/:table", (req, res, next) => {
     const table = req.params.table;
     if (req.query.success) res.locals.success = true;
     if (!services[table]) return next();
+    if (req.session.logs) {
+        res.locals.logs = req.session.logs;
+        console.log(res.locals.logs);
+        delete req.session.logs;
+    }
     services[table].read({}, (err, rows, fields) => {
         if (err) return next(err);
         return res.render("admin-table", { base: `/administracion/${table}/`, table: table, fields: fields, rows: rows });
     });
 });
-
 
 module.exports = router;

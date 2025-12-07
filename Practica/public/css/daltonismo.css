@@ -1,0 +1,48 @@
+:root[data-bs-theme="colorblind"] {
+  --bs-body-bg: #ffffff;
+  --bs-body-color: #000000;
+
+--bs-primary:   #0072B2;  /* blue */
+--bs-secondary: #CC79A7;  /* purple */
+--bs-success:   #009E73;  /* bluish green */
+--bs-warning:   #F0E442;  /* yellow */
+--bs-danger:    #D55E00;  /* vermillion */
+--bs-info:      #56B4E9;  /* sky blue */
+
+.text-secondary, .text-muted {
+    color: black !important
+}
+
+.text-success {
+    color: var(--bs-success) !important;
+}
+
+.text-danger {
+    color: var(--bs-danger) !important;
+}
+
+ .btn-primary {
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary) ;
+  color: white ;
+}
+
+ .btn-secondary {
+  background-color: var(--bs-secondary);
+  border-color: var(--bs-secondary) ;
+  color: white ;
+}
+
+.btn-danger {
+  background-color: var(--bs-danger);
+  border-color: var(--bs-danger) ;
+  color: white ;
+
+}
+
+.btn-success, .text-bg-success {
+    background-color: var(--bs-success) !important;
+  border-color: var(--bs-success) !important;
+  color: white ;
+}
+}

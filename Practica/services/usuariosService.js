@@ -21,19 +21,22 @@ function create(usuario, cb) {
 
             usuariosModel.read({ correo: usuario.correo }, connection, (err, rows) => {
                 if (err) return manejarError(err);
-                if (rows.length > 0) {
+                if (rows.length > 0 && parseInt(rows[0].activo) === 0) {
                     return connection.rollback(() => {
                         connection.release();
                         cb(new Error("Ya existe una cuenta con el correo electrónico introducido"));
                     });
                 }
-                usuariosModel.create(usuario, connection, (err, id) => {
+                usuariosModel.remove({ id_usuario: rows.length > 0 ? rows[0].id_usuario : -1, activo: false }, connection, (err, result) => {
                     if (err) return manejarError(err);
-
-                    connection.commit((err) => {
+                    usuariosModel.create(usuario, connection, (err, id) => {
                         if (err) return manejarError(err);
-                        connection.release();
-                        return cb(null, id);
+
+                        connection.commit((err) => {
+                            if (err) return manejarError(err);
+                            connection.release();
+                            return cb(null, id);
+                        });
                     });
                 });
             });
@@ -91,34 +94,35 @@ function upsertMany(lista, cb) {
         if (err) return cb(err);
 
         const manejarError = crearManejadorError(connection, cb);
-        const resultados = [];  // acumulamos aqui info
+        const resultados = []; // acumulamos aqui info
 
-        connection.beginTransaction(err => {
+        connection.beginTransaction((err) => {
             if (err) return manejarError(err);
 
             let i = 0;
 
             function procesar() {
                 if (i >= lista.length) {
-                    return connection.commit(err => {
+                    return connection.commit((err) => {
                         if (err) return manejarError(err);
                         connection.release();
                         cb(null, resultados);
                     });
                 }
 
-                const e = lista[i];
-                usuariosModel.read({ correo: e.correo , rol: "empleado"}, connection, (err, rows) => {
+                let e = lista[i];
+                usuariosModel.read({ correo: e.correo, rol: "empleado" }, connection, (err, rows) => {
                     if (err) return manejarError(err);
 
                     if (rows.length > 0) {
                         // UPDATE
                         e.id_usuario = rows[0].id_usuario;
+                        e.activo = true;
                         usuariosModel.update(e, connection, (err, updateInfo) => {
                             if (err) return manejarError(err);
                             resultados.push({
                                 correo: e.correo,
-                                accion: updateInfo.changedRows > 0 ? "actualizado" : "sin_cambios"
+                                accion: updateInfo.changedRows > 0 ? "actualizado" : "sin_cambios",
                             });
 
                             i++;
@@ -132,7 +136,7 @@ function upsertMany(lista, cb) {
                             resultados.push({
                                 correo: e.correo,
                                 accion: "insertado",
-                                id: insertId
+                                id: insertId,
                             });
 
                             i++;
@@ -151,6 +155,7 @@ module.exports = {
     create: create,
     read: read,
     setPreferencias: setPreferencias,
-    getPreferencias, getPreferencias,
-    upsertMany: upsertMany
+    getPreferencias,
+    getPreferencias,
+    upsertMany: upsertMany,
 };
