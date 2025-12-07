@@ -6,9 +6,13 @@ router.get("/", (req, res) => {
 });
 
 router.post("/logout", (req, res) => {
-    req.session.id_usuario = null;
-    req.app.locals.user = null;
-    res.redirect("/");
+    req.session.destroy(err => {
+        if (err) {
+            console.error("Error al destruir la sesión", err);
+        }
+        req.app.locals.user = null;
+        res.redirect("/");
+    });
 });
 
 module.exports = router;
