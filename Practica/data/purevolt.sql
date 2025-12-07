@@ -30,8 +30,8 @@ CREATE TABLE `concesionarios` (
   `ciudad` varchar(100) NOT NULL,
   `direccion` varchar(255) NOT NULL,
   `telefono_contacto` char(9) NOT NULL,
-  `latitud` float DEFAULT NOT NULL,
-  `longitud` float DEFAULT NOT NULL
+  `latitud` float NOT NULL,
+  `longitud` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
