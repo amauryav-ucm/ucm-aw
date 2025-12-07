@@ -57,8 +57,8 @@ router.use("/vehiculos", (req, res, next) => {
 
 router.get("/vehiculos", (req, res) => {
     let filtros = req.query;
-    if (!filtros.ciudad && !filtros.concesionario && user.rol === "empleado")
-        return res.redirect(`/api/vehiculos?concesionario=${res.locals.usuario.id_concesionario}`);
+    console.log(filtros);
+    if (!filtros.ciudad && !filtros.concesionario && user.rol === "empleado") filtros.concesionario = user.id_concesionario;
 
     // Normalizamos los parametros de la url para que sean todos arrays
     filtros.ciudad = myUtils.paramsToArray(filtros.ciudad).map((c) => c.toLowerCase());
