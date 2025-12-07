@@ -12,7 +12,7 @@ function create(vehiculo, connection, cb) {
         vehiculo.imagen,
         vehiculo.estado,
         vehiculo.id_concesionario,
-        vehiculo.autonomia_km,
+        vehiculo.autonomia_actual,
     ];
     connection.query(sql, params, (err, result) => cb(err, result));
 }
