@@ -1,15 +1,5 @@
 [
     {
-        "nombre": "Administrador General",
-        "correo": "admin@purevolt.es",
-        "contrasena": "$2b$10$8ApUW\/TFMo.b6a\/VCf5k7eEF1HiIHIT6g52hTuC2Ey\/r9ekxWhh2O",
-        "rol": "admin",
-        "telefono": "600000000",
-        "id_concesionario": null,
-        "foto_perfil": "noUser.png",
-        "preferencias_accesibilidad": "{\"theme\":\"dark\",\"fontSize\":\"md\"}"
-    },
-    {
         "nombre": "Amaury Valle López",
         "correo": "amaury@purevolt.es",
         "contrasena": "$2b$10$qtu4iCnLM\/28Y7xq.VyL4e3W.XytLiHQBpLeBSG\/r87rjYwI2iIGm",
