@@ -21,7 +21,7 @@ function create(usuario, cb) {
 
             usuariosModel.read({ correo: usuario.correo }, connection, (err, rows) => {
                 if (err) return manejarError(err);
-                if (rows.length > 0 && parseInt(rows[0].activo) === 0) {
+                if (rows.length > 0 && parseInt(rows[0].activo) === 1) {
                     return connection.rollback(() => {
                         connection.release();
                         cb(new Error("Ya existe una cuenta con el correo electrónico introducido"));
