@@ -14,7 +14,7 @@ router.get("/valoracion/top/:n", (req, res) => {
         try {
             rows = rows.filter((r) => r.valoracion).map((r) => JSON.parse(r.valoracion));
         } catch (err) {
-            return next(err);
+            return res.status(500);
         }
 
         rows.sort((b, a) => parseInt(a.estrellas) - parseInt(b.estrellas));
