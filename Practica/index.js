@@ -59,20 +59,14 @@ app.use((req, res, next) => {
             req.session.id_usuario = null;
             return next();
         }
-
-        const user = rows[0];
-        concesionariosService.read({ id_concesionario: user.id_concesionario }, (err, rows) => {
-            if (err || !rows || rows.length < 1) return next(err);
-            res.locals.user = {
-                id_usuario: user.id_usuario,
-                correo: user.correo,
-                nombre: user.nombre,
-                foto_perfil: user.foto_perfil,
-                rol: user.rol,
-                concesionario: rows[0],
-            };
-            return next();
-        });
+        res.locals.user = rows[0];
+        if (res.locals.user.rol === "empleado")
+            concesionariosService.read({ id_concesionario: user.id_concesionario }, (err, rows) => {
+                if (err || !rows || rows.length < 1) return next(err);
+                res.locals.user.concesionario = rows[0];
+                return next();
+            });
+        else return next();
     });
 });
 
