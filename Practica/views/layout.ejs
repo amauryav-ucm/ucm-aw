@@ -79,6 +79,11 @@
                     <li class="nav-item">
                         <button id="btnAccesibilidad" class="nav-link" data-bs-toggle="modal" data-bs-target="#modalAccesibilidad">Accesibilidad</button>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link <%- active.misreservas ? 'active' : '' %>" <%- active.misreservas ? 'aria-current="page"' : '' %>
+                            href="/reservas/historial">Mis Reservas</a>
+                    </li>
                 </ul>
             </div>
 
@@ -202,8 +207,7 @@
                         </button>
                     </form>
                 </div>
-                <a href="/reservas/historial">Mis Reservas</a>
-            </div>
+¡            </div>
         </div>
 
         <% } else { %>

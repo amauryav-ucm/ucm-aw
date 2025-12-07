@@ -100,10 +100,6 @@ a.card-animacion:hover .icon-animacion {
     transition: all 0.2s ease;
 }
 
-nav {
-    background-color: #20B153;
-}
-
 
 .carousel-item>div {
     border-radius: 30px;
