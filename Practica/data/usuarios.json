@@ -1,0 +1,52 @@
+[
+    {
+        "nombre": "Administrador General",
+        "correo": "admin@purevolt.es",
+        "contrasena": "$2b$10$8ApUW\/TFMo.b6a\/VCf5k7eEF1HiIHIT6g52hTuC2Ey\/r9ekxWhh2O",
+        "rol": "admin",
+        "telefono": "600000000",
+        "id_concesionario": null,
+        "foto_perfil": "noUser.png",
+        "preferencias_accesibilidad": "{\"theme\":\"dark\",\"fontSize\":\"md\"}"
+    },
+    {
+        "nombre": "Amaury Valle López",
+        "correo": "amaury@purevolt.es",
+        "contrasena": "$2b$10$qtu4iCnLM\/28Y7xq.VyL4e3W.XytLiHQBpLeBSG\/r87rjYwI2iIGm",
+        "rol": "empleado",
+        "telefono": "",
+        "id_concesionario": "4",
+        "foto_perfil": "noUser.png",
+        "preferencias_accesibilidad": "{\"theme\":\"dark\",\"fontSize\":\"md\"}"
+    },
+    {
+        "nombre": "Iván Fernández López",
+        "correo": "ivan@purevolt.es",
+        "contrasena": "$2b$10$vFsnR5fGZtIdA9Uj9IcbbO9y.BdHe8xugV8o5ZNIAuBdEa4EYEhQm",
+        "rol": "empleado",
+        "telefono": "",
+        "id_concesionario": "5",
+        "foto_perfil": "noUser.png",
+        "preferencias_accesibilidad": "{\"theme\":\"dark\",\"fontSize\":\"md\"}"
+    },
+    {
+        "nombre": "Victor Sandu Stavita",
+        "correo": "victor@purevolt.es",
+        "contrasena": "$2b$10$9aSm4oD3GDtkPKV6WFyNFOxe\/Hft9.dR7WprM6.hm58V7MLF7RCS6",
+        "rol": "empleado",
+        "telefono": "",
+        "id_concesionario": "3",
+        "foto_perfil": "noUser.png",
+        "preferencias_accesibilidad": "{\"theme\":\"dark\",\"fontSize\":\"md\"}"
+    },
+    {
+        "nombre": "Jesús Cáceres Tello",
+        "correo": "jesus@purevolt.es",
+        "contrasena": "$2b$10$logpvIAc20gvLnDXsnFGJu62rKSpI2C\/hDVWARKn\/hQMiqRFwwxgW",
+        "rol": "empleado",
+        "telefono": "696160599",
+        "id_concesionario": "1",
+        "foto_perfil": "noUser.png",
+        "preferencias_accesibilidad": "{\"theme\":\"dark\",\"fontSize\":\"md\"}"
+    }
+]
