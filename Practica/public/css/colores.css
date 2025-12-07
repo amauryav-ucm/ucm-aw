@@ -53,6 +53,17 @@
     border-color: var(--bs-success) !important;
     color: white;
   }
+
+
+  footer {
+    background-color: var(--bs-info);
+    padding: 20px 0;
+  }
+
+  nav {
+    background-color: var(--bs-info);
+  }
+
 }
 
 
