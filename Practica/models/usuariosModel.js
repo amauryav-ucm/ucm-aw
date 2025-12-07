@@ -12,15 +12,14 @@ function create(user, connection, cb) {
         user.rol,
         user.telefono,
         user.id_concesionario,
-        JSON.stringify(user.preferencias_accesibilidad || null)
+        JSON.stringify(user.preferencias_accesibilidad || null),
     ];
 
     connection.query(sql, params, (err, result) => {
-        if (err) return cb(err);       // <--- evita crash si falla la query
-        cb(null, result.insertId);     // <--- seguro
+        if (err) return cb(err); // <--- evita crash si falla la query
+        cb(null, result.insertId); // <--- seguro
     });
 }
-
 
 function read(user, connection, cb) {
     const filtros = Object.keys(user);
@@ -34,17 +33,28 @@ function read(user, connection, cb) {
 }
 
 function update(user, connection, cb) {
-    const changes = Object.keys(user).filter(k => k !== "id_usuario");
+    const changes = Object.keys(user).filter((k) => k !== "id_usuario");
     if (changes.length <= 0) return cb(null, { affectedRows: 0 });
 
-    const sql = "UPDATE usuarios SET " + changes.map(k => `${k} = ?`).join(", ") + " WHERE id_usuario = ?";
-    const params = changes.map(k => {
+    const sql = "UPDATE usuarios SET " + changes.map((k) => `${k} = ?`).join(", ") + " WHERE id_usuario = ?";
+    const params = changes.map((k) => {
         const val = user[k];
         // si es objeto o array, convertir a JSON
-        return (typeof val === "object" && val !== null) ? JSON.stringify(val) : val;
+        return typeof val === "object" && val !== null ? JSON.stringify(val) : val;
     });
     params.push(user.id_usuario);
 
+    connection.query(sql, params, (err, result) => cb(err, result));
+}
+
+function remove(usuario, connection, cb) {
+    const filtros = Object.keys(usuario);
+    if (filtros.length === 0) {
+        return cb(new Error("Se requiere al menos un filtro"));
+    }
+    const where = "WHERE " + filtros.map((k) => `${k} = ?`).join(" AND ");
+    const sql = `DELETE FROM usuarios ${where}`;
+    const params = filtros.map((k) => usuario[k]);
     connection.query(sql, params, (err, result) => cb(err, result));
 }
 
@@ -80,5 +90,6 @@ module.exports = {
     create: create,
     getPreferencias: getPreferencias,
     setPreferencias: setPreferencias,
-    update: update
+    update: update,
+    remove: remove,
 };

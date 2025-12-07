@@ -11,7 +11,12 @@ router.get("/valoracion/top/:n", (req, res) => {
         if (err) {
             return res.status(500);
         }
-        rows = rows.filter((r) => r.valoracion).map((r) => JSON.parse(r.valoracion));
+        try {
+            rows = rows.filter((r) => r.valoracion).map((r) => JSON.parse(r.valoracion));
+        } catch (err) {
+            return next(err);
+        }
+
         rows.sort((b, a) => parseInt(a.estrellas) - parseInt(b.estrellas));
         rows = rows.slice(0, req.params.n);
         console.log(rows);
