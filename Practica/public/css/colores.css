@@ -67,10 +67,7 @@
     background-color: #86b5ff;
   }
 
-  main {
-    background-color: #1c2d47;
-  }
-
+  --bs-body-bg: #e7ecf5;
 }
 
 :root[data-bs-theme="dark"] {
@@ -84,8 +81,7 @@
     background-color: #1c2d47;
   }
 
-  main {
-    background-color: #496da2;
-  }
+  --bs-body-bg: rgb(40, 45, 53);
+
 
 }
