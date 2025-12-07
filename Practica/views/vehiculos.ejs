@@ -51,7 +51,7 @@
 
             <div class="card-footer text-center pb-3 border-top border-3">
                 <a href="/reservas/<%= v.id_vehiculo %>"
-                    class="btn w-100 <%= v.id_concesionario !== user.concesionario.id_concesionario ? "btn-secondary disabled":"btn-primary" %>">
+                    class="btn w-100 <%= user.rol === "empleado" && v.id_concesionario !== user.concesionario.id_concesionario ? "btn-secondary disabled":"btn-primary" %>">
                     Reservar
                 </a>
             </div>
