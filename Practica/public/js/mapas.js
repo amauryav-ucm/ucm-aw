@@ -56,7 +56,6 @@ function obtenerUbicacionUsuario(callback) {
 
 // Obtenemos las coordenadas de los concesionarios desde el backend
 function obtenerConcesionarios(callback) {
-  console.log("Hoooollllaaa");
   fetch('/concesionarios/coordenadas')
     .then(function (res) {
       if (!res.ok) throw new Error('Ha habido una error de conexión');

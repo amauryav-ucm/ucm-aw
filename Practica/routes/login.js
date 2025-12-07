@@ -13,7 +13,7 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", (req, res, next) => {
-    req.body.correo = req.body.correo + "@purevolt.es";
+    req.body.correo = req.body.correo;
     next();
 });
 

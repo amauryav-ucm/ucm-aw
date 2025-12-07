@@ -143,19 +143,23 @@ const apiRoutes = require("./routes/api");
 app.use("/api", apiRoutes);
 
 app.use((req, res, next) => {
-    const err = new Error("Página no encontrada");
+    const err = new Error(`No se encontró la página: ${req.originalUrl}`);
     err.status = 404;
     next(err);
 });
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
-    res.render("error", {
-        err: err,
+    const status = err.status || 500;
+    res.status(status);
+    if (status === 404) {
+        return res.render("404", { err, url: req.originalUrl });
+    }
+    res.render("500", {
+        err,
     });
 });
-
 // Server
 app.listen(PORT, () => {
-    console.log(`EcoMarket EXAM app running at http://localhost:${PORT}`);
+    console.log(`Servidor ejecutando en http://localhost:${PORT}`);
 });
