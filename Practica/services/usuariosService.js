@@ -110,13 +110,14 @@ function upsertMany(lista, cb) {
                     });
                 }
 
-                const e = lista[i];
+                let e = lista[i];
                 usuariosModel.read({ correo: e.correo, rol: "empleado" }, connection, (err, rows) => {
                     if (err) return manejarError(err);
 
                     if (rows.length > 0) {
                         // UPDATE
                         e.id_usuario = rows[0].id_usuario;
+                        e.activo = true;
                         usuariosModel.update(e, connection, (err, updateInfo) => {
                             if (err) return manejarError(err);
                             resultados.push({

@@ -1,7 +1,14 @@
 function create(concesionario, connection, cb) {
-    const sql = `INSERT INTO concesionarios (nombre, ciudad, direccion, telefono_contacto) 
+    const sql = `INSERT INTO concesionarios (nombre, ciudad, direccion, telefono_contacto, latitud, longitud) 
     VALUES (?, ?, ?, ?)`;
-    const params = [concesionario.nombre, concesionario.ciudad, concesionario.direccion, concesionario.telefono_contacto];
+    const params = [
+        concesionario.nombre,
+        concesionario.ciudad,
+        concesionario.direccion,
+        concesionario.telefono_contacto,
+        concesionario.latitud,
+        concesionario.longitud,
+    ];
     connection.query(sql, params, (err, result) => cb(err, result));
 }
 

@@ -111,7 +111,7 @@ function remove(concesionario, cb) {
         connection.beginTransaction((err) => {
             if (err) return manejarError(err);
 
-            concesionariosModel.update({ id_concesionario: concesionario.id_concesionario, activo: flase }, connection, (err, result) => {
+            concesionariosModel.update({ id_concesionario: concesionario.id_concesionario, activo: false }, connection, (err, result) => {
                 if (err) return manejarError(err);
 
                 connection.commit((err) => {
@@ -145,13 +145,14 @@ function upsertMany(lista, cb) {
                     });
                 }
 
-                const c = lista[i];
+                let c = lista[i];
                 concesionariosModel.read({ nombre: c.nombre }, connection, (err, rows) => {
                     if (err) return manejarError(err);
 
                     if (rows.length > 0) {
                         // UPDATE
                         c.id_concesionario = rows[0].id_concesionario;
+                        c.activo = true;
                         concesionariosModel.update(c, connection, (err, updateInfo) => {
                             if (err) return manejarError(err);
                             resultados.push({

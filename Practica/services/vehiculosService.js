@@ -158,13 +158,14 @@ function upsertMany(lista, cb) {
                     });
                 }
 
-                const v = lista[i];
+                let v = lista[i];
                 vehiculosModel.read({ matricula: v.matricula }, connection, (err, rows) => {
                     if (err) return manejarError(err);
 
                     if (rows.length > 0) {
                         // UPDATE
                         v.id_vehiculo = rows[0].id_vehiculo;
+                        v.activo = true;
                         vehiculosModel.update(v, connection, (err, updateInfo) => {
                             if (err) return manejarError(err);
                             resultados.push({
