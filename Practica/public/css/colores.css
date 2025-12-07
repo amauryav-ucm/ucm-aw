@@ -59,12 +59,16 @@
 :root[data-bs-theme="light"] {
 
   footer {
-    background-color: #54b476;
+    background-color: #86b5ff;
     padding: 20px 0;
   }
 
   nav {
-    background-color: #9f8a46;
+    background-color: #86b5ff;
+  }
+
+  main {
+    background-color: #1c2d47;
   }
 
 }
@@ -72,12 +76,16 @@
 :root[data-bs-theme="dark"] {
 
   footer {
-    background-color: #06401a;
+    background-color: #1c2d47;
     padding: 20px 0;
   }
 
   nav {
-    background-color: #443b1e;
+    background-color: #1c2d47;
+  }
+
+  main {
+    background-color: #496da2;
   }
 
 }
