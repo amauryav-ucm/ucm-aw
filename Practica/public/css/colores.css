@@ -62,6 +62,11 @@
     background-color: #54b476;
     padding: 20px 0;
   }
+
+  nav {
+    background-color: #69df92;
+  }
+
 }
 
 :root[data-bs-theme="dark"] {
@@ -70,4 +75,9 @@
     background-color: #06401a;
     padding: 20px 0;
   }
+
+  nav {
+    background-color: #055722;
+  }
+
 }
