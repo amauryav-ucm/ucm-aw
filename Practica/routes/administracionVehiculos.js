@@ -62,4 +62,39 @@ router.post("/remove/:id", (req, res, next) => {
     });
 });
 
+const multer = require("multer");
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+
+router.post("/upload-json", upload.single("file"), (req, res) => {
+    if (!req.file) {
+        req.session.logs = { err: "No se subió el archivo" };
+        return res.redirect("/administracion/vehiculos");
+    }
+
+    let a;
+    try {
+        a = JSON.parse(req.file.buffer.toString("utf8"));
+        if (!Array.isArray(a)) throw new Error();
+    } catch (e) {
+        req.session.logs = { err: "JSON inválido" };
+        return res.redirect("/administracion/vehiculos");
+    }
+
+    services.vehiculos.upsertMany(a, (error, resultados) => {
+        if (error) {
+            console.log(error);
+            req.session.logs = { err: "JSON inválido" };
+            return res.redirect("/administracion/vehiculos");
+        }
+        req.session.logs = {
+            insertado: resultados.filter((r) => r.accion === "insertado").length,
+            actualizado: resultados.filter((r) => r.accion === "actualizado").length,
+            sin_cambios: resultados.filter((r) => r.accion === "sin_cambios").length,
+        };
+
+        return res.redirect("/administracion/vehiculos");
+    });
+});
+
 module.exports = router;

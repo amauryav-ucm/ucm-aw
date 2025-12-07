@@ -5,10 +5,6 @@ const vehiculosService = require("../services/vehiculosService");
 const usuariosService = require("../services/usuariosService");
 const concesionariosService = require("../services/concesionariosService");
 
-const multer = require("multer");
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
-
 router.use((req, res, next) => {
     res.locals.active = { vehiculos: true };
     next();
@@ -35,41 +31,6 @@ router.use((req, res, next) => {
                 return next();
             });
         });
-    });
-});
-
-router.post("/upload-json", upload.single("file"), (req, res) => {
-    if (!req.file) {
-        return res.render("administracion/vehiculos", {
-            logs: [{ mensaje: "No se subió archivo", tipo: "error" }],
-        });
-    }
-
-    let a;
-    try {
-        a = JSON.parse(req.file.buffer.toString("utf8"));
-        if (!Array.isArray(a)) throw new Error();
-    } catch (e) {
-        return res.render("administracion/vehiculos", {
-            logs: [{ mensaje: "JSON inválido", tipo: "error" }],
-        });
-    }
-
-    vehiculosService.upsertMany(a, (error, resultados) => {
-        if (error) {
-            console.log(error);
-            return res.render("administracion/vehiculos", {
-                logs: [{ mensaje: error.message, tipo: "error" }],
-            });
-        }
-
-        const logs = resultados.map((r) => ({
-            mensaje: `Vehículo ${r.matricula} ${r.accion}`,
-            tipo: r.accion === "insertado" || r.accion === "actualizado" ? "success" : "info",
-        }));
-
-        //res.render("administracion/vehiculos", { logs });
-        res.redirect("/administracion/vehiculos");
     });
 });
 
