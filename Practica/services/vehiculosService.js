@@ -50,7 +50,7 @@ function create(vehiculo, cb) {
                         cb(new Error("Ya existe un vehículo con la matrícula introducida"));
                     });
                 }
-                vehiculosModel.delete({ id_vehiculo: rows[0].id_vehiculo, activo: false }, connection, (err, result) => {
+                vehiculosModel.remove({ id_vehiculo: rows.length > 0 ? rows[0].id_vehiculo : -1, activo: false }, connection, (err, result) => {
                     if (err) return manejarError(err);
                     vehiculosModel.create(vehiculo, connection, (err, id) => {
                         if (err) return manejarError(err);

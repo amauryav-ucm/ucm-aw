@@ -27,7 +27,7 @@ function create(usuario, cb) {
                         cb(new Error("Ya existe una cuenta con el correo electrónico introducido"));
                     });
                 }
-                usuariosModel.delete({ id_usuario: usuario.id_usuario, activo: false }, connection, (err, result) => {
+                usuariosModel.remove({ id_usuario: rows.length > 0 ? rows[0].id_usuario : -1, activo: false }, connection, (err, result) => {
                     if (err) return manejarError(err);
                     usuariosModel.create(usuario, connection, (err, id) => {
                         if (err) return manejarError(err);

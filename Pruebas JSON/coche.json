@@ -1,0 +1,13 @@
+{
+  "matricula": "1201-AVL",
+  "marca": "Kia",
+  "modelo": "Forte",
+  "anyo_matriculacion": "2011",
+  "numero_plazas": "5",
+  "autonomia_km": "600",
+  "autonomia_actual": "600",
+  "color": "blanco",
+  "imagen": "a.jpg",
+  "estado": "disponible",
+  "id_concesionario": "4"
+}
