@@ -67,10 +67,17 @@ CREATE TABLE `usuarios` (
   `contrasena` varchar(255) NOT NULL,
   `rol` enum('empleado','admin') NOT NULL,
   `telefono` char(9) DEFAULT NULL,
-  `id_concesionario` int(11) NOT NULL,
+  `id_concesionario` int(11) DEFAULT NULL,
   `foto_perfil` varchar(255) NOT NULL DEFAULT 'noUser.png',
   `preferencias_accesibilidad` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`preferencias_accesibilidad`))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `usuarios`
+--
+
+INSERT INTO `usuarios` (`id_usuario`, `activo`, `nombre`, `correo`, `contrasena`, `rol`, `telefono`, `id_concesionario`, `foto_perfil`, `preferencias_accesibilidad`) VALUES
+(1, 1, 'Administrador General', 'admin@purevolt.es', '$2b$10$8ApUW/TFMo.b6a/VCf5k7eEF1HiIHIT6g52hTuC2Ey/r9ekxWhh2O', 'admin', '600000000', NULL, 'noUser.png', NULL);
 
 -- --------------------------------------------------------
 
