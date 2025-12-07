@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/css/daltonismo.css">
     <link rel="icon" href="/icons/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="/css/leaflet.css">
     <link rel="stylesheet" href="/css/leaflet-routing-machine.css">
@@ -124,6 +125,11 @@
                                 <input type="radio" id="radioTemaDark" class="form-check-input" name="theme" value="dark"
                                     <%= accessibility.theme === "dark" ? "checked" : "" %>>
                                 <label for="radioTemaDark" class="form-check-label">Oscuro</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" id="radioTemaCb" class="form-check-input" name="theme" value="colorblind"
+                                    <%= accessibility.theme === "colorblind" ? "checked" : "" %>>
+                                <label for="radioTemaCb" class="form-check-label">Daltonismo</label>
                             </div>
                         </fieldset>
 
