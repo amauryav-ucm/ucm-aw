@@ -82,7 +82,6 @@ a.card-animacion:hover .icon-animacion {
     color: #003366;
 }
 
-
 .star-rating {
     direction: rtl;
     display: inline-block;
@@ -101,19 +100,9 @@ a.card-animacion:hover .icon-animacion {
     transition: all 0.2s ease;
 }
 
-.star-rating label:hover,
-.star-rating label:hover~label,
-.star-rating input:checked~label {
-    color: #ffc107;
+nav {
+    background-color: #20B153;
 }
-
-
-
-
-
-
-
-
 
 
 .carousel-item>div {

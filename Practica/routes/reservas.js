@@ -59,6 +59,7 @@ router.get("/confirmacion", (req, res) => {
 });
 
 router.use("/historial", (req, res) => {
+    res.locals.active = {misreservas:true}
     reservasService.read({ id_usuario: req.session.id_usuario, activo: true }, (err, reservas) => {
         if (err) return next(err);
         vehiculosService.read({ activo: true }, (err, vehiculos) => {
