@@ -4,7 +4,7 @@ const usuariosService = require("../services/usuariosService");
 
 const bcrypt = require("bcrypt");
 
-const multer = require('multer');
+const multer = require("multer");
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
@@ -20,7 +20,7 @@ router.post("/", (req, res, next) => {
 router.post("/upload-json", upload.single("file"), (req, res) => {
     if (!req.file) {
         return res.render("administracion/usuarios", {
-            logs: [{ mensaje: "No se subió archivo", tipo: "error" }]
+            logs: [{ mensaje: "No se subió archivo", tipo: "error" }],
         });
     }
 
@@ -30,7 +30,7 @@ router.post("/upload-json", upload.single("file"), (req, res) => {
         if (!Array.isArray(a)) throw new Error();
     } catch (e) {
         return res.render("administracion/usuarios", {
-            logs: [{ mensaje: "JSON inválido", tipo: "error" }]
+            logs: [{ mensaje: "JSON inválido", tipo: "error" }],
         });
     }
 
@@ -38,13 +38,13 @@ router.post("/upload-json", upload.single("file"), (req, res) => {
         if (error) {
             console.log(error);
             return res.render("administracion/usuarios", {
-                logs: [{ mensaje: error.message, tipo: "error" }]
+                logs: [{ mensaje: error.message, tipo: "error" }],
             });
         }
 
-        const logs = resultados.map(r => ({
+        const logs = resultados.map((r) => ({
             mensaje: `Empleado con correo: ${r.correo} ${r.accion}`,
-            tipo: r.accion === "insertado" || r.accion === "actualizado" ? "success" : "info"
+            tipo: r.accion === "insertado" || r.accion === "actualizado" ? "success" : "info",
         }));
 
         //res.render("administracion/usuarios", { logs });
@@ -54,7 +54,7 @@ router.post("/upload-json", upload.single("file"), (req, res) => {
 
 router.post("/", (req, res) => {
     const credentials = req.body;
-    usuariosService.read({ correo: credentials.correo }, (err, rows) => {
+    usuariosService.read({ correo: credentials.correo, activo: true }, (err, rows) => {
         if (rows.length === 0) {
             console.log(`DEBUG Cuenta no encontrada: ${credentials.correo}`);
             return res.render("login", { err: "El correo electrónico o constraseña son incorrectos" });

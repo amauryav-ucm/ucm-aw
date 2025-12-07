@@ -7,7 +7,7 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
 router.use((req, res, next) => {
-    concesionariosService.read({}, (err, rows) => {
+    concesionariosService.read({ activo: true }, (err, rows) => {
         if (err) return next(err);
         res.locals.concesionarios = rows;
         return next();
@@ -26,8 +26,7 @@ router.post("/", (req, res) => {
         rol: "empleado",
         telefono: body.telefono,
         id_concesionario: body.id_concesionario,
-        preferencias_accesibilidad: { theme: "dark", fontSize: "md" }
-
+        preferencias_accesibilidad: { theme: "dark", fontSize: "md" },
     };
     if (/(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}/.test(user.contrasena)) {
         res.render("registrarse", { err: new Error("La contraseña no cumple los requisitos") });

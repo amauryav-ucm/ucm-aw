@@ -141,7 +141,7 @@ function remove(reserva, cb) {
         connection.beginTransaction((err) => {
             if (err) return manejarError(err);
 
-            reservasModel.remove(reserva, connection, (err, result) => {
+            reservasModel.update({ id_reserva: reserva.id_reserva, activo: false }, connection, (err, result) => {
                 if (err) return manejarError(err);
 
                 connection.commit((err) => {

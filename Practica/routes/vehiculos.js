@@ -5,7 +5,7 @@ const vehiculosService = require("../services/vehiculosService");
 const usuariosService = require("../services/usuariosService");
 const concesionariosService = require("../services/concesionariosService");
 
-const multer = require('multer');
+const multer = require("multer");
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
@@ -16,10 +16,10 @@ router.use((req, res, next) => {
 
 router.use((req, res, next) => {
     if (!req.session.id_usuario) return res.redirect("/login");
-    concesionariosService.read({}, (err, concesionarios) => {
+    concesionariosService.read({ activo: true }, (err, concesionarios) => {
         if (err) return next(err);
         res.locals.concesionarios = concesionarios;
-        usuariosService.read({ id_usuario: req.session.id_usuario }, (err, usuario) => {
+        usuariosService.read({ id_usuario: req.session.id_usuario, activo: true }, (err, usuario) => {
             if (err) return next(err);
             if (!usuario || usuario.length < 1) {
                 req.session.id_usuario = null;
@@ -28,7 +28,7 @@ router.use((req, res, next) => {
             usuario = usuario[0];
             usuario.concesionario = concesionarios.find((c) => c.id_concesionario === usuario.id_concesionario);
             res.locals.usuario = usuario;
-            vehiculosService.read({}, (err, vehiculos) => {
+            vehiculosService.read({ activo: true }, (err, vehiculos) => {
                 if (err) return next(err);
                 vehiculos.forEach((v) => (v.concesionario = concesionarios.find((c) => c.id_concesionario === v.id_concesionario)));
                 res.locals.vehiculos = vehiculos;
@@ -41,7 +41,7 @@ router.use((req, res, next) => {
 router.post("/upload-json", upload.single("file"), (req, res) => {
     if (!req.file) {
         return res.render("administracion/vehiculos", {
-            logs: [{ mensaje: "No se subió archivo", tipo: "error" }]
+            logs: [{ mensaje: "No se subió archivo", tipo: "error" }],
         });
     }
 
@@ -51,7 +51,7 @@ router.post("/upload-json", upload.single("file"), (req, res) => {
         if (!Array.isArray(a)) throw new Error();
     } catch (e) {
         return res.render("administracion/vehiculos", {
-            logs: [{ mensaje: "JSON inválido", tipo: "error" }]
+            logs: [{ mensaje: "JSON inválido", tipo: "error" }],
         });
     }
 
@@ -59,13 +59,13 @@ router.post("/upload-json", upload.single("file"), (req, res) => {
         if (error) {
             console.log(error);
             return res.render("administracion/vehiculos", {
-                logs: [{ mensaje: error.message, tipo: "error" }]
+                logs: [{ mensaje: error.message, tipo: "error" }],
             });
         }
 
-        const logs = resultados.map(r => ({
+        const logs = resultados.map((r) => ({
             mensaje: `Vehículo ${r.matricula} ${r.accion}`,
-            tipo: r.accion === "insertado" || r.accion === "actualizado" ? "success" : "info"
+            tipo: r.accion === "insertado" || r.accion === "actualizado" ? "success" : "info",
         }));
 
         //res.render("administracion/vehiculos", { logs });

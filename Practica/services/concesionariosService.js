@@ -111,7 +111,7 @@ function remove(concesionario, cb) {
         connection.beginTransaction((err) => {
             if (err) return manejarError(err);
 
-            concesionariosModel.remove(concesionario, connection, (err, result) => {
+            concesionariosModel.update({ id_concesionario: concesionario.id_concesionario, activo: flase }, connection, (err, result) => {
                 if (err) return manejarError(err);
 
                 connection.commit((err) => {
@@ -129,16 +129,16 @@ function upsertMany(lista, cb) {
         if (err) return cb(err);
 
         const manejarError = crearManejadorError(connection, cb);
-        const resultados = [];  // acumulamos aqui info
+        const resultados = []; // acumulamos aqui info
 
-        connection.beginTransaction(err => {
+        connection.beginTransaction((err) => {
             if (err) return manejarError(err);
 
             let i = 0;
 
             function procesar() {
                 if (i >= lista.length) {
-                    return connection.commit(err => {
+                    return connection.commit((err) => {
                         if (err) return manejarError(err);
                         connection.release();
                         cb(null, resultados);
@@ -156,7 +156,7 @@ function upsertMany(lista, cb) {
                             if (err) return manejarError(err);
                             resultados.push({
                                 nombre: c.nombre,
-                                accion: updateInfo.changedRows > 0 ? "actualizado" : "sin_cambios"
+                                accion: updateInfo.changedRows > 0 ? "actualizado" : "sin_cambios",
                             });
 
                             i++;
@@ -170,7 +170,7 @@ function upsertMany(lista, cb) {
                             resultados.push({
                                 nombre: c.nombre,
                                 accion: "insertado",
-                                id: insertId
+                                id: insertId,
                             });
 
                             i++;
@@ -191,5 +191,5 @@ module.exports = {
     obtenerUbicacionConcesionarios: obtenerUbicacionConcesionarios,
     update: update,
     remove: remove,
-    upsertMany: upsertMany
+    upsertMany: upsertMany,
 };

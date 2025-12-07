@@ -44,19 +44,22 @@ function create(vehiculo, cb) {
 
             vehiculosModel.read({ matricula: vehiculo.matricula }, connection, (err, rows) => {
                 if (err) return manejarError(err);
-                if (rows.length > 0) {
+                if (rows.length > 0 && parseInt(rows[0].activo) === 1) {
                     return connection.rollback(() => {
                         connection.release();
                         cb(new Error("Ya existe un vehículo con la matrícula introducida"));
                     });
                 }
-                vehiculosModel.create(vehiculo, connection, (err, id) => {
+                vehiculosModel.delete({ id_vehiculo: rows[0].id_vehiculo, activo: false }, connection, (err, result) => {
                     if (err) return manejarError(err);
-
-                    connection.commit((err) => {
+                    vehiculosModel.create(vehiculo, connection, (err, id) => {
                         if (err) return manejarError(err);
-                        connection.release();
-                        return cb(null, id);
+
+                        connection.commit((err) => {
+                            if (err) return manejarError(err);
+                            connection.release();
+                            return cb(null, id);
+                        });
                     });
                 });
             });
@@ -121,7 +124,7 @@ function remove(vehiculo, cb) {
         connection.beginTransaction((err) => {
             if (err) return manejarError(err);
 
-            vehiculosModel.remove(vehiculo, connection, (err, result) => {
+            vehiculosModel.update({ id_vehiculo: vehiculo.id_vehiculo, activo: false }, connection, (err, result) => {
                 if (err) return manejarError(err);
 
                 connection.commit((err) => {
@@ -139,16 +142,16 @@ function upsertMany(lista, cb) {
         if (err) return cb(err);
 
         const manejarError = crearManejadorError(connection, cb);
-        const resultados = [];  // acumulamos aqui info
+        const resultados = []; // acumulamos aqui info
 
-        connection.beginTransaction(err => {
+        connection.beginTransaction((err) => {
             if (err) return manejarError(err);
 
             let i = 0;
 
             function procesar() {
                 if (i >= lista.length) {
-                    return connection.commit(err => {
+                    return connection.commit((err) => {
                         if (err) return manejarError(err);
                         connection.release();
                         cb(null, resultados);
@@ -166,7 +169,7 @@ function upsertMany(lista, cb) {
                             if (err) return manejarError(err);
                             resultados.push({
                                 matricula: v.matricula,
-                                accion: updateInfo.changedRows > 0 ? "actualizado" : "sin_cambios"
+                                accion: updateInfo.changedRows > 0 ? "actualizado" : "sin_cambios",
                             });
 
                             i++;
@@ -180,7 +183,7 @@ function upsertMany(lista, cb) {
                             resultados.push({
                                 matricula: v.matricula,
                                 accion: "insertado",
-                                id: insertId
+                                id: insertId,
                             });
 
                             i++;
@@ -200,5 +203,5 @@ module.exports = {
     create: create,
     update: update,
     remove: remove,
-    upsertMany: upsertMany
+    upsertMany: upsertMany,
 };
